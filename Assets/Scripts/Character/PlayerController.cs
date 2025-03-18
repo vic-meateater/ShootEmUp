@@ -9,18 +9,16 @@ namespace ShootEmUp
         private readonly GameManager _gameManager;
         private readonly BulletSystem _bulletSystem;
         private readonly BulletConfig _bulletConfig;
-        private readonly EventManager _eventManager;
 
         public PlayerController(GameObject player, GameManager gameManager, 
-            BulletSystem bulletSystem, BulletConfig playerBulletConfig, EventManager eventManager)
+            BulletSystem bulletSystem, BulletConfig playerBulletConfig)
         {
             _player = player;
             _gameManager = gameManager;
             _bulletSystem = bulletSystem;
             _bulletConfig = playerBulletConfig;
-            _eventManager = eventManager;
             
-            _eventManager.OnFire += OnFire;
+            EventManager.Instance.OnFire += OnFire;
             _player.GetComponent<HitPointsComponent>().hpEmpty += OnCharacterDeath;
         }
 
@@ -33,12 +31,14 @@ namespace ShootEmUp
 
         private void OnFlyBullet()
         {
+            var bulletColor = _bulletConfig.BulletColor;
+            bulletColor.a = 1;
             var weapon = _player.GetComponent<WeaponComponent>();
             _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
             {
                 IsPlayer = true,
                 PhysicsLayer = (int) _bulletConfig.PhysicsLayer,
-                Color = Color.green,
+                Color = bulletColor,
                 Damage = _bulletConfig.Damage,
                 Position = weapon.GetPosition(),
                 Velocity = weapon.GetRotation() * Vector3.up * _bulletConfig.Speed
@@ -47,7 +47,7 @@ namespace ShootEmUp
 
         public void Dispose()
         {
-            _eventManager.OnFire -= OnFire;
+            EventManager.Instance.OnFire -= OnFire;
             _player.GetComponent<HitPointsComponent>().hpEmpty -= OnCharacterDeath;
         }
     }

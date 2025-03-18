@@ -6,32 +6,29 @@ namespace ShootEmUp
     public sealed class EnemyMoveAgent : MonoBehaviour
     {
         [SerializeField] private MoveComponent _moveComponent;
-        public bool IsReached
-        {
-            get { return isReached; }
-        }
-
-        private Vector2 destination;
-
-        private bool isReached;
+        public bool IsReached => _isReached;
+        
+        private Vector2 _destination;
+        private bool _isReached;
 
         public void SetDestination(Vector2 endPoint)
         {
-            destination = endPoint;
-            isReached = false;
+            _destination = endPoint;
+            _isReached = false;
         }
 
         private void FixedUpdate()
         {
-            if (isReached)
+            if (_isReached)
             {
                 return;
             }
             
-            var vector = destination - (Vector2) transform.position;
+            var vector = _destination - (Vector2) transform.position;
             if (vector.magnitude <= 0.25f)
             {
-                isReached = true;
+                _isReached = true;
+                EventManager.Instance.EnemyReachedDestination(gameObject);
                 return;
             }
 

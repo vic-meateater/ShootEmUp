@@ -5,23 +5,19 @@ namespace ShootEmUp
     public sealed class InputManager : IFixedUpdateable, IUpdateable
     {
         private readonly GameObject _player;
-        private readonly PlayerController _playerController;
-        private EventManager _eventManager;
         private float _horizontalDirection;
         
 
-        public InputManager(GameObject player, PlayerController playerController, EventManager eventManager)
+        public InputManager(GameObject player)
         {
             _player = player;
-            _playerController = playerController;
-            _eventManager = eventManager;
         }
         
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                _eventManager.Fire();
+                EventManager.Instance.Fire();
             }
 
             if (Input.GetKey(KeyCode.LeftArrow))

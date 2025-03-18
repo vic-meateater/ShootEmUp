@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ShootEmUp
@@ -13,6 +14,17 @@ namespace ShootEmUp
 
         private GameObject _target;
         private float _currentTime;
+
+        private void Start()
+        {
+            EventManager.Instance.OnEnemyReachedDestination += OnEnemyReachedDestination;
+        }
+
+        private void OnEnemyReachedDestination(GameObject enemy)
+        {
+        }
+        
+        
 
         public void SetTarget(GameObject target)
         {
@@ -31,7 +43,7 @@ namespace ShootEmUp
                 return;
             }
             
-            if (!_target.GetComponent<HitPointsComponent>().IsHitPointsExists())
+            if (_target == null || !_target.GetComponent<HitPointsComponent>().IsHitPointsExists())
             {
                 return;
             }
@@ -50,6 +62,11 @@ namespace ShootEmUp
             var vector = (Vector2) _target.transform.position - startPosition;
             var direction = vector.normalized;
             OnFire?.Invoke(gameObject, startPosition, direction);
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.Instance.OnEnemyReachedDestination -= OnEnemyReachedDestination;
         }
     }
 }

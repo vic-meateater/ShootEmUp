@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ShootEmUp
 {
@@ -9,7 +10,8 @@ namespace ShootEmUp
     public sealed class BulletConfig : ScriptableObject
     {
         public PhysicsLayer PhysicsLayer;
-        public Color Color;
+        public Color BulletColor;
+        
         public int Damage;
         public float Speed;
     }

@@ -14,19 +14,15 @@ namespace ShootEmUp
         private PlayerController _playerController;
         private InputManager  _inputManager;
         private UpdateController _updateController;
-        private EventManager _eventManager;
         
         private void Start()
         {
-            _eventManager = new EventManager();
-            
-            _playerController = new PlayerController(_player, _gameManager, _bulletSystem, _playerBulletConfig, _eventManager);
-            _inputManager = new InputManager(_player, _playerController, _eventManager);
+            _playerController = new PlayerController(_player, _gameManager, _bulletSystem, _playerBulletConfig);
+            _inputManager = new InputManager(_player);
 
             _updateController = new UpdateController();
             _updateController.AddFixedUpdateable(_inputManager);
             _updateController.AddUpdateable(_inputManager);
-
         }
 
         private void Update()

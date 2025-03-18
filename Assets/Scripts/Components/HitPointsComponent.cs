@@ -12,6 +12,7 @@ namespace ShootEmUp
         public bool IsHitPointsExists() {
             return _hitPoints > 0;
         }
+        public int GetHitPoints() => _hitPoints;
 
         public void TakeDamage(int damage)
         {
