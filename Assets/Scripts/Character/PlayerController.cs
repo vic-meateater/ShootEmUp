@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class PlayerController : IDisposable
+    public sealed class PlayerController : IDisposable, IGameStartListener, IGamePauseListener, IGameResumeListener
     {
         private readonly GameObject _player; 
         private readonly GameManager _gameManager;
@@ -18,8 +18,27 @@ namespace ShootEmUp
             _bulletSystem = bulletSystem;
             _bulletConfig = playerBulletConfig;
             
-            EventManager.Instance.OnFire += OnFire;
-            _player.GetComponent<HitPointsComponent>().hpEmpty += OnCharacterDeath;
+        }
+
+        void IGameStartListener.OnStartGame()
+        {
+            Subscribe();
+        }
+
+        void IGamePauseListener.OnPauseGame()
+        {
+            UnSubscribe();
+        }
+
+        void IGameResumeListener.OnResumeGame()
+        {
+            Subscribe();
+        }
+        
+        private void OnPlayerInputChanged(float horizontalDirection)
+        {
+            _player.TryGetComponent(out MoveComponent player);
+            player.MoveByRigidbodyVelocity(new Vector2(horizontalDirection, 0) * Time.fixedDeltaTime);
         }
 
         private void OnCharacterDeath(GameObject _) => _gameManager.FinishGame();
@@ -44,11 +63,24 @@ namespace ShootEmUp
                 Velocity = weapon.GetRotation() * Vector3.up * _bulletConfig.Speed
             });
         }
+        private void Subscribe()
+        {
+            EventManager.Instance.Fire += OnFire;
+            EventManager.Instance.PlayerInputChanged += OnPlayerInputChanged;
+            _player.GetComponent<HitPointsComponent>().hpEmpty += OnCharacterDeath;
+        }
+
+        private void UnSubscribe()
+        {
+            EventManager.Instance.Fire -= OnFire;
+            EventManager.Instance.PlayerInputChanged -= OnPlayerInputChanged;
+            _player.GetComponent<HitPointsComponent>().hpEmpty -= OnCharacterDeath;
+        }
 
         public void Dispose()
         {
-            EventManager.Instance.OnFire -= OnFire;
-            _player.GetComponent<HitPointsComponent>().hpEmpty -= OnCharacterDeath;
+            UnSubscribe();
         }
+
     }
 }

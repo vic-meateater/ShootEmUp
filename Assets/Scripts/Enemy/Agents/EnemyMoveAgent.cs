@@ -28,7 +28,7 @@ namespace ShootEmUp
             if (vector.magnitude <= 0.25f)
             {
                 _isReached = true;
-                EventManager.Instance.EnemyReachedDestination(gameObject);
+                EventManager.Instance.OnEnemyReachedDestination(gameObject);
                 return;
             }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class GameManager : MonoBehaviour
+    public sealed class GameManager : MonoBehaviour, IGameStopListener
     {
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private BulletSystem _bulletSystem;
@@ -10,18 +10,25 @@ namespace ShootEmUp
         [SerializeField] private BulletConfig _playerBulletConfig;
         [SerializeField] private GameObject _enemy; 
         [SerializeField] private BulletConfig _enemyBulletConfig;
+        [SerializeField] private UIView _uiView;
         
+        private GameCycle _gameCycle; 
         private PlayerController _playerController;
+        private UIViewController _uiViewController;
         private InputManager  _inputManager;
         private UpdateController _updateController;
         
         private void Start()
         {
+            _gameCycle = new GameCycle();
             _playerController = new PlayerController(_player, _gameManager, _bulletSystem, _playerBulletConfig);
-            _inputManager = new InputManager(_player);
+            _inputManager = new InputManager();
+            _uiViewController = new UIViewController(_uiView);
+            
+            _gameCycle.AddListener(this);
+            _gameCycle.AddListener(_playerController);
 
             _updateController = new UpdateController();
-            _updateController.AddFixedUpdateable(_inputManager);
             _updateController.AddUpdateable(_inputManager);
         }
 
@@ -39,6 +46,11 @@ namespace ShootEmUp
         {
             Debug.Log("Game over!");
             Time.timeScale = 0;
+        }
+
+        void IGameStopListener.OnStopGame()
+        {
+            FinishGame();
         }
     }
 }

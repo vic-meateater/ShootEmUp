@@ -17,10 +17,10 @@ namespace ShootEmUp
 
         private void Start()
         {
-            EventManager.Instance.OnEnemyReachedDestination += OnEnemyReachedDestination;
+            EventManager.Instance.EnemyReachedDestination += EnemyReachedDestination;
         }
 
-        private void OnEnemyReachedDestination(GameObject enemy)
+        private void EnemyReachedDestination(GameObject enemy)
         {
         }
         
@@ -66,7 +66,7 @@ namespace ShootEmUp
 
         private void OnDestroy()
         {
-            EventManager.Instance.OnEnemyReachedDestination -= OnEnemyReachedDestination;
+            EventManager.Instance.EnemyReachedDestination -= EnemyReachedDestination;
         }
     }
 }
