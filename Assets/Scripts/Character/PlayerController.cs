@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ShootEmUp
 {
@@ -10,14 +11,14 @@ namespace ShootEmUp
         private readonly BulletSystem _bulletSystem;
         private readonly BulletConfig _bulletConfig;
 
-        public PlayerController(GameObject player, GameManager gameManager, 
-            BulletSystem bulletSystem, BulletConfig playerBulletConfig)
+        public PlayerController(GameObject playerPrefab, GameManager gameManager, 
+            BulletSystem bulletSystem, BulletConfig playerBulletConfig, Transform playerSpawnTransform, GameData gameData)
         {
-            _player = player;
+            _player = Object.Instantiate(playerPrefab, playerSpawnTransform.position, Quaternion.identity, gameData.WorldTransform);
+            gameData.Player = _player;
             _gameManager = gameManager;
             _bulletSystem = bulletSystem;
             _bulletConfig = playerBulletConfig;
-            
         }
 
         void IGameStartListener.OnStartGame()
@@ -41,7 +42,7 @@ namespace ShootEmUp
             player.MoveByRigidbodyVelocity(new Vector2(horizontalDirection, 0) * Time.fixedDeltaTime);
         }
 
-        private void OnCharacterDeath(GameObject _) => _gameManager.FinishGame();
+        private void OnCharacterDeath(GameObject _) => EventManager.Instance.OnEndGameButtonClicked();
 
         private void OnFire()
         {

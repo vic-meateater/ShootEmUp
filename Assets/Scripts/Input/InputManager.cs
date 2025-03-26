@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class InputManager : IUpdateable
+    public sealed class InputManager : IUpdate
     {
         private float _horizontalDirection;
         
-        public void Update()
+        void IUpdate.OnUpdate()
         {
             PlayerInput();
         }

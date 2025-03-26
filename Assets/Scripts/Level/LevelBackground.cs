@@ -3,49 +3,67 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class LevelBackground : MonoBehaviour
+    public sealed class LevelBackground : MonoBehaviour, IFixedUpdate, IGameStartListener, IGamePauseListener, IGameResumeListener, IGameStopListener
     {
-        private float startPositionY;
-
-        private float endPositionY;
-
-        private float movingSpeedY;
-
-        private float positionX;
-
-        private float positionZ;
-
-        private Transform myTransform;
+        private float _startPositionY;
+        private float _endPositionY;
+        private float _movingSpeedY;
+        private float _positionX;
+        private float _positionZ;
+        private Transform _myTransform;
+        private bool _canUpdate;
 
         [SerializeField]
-        private Params m_params;
-
-        private void Awake()
+        private Params _params;
+        
+        public void OnStartGame()
         {
-            this.startPositionY = this.m_params.m_startPositionY;
-            this.endPositionY = this.m_params.m_endPositionY;
-            this.movingSpeedY = this.m_params.m_movingSpeedY;
-            this.myTransform = this.transform;
-            var position = this.myTransform.position;
-            this.positionX = position.x;
-            this.positionZ = position.z;
+            _canUpdate = true;
+            _startPositionY = _params._startPositionY;
+            _endPositionY = _params._endPositionY;
+            _movingSpeedY = _params._movingSpeedY;
+            _myTransform = transform;
+            var position = _myTransform.position;
+            _positionX = position.x;
+            _positionZ = position.z;
         }
 
-        private void FixedUpdate()
+        public void OnPauseGame()
         {
-            if (this.myTransform.position.y <= this.endPositionY)
+            _canUpdate = false;
+        }
+        
+        public void OnResumeGame()
+        {
+            _canUpdate = true;
+        }
+
+        public void OnStopGame()
+        {
+            _canUpdate = false;
+        }
+
+        void IFixedUpdate.OnFixedUpdate()
+        {
+            UpdateBack();
+        }
+
+        private void UpdateBack()
+        {
+            if (!_canUpdate) return;
+            if (_myTransform.position.y <= _endPositionY)
             {
-                this.myTransform.position = new Vector3(
-                    this.positionX,
-                    this.startPositionY,
-                    this.positionZ
+                _myTransform.position = new Vector3(
+                    _positionX,
+                    _startPositionY,
+                    _positionZ
                 );
             }
 
-            this.myTransform.position -= new Vector3(
-                this.positionX,
-                this.movingSpeedY * Time.fixedDeltaTime,
-                this.positionZ
+            _myTransform.position -= new Vector3(
+                _positionX,
+                _movingSpeedY * Time.fixedDeltaTime,
+                _positionZ
             );
         }
 
@@ -53,13 +71,13 @@ namespace ShootEmUp
         public sealed class Params
         {
             [SerializeField]
-            public float m_startPositionY;
+            public float _startPositionY;
 
             [SerializeField]
-            public float m_endPositionY;
+            public float _endPositionY;
 
             [SerializeField]
-            public float m_movingSpeedY;
+            public float _movingSpeedY;
         }
     }
 }

@@ -23,5 +23,7 @@ namespace ShootEmUp
             var index = Random.Range(0, transforms.Length);
             return transforms[index];
         }
+
+        public int GetPositionCount() => _spawnPositions.Length;
     }
 }

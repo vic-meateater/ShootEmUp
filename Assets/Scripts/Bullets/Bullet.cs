@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public sealed class Bullet : MonoBehaviour
     {
         public event Action<Bullet, Collision2D> OnCollisionEntered;
@@ -13,6 +14,8 @@ namespace ShootEmUp
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
+        public Rigidbody2D Rigidbody2D => _rigidbody2D;
+        
         private void OnCollisionEnter2D(Collision2D collision)
         {
             OnCollisionEntered?.Invoke(this, collision);
