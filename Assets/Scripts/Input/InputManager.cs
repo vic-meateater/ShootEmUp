@@ -2,29 +2,27 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class InputManager : IFixedUpdateable, IUpdateable
+    public sealed class InputManager : IUpdate
     {
-        private readonly GameObject _player;
         private float _horizontalDirection;
         
-
-        public InputManager(GameObject player)
+        void IUpdate.OnUpdate()
         {
-            _player = player;
+            PlayerInput();
         }
-        
-        public void Update()
+
+        private void PlayerInput()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Space))
             {
-                EventManager.Instance.Fire();
+                EventManager.Instance.OnFire();
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 _horizontalDirection = -1;
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
                 _horizontalDirection = 1;
             }
@@ -32,11 +30,7 @@ namespace ShootEmUp
             {
                 _horizontalDirection = 0;
             }
-        }
-        
-        public void FixedUpdate()
-        {
-            _player.GetComponent<MoveComponent>().MoveByRigidbodyVelocity(new Vector2(_horizontalDirection, 0) * Time.fixedDeltaTime);
+            EventManager.Instance.OnPlayerInputChanged(_horizontalDirection);
         }
     }
 }

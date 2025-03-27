@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour
+    public sealed class EnemyAttackAgent : MonoBehaviour, IFixedUpdate
     {
         public delegate void FireHandler(GameObject enemy, Vector2 position, Vector2 direction);
         public event FireHandler OnFire;
@@ -17,15 +17,14 @@ namespace ShootEmUp
 
         private void Start()
         {
-            EventManager.Instance.OnEnemyReachedDestination += OnEnemyReachedDestination;
+            EventManager.Instance.EnemyReachedDestination += EnemyReachedDestination;
         }
 
-        private void OnEnemyReachedDestination(GameObject enemy)
+        private void EnemyReachedDestination(GameObject enemy)
         {
+            //PrepareToFire();
         }
         
-        
-
         public void SetTarget(GameObject target)
         {
             _target = target;
@@ -36,21 +35,34 @@ namespace ShootEmUp
             _currentTime = _countdown;
         }
 
-        private void FixedUpdate()
+        void IFixedUpdate.OnFixedUpdate()
+        {
+            if (PrepareFiring()) return;
+
+            FireCountdown();
+        }
+
+        private bool PrepareFiring()
         {
             if (!_moveAgent.IsReached)
             {
-                return;
-            }
-            
-            if (_target == null || !_target.GetComponent<HitPointsComponent>().IsHitPointsExists())
-            {
-                return;
+                return true;
             }
 
+            if (_target == null || !_target.GetComponent<HitPointsComponent>().IsHitPointsExists())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void FireCountdown()
+        {
             _currentTime -= Time.fixedDeltaTime;
             if (_currentTime <= 0)
             {
+                
                 Fire();
                 _currentTime += _countdown;
             }
@@ -66,7 +78,7 @@ namespace ShootEmUp
 
         private void OnDestroy()
         {
-            EventManager.Instance.OnEnemyReachedDestination -= OnEnemyReachedDestination;
+            EventManager.Instance.EnemyReachedDestination -= EnemyReachedDestination;
         }
     }
 }

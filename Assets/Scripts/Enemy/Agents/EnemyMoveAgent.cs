@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour
+    public sealed class EnemyMoveAgent : MonoBehaviour, IFixedUpdate
     {
         [SerializeField] private MoveComponent _moveComponent;
         public bool IsReached => _isReached;
@@ -17,7 +17,12 @@ namespace ShootEmUp
             _isReached = false;
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate()
+        {
+            MoveEnemy();
+        }
+
+        private void MoveEnemy()
         {
             if (_isReached)
             {
@@ -28,7 +33,7 @@ namespace ShootEmUp
             if (vector.magnitude <= 0.25f)
             {
                 _isReached = true;
-                EventManager.Instance.EnemyReachedDestination(gameObject);
+                EventManager.Instance.OnEnemyReachedDestination(gameObject);
                 return;
             }
 

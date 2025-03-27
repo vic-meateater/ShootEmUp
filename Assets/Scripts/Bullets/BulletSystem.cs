@@ -3,28 +3,61 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class BulletSystem : MonoBehaviour
+    public sealed class BulletSystem : IGameStopListener, IGameStartListener, IGamePauseListener, IGameResumeListener, IFixedUpdate
     {
-        [SerializeField] private int _initialCount = 50;
-        [SerializeField] private Transform _container;
-        [SerializeField] private Bullet _prefab;
-        [SerializeField] private Transform _worldTransform;
-        [SerializeField] private LevelBounds _levelBounds;
+        private int _initialCount;
+        private Transform _container;
+        private Bullet _prefab;
+        private Transform _worldTransform;
+        private LevelBounds _levelBounds;
 
         private readonly Queue<Bullet> _bulletPool = new();
         private readonly HashSet<Bullet> _activeBullets = new();
         private readonly List<Bullet> _cache = new();
+
+        public BulletSystem(GameData gameData)
+        {
+            _container = gameData.BulletPoolContainerTransform;
+            _prefab = gameData.BulletPrefab;
+            _worldTransform = gameData.WorldTransform;
+            _levelBounds = gameData.LevelBounds;
+            _initialCount = gameData.BulletInitialCount;
+        }
         
-        private void Awake()
+        void IGameStartListener.OnStartGame()
         {
             for (var i = 0; i < _initialCount; i++)
             {
-                var bullet = Instantiate(_prefab, _container);
+                var bullet = Object.Instantiate(_prefab, _container);
                 _bulletPool.Enqueue(bullet);
             }
         }
+
+        void IGamePauseListener.OnPauseGame()
+        {
+            foreach (var bullet in _activeBullets)
+            {
+                bullet.Rigidbody2D.simulated = false;
+            }
+        }
+
+        void IGameResumeListener.OnResumeGame()
+        {
+            foreach (var bullet in _activeBullets)
+            {
+                bullet.Rigidbody2D.simulated = true;
+            }
+        }
+
+        void IGameStopListener.OnStopGame()
+        {
+            foreach (var bullet in _activeBullets)
+            {
+                bullet.Rigidbody2D.simulated = false;
+            }
+        }
         
-        private void FixedUpdate()
+        void IFixedUpdate.OnFixedUpdate()
         {
             _cache.Clear();
             _cache.AddRange(_activeBullets);
@@ -44,10 +77,11 @@ namespace ShootEmUp
             if (_bulletPool.TryDequeue(out var bullet))
             {
                 bullet.transform.SetParent(_worldTransform);
+                bullet.gameObject.SetActive(true);
             }
             else
             {
-                bullet = Instantiate(_prefab, _worldTransform);
+                bullet = Object.Instantiate(_prefab, _worldTransform);
             }
 
             bullet.SetPosition(args.Position);
@@ -75,6 +109,7 @@ namespace ShootEmUp
             {
                 bullet.OnCollisionEntered -= OnBulletCollision;
                 bullet.transform.SetParent(_container);
+                bullet.gameObject.SetActive(false);
                 _bulletPool.Enqueue(bullet);
             }
         }

@@ -5,33 +5,33 @@ namespace ShootEmUp
     public class UpdateController
     {
         private readonly List<IUpdateable> _updateables = new();
-        private readonly List<IFixedUpdateable> _fixedUpdateables = new();
-
         public void AddUpdateable(IUpdateable updateable)
         {
             _updateables.Add(updateable);
         }
 
-        public void AddFixedUpdateable(IFixedUpdateable fixedUpdateable)
+        public void RemoveUpdateable(IUpdateable updateable)
         {
-            _fixedUpdateables.Add(fixedUpdateable);
+            _updateables.Remove(updateable);
         }
 
-        public void Update()
+        public void OnUpdate()
         {
             for (var index = 0; index < _updateables.Count; index++)
             {
                 var updateable = _updateables[index];
-                updateable.Update();
+                if (updateable is IUpdate update)
+                    update.OnUpdate();
             }
         }
 
-        public void FixedUpdate()
+        public void OnFixedUpdate()
         {
-            for (var index = 0; index < _fixedUpdateables.Count; index++)
+            for (var index = 0; index < _updateables.Count; index++)
             {
-                var fixedUpdateable = _fixedUpdateables[index];
-                fixedUpdateable.FixedUpdate();
+                var updateable = _updateables[index];
+                if (updateable is IFixedUpdate fixedUpdate)
+                    fixedUpdate.OnFixedUpdate();
             }
         }
     }

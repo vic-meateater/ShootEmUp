@@ -2,6 +2,16 @@
 {
     public interface IUpdateable
     {
-        public void Update();
+        
+    }
+    
+    public interface IFixedUpdate : IUpdateable
+    {
+        public void OnFixedUpdate();
+    }
+    
+    public interface IUpdate: IUpdateable
+    {
+        public void OnUpdate();
     }
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   PhysicsLayer: 14
   BulletColor: {r: 0, g: 1, b: 0.0009315014, a: 0}
   Damage: 1
-  Speed: 1
+  Speed: 3

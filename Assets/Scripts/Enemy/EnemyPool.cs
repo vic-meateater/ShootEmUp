@@ -1,57 +1,54 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyPool : MonoBehaviour
+    public sealed class EnemyPool
     {
-        [Header("Spawn")]
-        [SerializeField] private EnemyPositions _enemyPositions;
-
-        [SerializeField] private GameObject _player;
-
-        [SerializeField] private Transform _worldTransform;
+        private Transform _worldTransform;
+        private Transform _container;
+        private GameObject _enemyPrefab;
         
-        [Header("Pool")]
-        [SerializeField] private Transform _container;
+        private readonly Queue<GameObject> _enemyPool = new();
+        private readonly int _poolSize;
 
-        [SerializeField] private GameObject _prefab;
-
-        private readonly Queue<GameObject> enemyPool = new();
-        
-        private void Awake()
+        public EnemyPool(GameData gameData)
         {
-            for (var i = 0; i < 7; i++)
+            _worldTransform = gameData.WorldTransform;
+            _container = gameData.EnemyPoolContainerTransform;
+            _enemyPrefab = gameData.EnemyPrefab;
+            _poolSize = gameData.EnemyPositions.GetPositionCount();
+
+            InstantiatePool();
+        }
+        
+        private void InstantiatePool()
+        {
+            for (var i = 0; i < _poolSize; i++)
             {
-                var enemy = Instantiate(_prefab, _container);
-                enemyPool.Enqueue(enemy);
+                var enemy = Object.Instantiate(_enemyPrefab, _container);
+                _enemyPool.Enqueue(enemy);
             }
         }
 
         public GameObject SpawnEnemy()
         {
-            if (!enemyPool.TryDequeue(out var enemy))
+            if (!_enemyPool.TryDequeue(out var enemy))
             {
                 return null;
             }
-
+            enemy.SetActive(true);
             enemy.transform.SetParent(_worldTransform);
-
-            var spawnPosition = _enemyPositions.RandomSpawnPosition();
-            enemy.transform.position = spawnPosition.position;
-            
-            var attackPosition = _enemyPositions.RandomAttackPosition();
-            enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
-
-            enemy.GetComponent<EnemyAttackAgent>().SetTarget(_player);
             return enemy;
         }
 
         public void UnspawnEnemy(GameObject enemy)
         {
             enemy.transform.SetParent(_container);
-            enemyPool.Enqueue(enemy);
+            enemy.SetActive(false);
+            _enemyPool.Enqueue(enemy);
         }
     }
 }

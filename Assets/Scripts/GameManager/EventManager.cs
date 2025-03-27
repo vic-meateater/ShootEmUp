@@ -8,16 +8,46 @@ namespace ShootEmUp
         private static readonly Lazy<EventManager> _instance = new Lazy<EventManager>(() => new EventManager());
         public static EventManager Instance => _instance.Value;
         private EventManager() { }
-        public event Action OnFire;
-        public event Action<GameObject> OnEnemyReachedDestination;
+        public event Action Fire;
+        public event Action<GameObject> EnemyReachedDestination;
+        public event Action<float> PlayerInputChanged;
+        public event Action PlayButtonClicked;
+        public event Action PauseButtonClicked;
+        public event Action ResumeButtonClicked;
+        public event Action EndGameButtonClicked;
 
-        public void Fire()
+        public void OnFire()
         {
-            OnFire?.Invoke();
+            Fire?.Invoke();
         }
-        public void EnemyReachedDestination(GameObject enemy)
+        public void OnEnemyReachedDestination(GameObject enemy)
         {
-            OnEnemyReachedDestination?.Invoke(enemy);
+            EnemyReachedDestination?.Invoke(enemy);
+        }
+
+        public void OnPlayButtonClicked()
+        {
+            PlayButtonClicked?.Invoke();
+        }
+
+        public void OnPauseButtonClicked()
+        {
+            PauseButtonClicked?.Invoke();
+        }
+
+        public void OnEndGameButtonClicked()
+        {
+            EndGameButtonClicked?.Invoke();
+        }
+
+        public void OnResumeButtonClicked()
+        {
+            ResumeButtonClicked?.Invoke();
+        }
+
+        public void OnPlayerInputChanged(float horizontalDirection)
+        {
+            PlayerInputChanged?.Invoke(horizontalDirection);
         }
     }
 }

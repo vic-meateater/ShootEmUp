@@ -4,38 +4,86 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour
+    public sealed class EnemyManager : IGameStopListener, IGameStartListener, IGamePauseListener, IGameResumeListener, IFixedUpdate
     {
-        [SerializeField] private EnemyPool _enemyPool;
-        [SerializeField] private BulletSystem _bulletSystem;
+        private readonly EnemyPool _enemyPool;
+        private readonly EnemyPositions _enemyPositions;
+        private readonly GameObject _player;
+        private readonly BulletSystem _bulletSystem;
+        private readonly UpdateController _updateController;
+        
+        private Coroutine _spawnCoroutine;
+        private bool _isSpawning = false;
+        private float _spawnCooldown = 1.0f;
+        private float _nextSpawnTime = 0f;
+
+        public EnemyManager(EnemyPool enemyPool, 
+                            GameData gameData, 
+                            BulletSystem bulletSystem, 
+                            UpdateController updateController)
+        {
+            _enemyPool = enemyPool;
+            _bulletSystem = bulletSystem;
+            _player = gameData.Player;
+            _enemyPositions = gameData.EnemyPositions;
+            _updateController = updateController;
+        }
         
         private readonly HashSet<GameObject> _activeEnemies = new();
 
-        private IEnumerator Start()
+        void IGameStartListener.OnStartGame()
         {
-            while (true)
+            _isSpawning = true;
+        }
+        void IGamePauseListener.OnPauseGame()
+        {
+            _isSpawning = false;
+            foreach (var enemy in _activeEnemies)
             {
-                yield return new WaitForSeconds(1);
-                var enemy = _enemyPool.SpawnEnemy();
-                if (enemy != null)
-                {
-                    if (_activeEnemies.Add(enemy))
-                    {
-                        enemy.GetComponent<HitPointsComponent>().hpEmpty += OnDestroyed;
-                        enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
-                    }    
-                }
+                RemoveFixedUpdate(enemy);
+            }
+        }
+        void IGameResumeListener.OnResumeGame()
+        {
+            _isSpawning = true;
+            foreach (var enemy in _activeEnemies)
+            {
+                AddFixedUpdate(enemy);
             }
         }
 
-        private void OnDestroyed(GameObject enemy)
+        void IGameStopListener.OnStopGame()
         {
-            if (_activeEnemies.Remove(enemy))
-            {
-                enemy.GetComponent<HitPointsComponent>().hpEmpty -= OnDestroyed;
-                enemy.GetComponent<EnemyAttackAgent>().OnFire -= OnFire;
+            _isSpawning = false;
+        }
+        
+        void IFixedUpdate.OnFixedUpdate()
+        {
+            if (!_isSpawning || Time.time < _nextSpawnTime) return;
 
-                _enemyPool.UnspawnEnemy(enemy);
+            SpawnEnemy();
+            _nextSpawnTime = Time.time + _spawnCooldown; 
+        }
+
+        private void SpawnEnemy()
+        {
+            var enemy = _enemyPool.SpawnEnemy();
+            if (enemy != null && _activeEnemies.Add(enemy))
+            {
+                var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
+                var enemyMoveAgent = enemy.GetComponent<EnemyMoveAgent>();
+
+                enemy.GetComponent<HitPointsComponent>().hpEmpty += OnDestroyed;
+                enemyAttackAgent.OnFire += OnFire;
+
+                var spawnPosition = _enemyPositions.RandomSpawnPosition();
+                enemy.transform.position = spawnPosition.position;
+                var attackPosition = _enemyPositions.RandomAttackPosition();
+
+                enemyMoveAgent.SetDestination(attackPosition.position);
+                enemyAttackAgent.SetTarget(_player);
+
+                AddFixedUpdate(enemy);
             }
         }
 
@@ -50,6 +98,36 @@ namespace ShootEmUp
                 Position = position,
                 Velocity = direction * 2.0f
             });
+        }
+        private void AddFixedUpdate(GameObject enemy)
+        {
+            var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
+            var enemyMoveAgent = enemy.GetComponent<EnemyMoveAgent>();
+            
+            _updateController.AddUpdateable(enemyMoveAgent);
+            _updateController.AddUpdateable(enemyAttackAgent);
+        }
+        private void RemoveFixedUpdate(GameObject enemy)
+        {
+            var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
+            var enemyMoveAgent = enemy.GetComponent<EnemyMoveAgent>();
+
+            _updateController.RemoveUpdateable(enemyAttackAgent);
+            _updateController.RemoveUpdateable(enemyMoveAgent);
+        }
+
+        private void OnDestroyed(GameObject enemy)
+        {
+            if (_activeEnemies.Remove(enemy))
+            {
+                var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
+                
+                enemy.GetComponent<HitPointsComponent>().hpEmpty -= OnDestroyed;
+                enemyAttackAgent.OnFire -= OnFire;
+                _enemyPool.UnspawnEnemy(enemy);
+                
+                RemoveFixedUpdate(enemy);
+            }
         }
     }
 }
