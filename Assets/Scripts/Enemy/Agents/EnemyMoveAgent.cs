@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour, IFixedUpdate
+    public sealed class EnemyMoveAgent : MonoBehaviour, IFixedUpdate, IMoveAgent
     {
         [SerializeField] private MoveComponent _moveComponent;
         public bool IsReached => _isReached;
@@ -33,12 +34,16 @@ namespace ShootEmUp
             if (vector.magnitude <= 0.25f)
             {
                 _isReached = true;
-                EventManager.Instance.OnEnemyReachedDestination(gameObject);
                 return;
             }
 
             var direction = vector.normalized * Time.fixedDeltaTime;
             _moveComponent.MoveByRigidbodyVelocity(direction);
         }
+    }
+
+    public interface IMoveAgent
+    {
+        public void SetDestination(Vector2 endPoint);
     }
 }

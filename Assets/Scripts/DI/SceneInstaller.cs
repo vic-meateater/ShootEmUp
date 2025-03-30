@@ -9,6 +9,7 @@ namespace ShootEmUp
         [SerializeField] private UIView _uiView;
         [SerializeField] private WorldPositionPoint _worldSpawnTransform;
         [SerializeField] private LevelBounds _levelBounds;
+        [SerializeField] private LevelBackground _levelBackground;
 
         public override void InstallBindings()
         {
@@ -16,14 +17,12 @@ namespace ShootEmUp
             Container.BindInstance(_uiView).AsSingle();
             Container.BindInstance(_worldSpawnTransform).AsSingle();
             Container.BindInstance(_levelBounds).AsSingle();
+            Container.BindInstance(_levelBackground).AsSingle();
+            Container.BindInterfacesAndSelfTo<GameCycle>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<UpdateController>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<InputManager>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerController>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<UIViewController>().FromNew().AsSingle();
-            Container.BindInterfacesAndSelfTo<BulletSystem>().FromNew().AsSingle().WithArguments(_gameData);
-            Container.BindInterfacesAndSelfTo<GameCycle>().FromNew().AsSingle();
-            Container.BindInterfacesAndSelfTo<InputManager>().FromNew().AsSingle();
-            Container.BindInterfacesAndSelfTo<EnemyManager>().FromNew().AsSingle();
-            
         }
     }
 }

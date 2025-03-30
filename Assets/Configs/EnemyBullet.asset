@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f607d62c36cf429b98fd5e0d29773f70, type: 3}
   m_Name: EnemyBullet
   m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d,
+    type: 3}
   PhysicsLayer: 13
-  Color: {r: 1, g: 0, b: 0, a: 0}
+  BulletColor: {r: 1, g: 0, b: 0, a: 0}
   Damage: 1
+  Position: {x: -2.521182, y: 1.9920387}
+  Velocity: {x: 1.4050015, y: -1.423366}
   Speed: 2
+  IsPlayer: 0

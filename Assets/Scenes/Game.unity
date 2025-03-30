@@ -196,7 +196,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d,
     type: 3}
-  _bulletConfig: {fileID: 11400000, guid: 7138ae5d32d814e0ca50c616c65ea105, type: 2}
+  _bulletPoolMaxSize: 20
+  _bulletPoolContainer: {fileID: 1831741369}
+  _playerBulletConfig: {fileID: 11400000, guid: 7138ae5d32d814e0ca50c616c65ea105,
+    type: 2}
+  _enemyBulletConfig: {fileID: 11400000, guid: 9dd1fbe4e9737014cb4fe9559929eaba, type: 2}
 --- !u!1 &196756140
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +586,7 @@ MonoBehaviour:
   _uiView: {fileID: 1298241422}
   _worldSpawnTransform: {fileID: 1683128699}
   _levelBounds: {fileID: 2572952653776768186}
+  _levelBackground: {fileID: 4852396043583267082}
 --- !u!1 &562298203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,7 +1882,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d757fa6bd58a42c489c665e12b54a31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 574a2a0fb0f966e4a949df725e3c93cf, type: 2}
+  _enemyConfig: {fileID: 11400000, guid: 574a2a0fb0f966e4a949df725e3c93cf, type: 2}
+  _enemyPoolMaxSize: 20
   _enemyPoolContainer: {fileID: 74368894801086110}
   _enemyPositions: {fileID: 7166351703523243261}
 --- !u!1 &1536551910
@@ -2124,7 +2130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1831741369
 Transform:
   m_ObjectHideFlags: 0
@@ -2766,12 +2772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697fe7ba192e484db495320b9c01bcd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelBackground: {fileID: 4852396043583267082}
-  _gameData: {fileID: 11400000, guid: 42ccd9af0d562944095000ccede833fd, type: 2}
-  _bulletPoolContainerTransform: {fileID: 1831741369}
-  _bulletPrefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d,
-    type: 3}
-  _bulletInitialCount: 50
 --- !u!212 &4162873433806880330
 SpriteRenderer:
   m_ObjectHideFlags: 0

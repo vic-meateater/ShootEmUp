@@ -10,5 +10,7 @@ namespace ShootEmUp
     public class EnemyConfig : ScriptableObject
     {
         public Enemy EnemyPrefab;
+        public int HealthPoints;
+        public float Speed;
     }
 }

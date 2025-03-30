@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    internal static class BulletUtils
+    class BulletUtils
     {
-        internal static void DealDamage(Bullet bullet, GameObject other)
+        public void DealDamage(Bullet bullet, Collision2D collision)
         {
-            if (!other.TryGetComponent(out TeamComponent team))
+            var target = collision.gameObject;
+            if (!target.TryGetComponent(out ITeammate team))
                 return;
 
             if (bullet.IsPlayer == team.IsPlayer)
                 return;
 
-            if (other.TryGetComponent(out HitPointsComponent hitPoints))
-            {
-                hitPoints.TakeDamage(bullet.Damage);
-            }
+            if (target.TryGetComponent(out IDamageable damageable))
+                damageable.TakeDamage(bullet.Damage);
+            
         }
     }
 }

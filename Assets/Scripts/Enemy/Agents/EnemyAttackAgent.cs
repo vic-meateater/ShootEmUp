@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour, IFixedUpdate
+    public delegate void FireHandler(GameObject enemy, Vector2 position, Vector2 direction);
+    public sealed class EnemyAttackAgent : MonoBehaviour, IFixedUpdate, IAttackAgent
     {
-        public delegate void FireHandler(GameObject enemy, Vector2 position, Vector2 direction);
         public event FireHandler OnFire;
 
         [SerializeField] private WeaponComponent _weaponComponent;
@@ -14,16 +14,7 @@ namespace ShootEmUp
 
         private GameObject _target;
         private float _currentTime;
-
-        private void Start()
-        {
-            EventManager.Instance.EnemyReachedDestination += EnemyReachedDestination;
-        }
-
-        private void EnemyReachedDestination(GameObject enemy)
-        {
-            //PrepareToFire();
-        }
+        
         
         public void SetTarget(GameObject target)
         {
@@ -75,10 +66,11 @@ namespace ShootEmUp
             var direction = vector.normalized;
             OnFire?.Invoke(gameObject, startPosition, direction);
         }
+    }
 
-        private void OnDestroy()
-        {
-            EventManager.Instance.EnemyReachedDestination -= EnemyReachedDestination;
-        }
+    public interface IAttackAgent
+    {
+        public event FireHandler OnFire;
+        void SetTarget(GameObject target);
     }
 }

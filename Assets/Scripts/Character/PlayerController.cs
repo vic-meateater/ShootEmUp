@@ -7,13 +7,15 @@ namespace ShootEmUp
 {
     public sealed class PlayerController : IDisposable, IGameStartListener, IGamePauseListener, IGameResumeListener
     {
-        [Inject] private BulletSystem _bulletSystem;
-        [Inject] private BulletConfig _bulletConfig;
-        [Inject] private PlayerSpawnPoint _playerSpawnPoint;
-        [Inject] private WorldPositionPoint _worldPositionPoint;
+        public event Action<BulletConfig> PlayerFire;
+        
+        [Inject] private readonly BulletSystem _bulletSystem;
+        [Inject] private readonly BulletConfig _bulletConfig;
+        [Inject] private readonly PlayerSpawnPoint _playerSpawnPoint;
+        [Inject] private readonly WorldPositionPoint _worldPositionPoint;
+        [Inject] private readonly PlayerConfig _playerConfig;
+        [Inject] private readonly IPlayerFactory _playerFactory;
         [Inject] private GameData _gameData;
-        [Inject] private PlayerConfig _playerConfig;
-        [Inject] private IPlayerFactory _playerFactory;
         
         private Player _player;
 
@@ -41,45 +43,38 @@ namespace ShootEmUp
         
         private void OnPlayerInputChanged(float horizontalDirection)
         {
-            _player.TryGetComponent(out MoveComponent player);
-            player.MoveByRigidbodyVelocity(new Vector2(horizontalDirection, 0) * Time.fixedDeltaTime);
+            if (_player.TryGetComponent(out IMovable player))
+                player.MoveByRigidbodyVelocity(new Vector2(horizontalDirection, 0) * Time.fixedDeltaTime);
         }
 
         private void OnCharacterDeath(GameObject _) => EventManager.Instance.OnEndGameButtonClicked();
 
         private void OnFire()
         {
-            OnFlyBullet();
+            if (_player.TryGetComponent(out IWeaponly weapon))
+            {
+                _bulletConfig.Position = weapon.GetPosition();
+                _bulletConfig.Velocity = weapon.GetRotation() * Vector3.up * _bulletConfig.Speed;
+            }
+
+            PlayerFire?.Invoke(_bulletConfig);
         }
 
-        private void OnFlyBullet()
-        {
-            var bulletColor = _bulletConfig.BulletColor;
-            bulletColor.a = 1;
-            var weapon = _player.GetComponent<WeaponComponent>();
-            _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
-            {
-                IsPlayer = true,
-                PhysicsLayer = (int) _bulletConfig.PhysicsLayer,
-                Color = bulletColor,
-                Damage = _bulletConfig.Damage,
-                Position = weapon.GetPosition(),
-                Velocity = weapon.GetRotation() * Vector3.up * _bulletConfig.Speed
-            });
-        }
         private void Subscribe()
         {
             EventManager.Instance.Fire += OnFire;
             EventManager.Instance.PlayerInputChanged += OnPlayerInputChanged;
-            _player.GetComponent<HitPointsComponent>().hpEmpty += OnCharacterDeath;
+            if (_player.TryGetComponent(out IHealth health))
+                health.HPEmpty += OnCharacterDeath;
         }
 
         private void UnSubscribe()
         {
             EventManager.Instance.Fire -= OnFire;
             EventManager.Instance.PlayerInputChanged -= OnPlayerInputChanged;
-            if (_player)
-                _player.GetComponent<HitPointsComponent>().hpEmpty -= OnCharacterDeath;
+            if (!_player) return;
+            if (_player.TryGetComponent(out IHealth health))
+                health.HPEmpty -= OnCharacterDeath;
         }
 
         public void Dispose()

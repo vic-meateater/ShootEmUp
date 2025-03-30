@@ -17,8 +17,10 @@ namespace ShootEmUp
         {
             Player player = Object.Instantiate(_playerPrefab, position, Quaternion.identity, parent);
 
-            player.SetSpeed(_config.Speed);
-            player.SetHealth(_config.Health);
+            if (player.TryGetComponent(out IHealth enemyHealth))
+                enemyHealth.SetHealth(_config.Health);
+            if (player.TryGetComponent(out ISpeedChangeable speed))
+                speed.SetSpeed(_config.Speed);
             
             return player;
         }

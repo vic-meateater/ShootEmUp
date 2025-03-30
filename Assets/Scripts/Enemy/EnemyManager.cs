@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -6,11 +7,15 @@ namespace ShootEmUp
 {
     public sealed class EnemyManager : IGameStopListener, IGameStartListener, IGamePauseListener, IGameResumeListener, IFixedUpdate
     {
+        public event Action<BulletConfig> EnemyFire;
+        
+        [Inject] private readonly EnemyConfig _enemyConfig;
         [Inject] private readonly EnemyFactory _enemyFactory;
-        [Inject] private EnemyPositions _enemyPositions;
+        [Inject] private readonly EnemyPositions _enemyPositions;
         [Inject] private readonly BulletSystem _bulletSystem;
+        [Inject] private readonly BulletConfig _bulletConfig;
         [Inject] private readonly UpdateController _updateController;
-        [Inject] private GameData _gameData;
+        [Inject] private readonly GameData _gameData;
         
         private Player _player;
         private Coroutine _spawnCoroutine;
@@ -18,16 +23,11 @@ namespace ShootEmUp
         private float _spawnCooldown = 1.0f;
         private float _nextSpawnTime = 0f;
         
-        [Inject]
-        private void Init()
-        {
-            _player = _gameData.Player;
-        }
-        
         private readonly HashSet<GameObject> _activeEnemies = new();
 
         void IGameStartListener.OnStartGame()
         {
+            _player = _gameData.Player;
             _isSpawning = true;
         }
         void IGamePauseListener.OnPauseGame()
@@ -63,38 +63,32 @@ namespace ShootEmUp
 
         private void SpawnEnemy()
         {
-            var enemy = _enemyFactory.Create(_enemyPositions.RandomSpawnPosition().position).gameObject;
-            if (enemy != null && _activeEnemies.Add(enemy))
+            var enemy = _enemyFactory.Create(_enemyPositions.RandomSpawnPosition().position, _enemyConfig).gameObject;
+            if (enemy && _activeEnemies.Add(enemy))
             {
                 Debug.Log($"{enemy.name} Заспавнился");
-                var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
-                var enemyMoveAgent = enemy.GetComponent<EnemyMoveAgent>();
-
-                enemy.GetComponent<HitPointsComponent>().hpEmpty += OnDestroyed;
-                enemyAttackAgent.OnFire += OnFire;
-
-                // var spawnPosition = _enemyPositions.RandomSpawnPosition();
-                // enemy.transform.position = spawnPosition.position;
                 var attackPosition = _enemyPositions.RandomAttackPosition();
+                if (enemy.TryGetComponent(out IAttackAgent enemyAttackAgent))
+                {
+                    enemyAttackAgent.OnFire += OnFire;
+                    enemyAttackAgent.SetTarget(_player.gameObject);
+                }
 
-                enemyMoveAgent.SetDestination(attackPosition.position);
-                enemyAttackAgent.SetTarget(_player.gameObject);
-
+                if(enemy.TryGetComponent(out IMoveAgent enemyMoveAgent))
+                    enemyMoveAgent.SetDestination(attackPosition.position);
+                
+                if(enemy.TryGetComponent(out IHealth enemyHealth))
+                    enemyHealth.HPEmpty += OnDestroyed;
+                
                 AddFixedUpdate(enemy.gameObject);
             }
         }
 
         private void OnFire(GameObject enemy, Vector2 position, Vector2 direction)
         {
-            _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
-            {
-                IsPlayer = false,
-                PhysicsLayer = (int) PhysicsLayer.ENEMY_BULLET,
-                Color = Color.red,
-                Damage = 1,
-                Position = position,
-                Velocity = direction * 2.0f
-            });
+            _bulletConfig.Position = position;
+            _bulletConfig.Velocity = direction * 2.0f;
+            EnemyFire?.Invoke(_bulletConfig);
         }
         private void AddFixedUpdate(GameObject enemy)
         {
@@ -117,9 +111,10 @@ namespace ShootEmUp
         {
             if (_activeEnemies.Remove(enemy))
             {
-                enemy.GetComponent<HitPointsComponent>().hpEmpty -= OnDestroyed;
-                var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
-                enemyAttackAgent.OnFire -= OnFire;
+                if(enemy.TryGetComponent(out IHealth enemyHealth))
+                    enemyHealth.HPEmpty -= OnDestroyed;
+                if (enemy.TryGetComponent(out IAttackAgent enemyAttackAgent))
+                    enemyAttackAgent.OnFire -= OnFire;
                 enemy.GetComponent<Enemy>().Die();
                 RemoveFixedUpdate(enemy);
             }
