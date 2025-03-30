@@ -1,17 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp
 {
     public class UIViewController
     {
         private const int COUNTDOWN_TIMEOUT = 3;
-        private readonly UIView _uiView;
+        [Inject] private readonly UIView _uiView;
 
-        public UIViewController(UIView uiView)
+        [Inject]
+        private void Init()
         {
-            _uiView = uiView;
-
             _uiView.PlayButton.onClick.AddListener(OnPlayButtonClicked);
             _uiView.PauseButton.onClick.AddListener(OnPauseButtonClicked);
             _uiView.ResumeButton.onClick.AddListener(OnResumeButtonClicked);

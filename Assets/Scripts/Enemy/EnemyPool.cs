@@ -1,54 +1,69 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using Zenject;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyPool
+    public sealed class EnemyPool: MonoMemoryPool<Vector3, Enemy>
     {
-        private Transform _worldTransform;
-        private Transform _container;
-        private GameObject _enemyPrefab;
-        
-        private readonly Queue<GameObject> _enemyPool = new();
-        private readonly int _poolSize;
+        // [Inject] private EnemyPositions _enemyPositions;
+        // [Inject] private WorldPositionPoint _worldPositionPoint;
+        // [Inject] private GameData _gameData;
+        // [Inject] private EnemyConfig _enemyConfig;
+        // [Inject] private Transform _enemyPoolContainer;
+        //private GameObject _enemyPrefab;
 
-        public EnemyPool(GameData gameData)
+        protected override void Reinitialize(Vector3 position, Enemy enemy)
         {
-            _worldTransform = gameData.WorldTransform;
-            _container = gameData.EnemyPoolContainerTransform;
-            _enemyPrefab = gameData.EnemyPrefab;
-            _poolSize = gameData.EnemyPositions.GetPositionCount();
-
-            InstantiatePool();
-        }
-        
-        private void InstantiatePool()
-        {
-            for (var i = 0; i < _poolSize; i++)
-            {
-                var enemy = Object.Instantiate(_enemyPrefab, _container);
-                _enemyPool.Enqueue(enemy);
-            }
+            enemy.transform.position = position;
+            enemy.gameObject.SetActive(true);
+            enemy.SetPool(this);
         }
 
-        public GameObject SpawnEnemy()
+        protected override void OnDespawned(Enemy enemy)
         {
-            if (!_enemyPool.TryDequeue(out var enemy))
-            {
-                return null;
-            }
-            enemy.SetActive(true);
-            enemy.transform.SetParent(_worldTransform);
-            return enemy;
+            enemy.gameObject.SetActive(false);
         }
 
-        public void UnspawnEnemy(GameObject enemy)
-        {
-            enemy.transform.SetParent(_container);
-            enemy.SetActive(false);
-            _enemyPool.Enqueue(enemy);
-        }
+        // private readonly Queue<GameObject> _enemyPool = new();
+        // private int _poolSize;
+        //
+        // [Inject]
+        // private void Init()
+        // {
+        //     _enemyPrefab = _enemyConfig.EnemyPrefab.gameObject;
+        //     _poolSize = _enemyPositions.GetPositionCount();
+        // }
+        // public void OnStartGame()
+        // {
+        //     InstantiatePool();
+        // }
+        //
+        // private void InstantiatePool()
+        // {
+        //     for (var i = 0; i < _poolSize; i++)
+        //     {
+        //         var enemy = Object.Instantiate(_enemyPrefab, _enemyPoolContainer);
+        //         _enemyPool.Enqueue(enemy);
+        //     }
+        // }
+        //
+        // public GameObject SpawnEnemy()
+        // {
+        //     if (!_enemyPool.TryDequeue(out var enemy))
+        //     {
+        //         return null;
+        //     }
+        //     enemy.gameObject.SetActive(true);
+        //     enemy.transform.SetParent(_worldPositionPoint.Transform);
+        //     return enemy.gameObject;
+        // }
+        //
+        // public void UnspawnEnemy(GameObject enemy)
+        // {
+        //     enemy.transform.SetParent(_enemyPoolContainer);
+        //     enemy.gameObject.SetActive(false);
+        //     _enemyPool.Enqueue(enemy);
+        // }
+
     }
 }

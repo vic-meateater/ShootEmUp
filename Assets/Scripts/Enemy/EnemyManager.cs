@@ -1,32 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp
 {
     public sealed class EnemyManager : IGameStopListener, IGameStartListener, IGamePauseListener, IGameResumeListener, IFixedUpdate
     {
-        private readonly EnemyPool _enemyPool;
-        private readonly EnemyPositions _enemyPositions;
-        private readonly GameObject _player;
-        private readonly BulletSystem _bulletSystem;
-        private readonly UpdateController _updateController;
+        [Inject] private readonly EnemyFactory _enemyFactory;
+        [Inject] private EnemyPositions _enemyPositions;
+        [Inject] private readonly BulletSystem _bulletSystem;
+        [Inject] private readonly UpdateController _updateController;
+        [Inject] private GameData _gameData;
         
+        private Player _player;
         private Coroutine _spawnCoroutine;
-        private bool _isSpawning = false;
+        private bool _isSpawning;
         private float _spawnCooldown = 1.0f;
         private float _nextSpawnTime = 0f;
-
-        public EnemyManager(EnemyPool enemyPool, 
-                            GameData gameData, 
-                            BulletSystem bulletSystem, 
-                            UpdateController updateController)
+        
+        [Inject]
+        private void Init()
         {
-            _enemyPool = enemyPool;
-            _bulletSystem = bulletSystem;
-            _player = gameData.Player;
-            _enemyPositions = gameData.EnemyPositions;
-            _updateController = updateController;
+            _player = _gameData.Player;
         }
         
         private readonly HashSet<GameObject> _activeEnemies = new();
@@ -59,7 +54,8 @@ namespace ShootEmUp
         
         void IFixedUpdate.OnFixedUpdate()
         {
-            if (!_isSpawning || Time.time < _nextSpawnTime) return;
+            if (!_isSpawning || Time.time < _nextSpawnTime || _activeEnemies.Count >= _enemyPositions.GetPositionCount()) 
+                return;
 
             SpawnEnemy();
             _nextSpawnTime = Time.time + _spawnCooldown; 
@@ -67,23 +63,24 @@ namespace ShootEmUp
 
         private void SpawnEnemy()
         {
-            var enemy = _enemyPool.SpawnEnemy();
+            var enemy = _enemyFactory.Create(_enemyPositions.RandomSpawnPosition().position).gameObject;
             if (enemy != null && _activeEnemies.Add(enemy))
             {
+                Debug.Log($"{enemy.name} Заспавнился");
                 var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
                 var enemyMoveAgent = enemy.GetComponent<EnemyMoveAgent>();
 
                 enemy.GetComponent<HitPointsComponent>().hpEmpty += OnDestroyed;
                 enemyAttackAgent.OnFire += OnFire;
 
-                var spawnPosition = _enemyPositions.RandomSpawnPosition();
-                enemy.transform.position = spawnPosition.position;
+                // var spawnPosition = _enemyPositions.RandomSpawnPosition();
+                // enemy.transform.position = spawnPosition.position;
                 var attackPosition = _enemyPositions.RandomAttackPosition();
 
                 enemyMoveAgent.SetDestination(attackPosition.position);
-                enemyAttackAgent.SetTarget(_player);
+                enemyAttackAgent.SetTarget(_player.gameObject);
 
-                AddFixedUpdate(enemy);
+                AddFixedUpdate(enemy.gameObject);
             }
         }
 
@@ -120,12 +117,10 @@ namespace ShootEmUp
         {
             if (_activeEnemies.Remove(enemy))
             {
-                var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
-                
                 enemy.GetComponent<HitPointsComponent>().hpEmpty -= OnDestroyed;
+                var enemyAttackAgent = enemy.GetComponent<EnemyAttackAgent>();
                 enemyAttackAgent.OnFire -= OnFire;
-                _enemyPool.UnspawnEnemy(enemy);
-                
+                enemy.GetComponent<Enemy>().Die();
                 RemoveFixedUpdate(enemy);
             }
         }

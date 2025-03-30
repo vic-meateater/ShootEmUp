@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp
 {
@@ -7,9 +8,10 @@ namespace ShootEmUp
     {
         private int _initialCount;
         private Transform _container;
-        private Bullet _prefab;
-        private Transform _worldTransform;
-        private LevelBounds _levelBounds;
+        [Inject]private Bullet _bulletPrefab;
+        [Inject]private WorldPositionPoint _worldPositionPoint;
+        [Inject]private LevelBounds _levelBounds;
+        [Inject]private GameData _gameData;
 
         private readonly Queue<Bullet> _bulletPool = new();
         private readonly HashSet<Bullet> _activeBullets = new();
@@ -18,9 +20,7 @@ namespace ShootEmUp
         public BulletSystem(GameData gameData)
         {
             _container = gameData.BulletPoolContainerTransform;
-            _prefab = gameData.BulletPrefab;
-            _worldTransform = gameData.WorldTransform;
-            _levelBounds = gameData.LevelBounds;
+            _bulletPrefab = gameData.BulletPrefab;
             _initialCount = gameData.BulletInitialCount;
         }
         
@@ -28,7 +28,7 @@ namespace ShootEmUp
         {
             for (var i = 0; i < _initialCount; i++)
             {
-                var bullet = Object.Instantiate(_prefab, _container);
+                var bullet = Object.Instantiate(_bulletPrefab, _container);
                 _bulletPool.Enqueue(bullet);
             }
         }
@@ -76,12 +76,12 @@ namespace ShootEmUp
         {
             if (_bulletPool.TryDequeue(out var bullet))
             {
-                bullet.transform.SetParent(_worldTransform);
+                bullet.transform.SetParent(_worldPositionPoint.transform);
                 bullet.gameObject.SetActive(true);
             }
             else
             {
-                bullet = Object.Instantiate(_prefab, _worldTransform);
+                bullet = Object.Instantiate(_bulletPrefab, _worldPositionPoint.transform);
             }
 
             bullet.SetPosition(args.Position);

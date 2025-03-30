@@ -1,24 +1,27 @@
 using System;
 using UnityEngine;
+using Zenject;
 using Object = UnityEngine.Object;
 
 namespace ShootEmUp
 {
     public sealed class PlayerController : IDisposable, IGameStartListener, IGamePauseListener, IGameResumeListener
     {
-        private readonly GameObject _player; 
-        private readonly GameManager _gameManager;
-        private readonly BulletSystem _bulletSystem;
-        private readonly BulletConfig _bulletConfig;
+        [Inject] private BulletSystem _bulletSystem;
+        [Inject] private BulletConfig _bulletConfig;
+        [Inject] private PlayerSpawnPoint _playerSpawnPoint;
+        [Inject] private WorldPositionPoint _worldPositionPoint;
+        [Inject] private GameData _gameData;
+        [Inject] private PlayerConfig _playerConfig;
+        [Inject] private IPlayerFactory _playerFactory;
+        
+        private Player _player;
 
-        public PlayerController(GameObject playerPrefab, GameManager gameManager, 
-            BulletSystem bulletSystem, BulletConfig playerBulletConfig, Transform playerSpawnTransform, GameData gameData)
+        [Inject]
+        private void Init()
         {
-            _player = Object.Instantiate(playerPrefab, playerSpawnTransform.position, Quaternion.identity, gameData.WorldTransform);
-            gameData.Player = _player;
-            _gameManager = gameManager;
-            _bulletSystem = bulletSystem;
-            _bulletConfig = playerBulletConfig;
+            _player = _playerFactory.CreatePlayer(_playerSpawnPoint.Transform.position, _worldPositionPoint.Transform);
+            _gameData.Player = _player;
         }
 
         void IGameStartListener.OnStartGame()
@@ -75,12 +78,14 @@ namespace ShootEmUp
         {
             EventManager.Instance.Fire -= OnFire;
             EventManager.Instance.PlayerInputChanged -= OnPlayerInputChanged;
-            _player.GetComponent<HitPointsComponent>().hpEmpty -= OnCharacterDeath;
+            if (_player)
+                _player.GetComponent<HitPointsComponent>().hpEmpty -= OnCharacterDeath;
         }
 
         public void Dispose()
         {
             UnSubscribe();
+            Object.Destroy(_player);
         }
 
     }

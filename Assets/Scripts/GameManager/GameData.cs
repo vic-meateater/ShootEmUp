@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,14 +11,14 @@ namespace ShootEmUp
     )]
     public class GameData : ScriptableObject
     {
-        [NonSerialized] public Transform WorldTransform;
-        [NonSerialized] public LevelBounds LevelBounds;
-        [NonSerialized] public GameObject Player;
+        // [NonSerialized] public Transform WorldTransform;
+        // [NonSerialized] public LevelBounds LevelBounds;
+        [NonSerialized] public Player Player;
         
-        [Header("Enemy")]
-        [NonSerialized] public GameObject EnemyPrefab;
-        [NonSerialized] public Transform EnemyPoolContainerTransform;
-        [NonSerialized] public EnemyPositions EnemyPositions;
+        // [Header("Enemy")]
+        // [NonSerialized] public GameObject EnemyPrefab;
+        // [NonSerialized] public Transform EnemyPoolContainerTransform;
+        // [NonSerialized] public EnemyPositions EnemyPositions;
         
         [Header("Bullet")]
         [NonSerialized] public Bullet BulletPrefab;
