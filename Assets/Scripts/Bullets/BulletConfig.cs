@@ -11,8 +11,10 @@ namespace ShootEmUp
     {
         public PhysicsLayer PhysicsLayer;
         public Color BulletColor;
-        
         public int Damage;
+        public Vector2 Position;
+        public Vector2 Velocity;
         public float Speed;
+        public bool IsPlayer;
     }
 }

@@ -1,36 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp
 {
     public sealed class BulletSystem : IGameStopListener, IGameStartListener, IGamePauseListener, IGameResumeListener, IFixedUpdate
     {
-        private int _initialCount;
-        private Transform _container;
-        private Bullet _prefab;
-        private Transform _worldTransform;
-        private LevelBounds _levelBounds;
+        [Inject] private Transform _container;
+        [Inject] private LevelBounds _levelBounds;
+        [Inject] private BulletFactory _bulletFactory;
+        [Inject] private PlayerController _playerController;
+        [Inject] private EnemyManager _enemyManager;
+        [Inject] private BulletUtils _bulletUtils;
 
-        private readonly Queue<Bullet> _bulletPool = new();
         private readonly HashSet<Bullet> _activeBullets = new();
         private readonly List<Bullet> _cache = new();
-
-        public BulletSystem(GameData gameData)
-        {
-            _container = gameData.BulletPoolContainerTransform;
-            _prefab = gameData.BulletPrefab;
-            _worldTransform = gameData.WorldTransform;
-            _levelBounds = gameData.LevelBounds;
-            _initialCount = gameData.BulletInitialCount;
-        }
         
         void IGameStartListener.OnStartGame()
         {
-            for (var i = 0; i < _initialCount; i++)
-            {
-                var bullet = Object.Instantiate(_prefab, _container);
-                _bulletPool.Enqueue(bullet);
-            }
+            _playerController.PlayerFire += FlyBullet;
+            _enemyManager.EnemyFire += FlyBullet;
         }
 
         void IGamePauseListener.OnPauseGame()
@@ -72,25 +61,9 @@ namespace ShootEmUp
             }
         }
 
-        public void FlyBulletByArgs(Args args)
+        public void FlyBullet(BulletConfig bulletConfig)
         {
-            if (_bulletPool.TryDequeue(out var bullet))
-            {
-                bullet.transform.SetParent(_worldTransform);
-                bullet.gameObject.SetActive(true);
-            }
-            else
-            {
-                bullet = Object.Instantiate(_prefab, _worldTransform);
-            }
-
-            bullet.SetPosition(args.Position);
-            bullet.SetColor(args.Color);
-            bullet.SetPhysicsLayer(args.PhysicsLayer);
-            bullet.Damage = args.Damage;
-            bullet.IsPlayer = args.IsPlayer;
-            bullet.SetVelocity(args.Velocity);
-            
+            var bullet = _bulletFactory.Create(_container.position, bulletConfig);
             if (_activeBullets.Add(bullet))
             {
                 bullet.OnCollisionEntered += OnBulletCollision;
@@ -99,7 +72,7 @@ namespace ShootEmUp
         
         private void OnBulletCollision(Bullet bullet, Collision2D collision)
         {
-            BulletUtils.DealDamage(bullet, collision.gameObject);
+            _bulletUtils.DealDamage(bullet, collision);
             RemoveBullet(bullet);
         }
 
@@ -108,20 +81,9 @@ namespace ShootEmUp
             if (_activeBullets.Remove(bullet))
             {
                 bullet.OnCollisionEntered -= OnBulletCollision;
-                bullet.transform.SetParent(_container);
                 bullet.gameObject.SetActive(false);
-                _bulletPool.Enqueue(bullet);
+                bullet.Die();
             }
-        }
-        
-        public struct Args
-        {
-            public Vector2 Position;
-            public Vector2 Velocity;
-            public Color Color;
-            public int PhysicsLayer;
-            public int Damage;
-            public bool IsPlayer;
         }
     }
 }
