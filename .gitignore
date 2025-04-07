@@ -73,3 +73,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .qodo
+
+/[Aa]ssets/[Pp]ackages/ObservableCollections.3.3.3
+/[Aa]ssets/[Pp]ackages/ObservableCollections.R3.3.3.3
+/[Aa]ssets/[Pp]ackages/R3.1.3.0
+/[Aa]ssets/NuGet
+/[Aa]ssets/[Pp]lugins/[Ss]irenix
