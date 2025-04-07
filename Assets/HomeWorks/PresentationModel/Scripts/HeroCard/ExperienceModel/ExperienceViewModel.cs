@@ -15,7 +15,6 @@ namespace Popup
 
         public ExperienceViewModel(HeroCardInfo heroCardInfo)
         {
-            //_experience.Value = heroCardInfo.Experience;
             _experience = new ReactiveProperty<float>(heroCardInfo.Experience);
             _maxExperience = MAX_EXPERIENCE;
         }
@@ -27,14 +26,7 @@ namespace Popup
                 _experience.Value = _maxExperience;
         }
 
-        public void ResetExperience()
-        {
-            _experience.Value = RESET_EXPERIENCE;
-        }
-
-        public void SetMaxExperience(float value)
-        {
-            _maxExperience = value;
-        }
+        public void ResetExperience() => _experience.Value = RESET_EXPERIENCE;
+        public void SetMaxExperience(float value) => _maxExperience = value;
     }
 }

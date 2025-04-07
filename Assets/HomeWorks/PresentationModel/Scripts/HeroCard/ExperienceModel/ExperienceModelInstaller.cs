@@ -2,7 +2,7 @@
 
 namespace Popup
 {
-    public class ExperienceModelInstaller : Installer<ExperienceModelInstaller>
+    public sealed class ExperienceModelInstaller : Installer<ExperienceModelInstaller>
     {
         public override void InstallBindings()
         {

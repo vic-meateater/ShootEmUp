@@ -14,7 +14,7 @@ namespace Popup
         private readonly HeroCardInfo _heroCardInfo;
         private readonly IExperienceViewModel _experienceViewModel;
         private readonly Button _levelUpButton;
-        private DisposableBag _disposables = new();
+        private DisposableBag _disposables;
 
         public LevelViewModel(HeroCardInfo heroCardInfo, IExperienceViewModel experienceViewModel)
         {
@@ -22,7 +22,7 @@ namespace Popup
             _experienceViewModel = experienceViewModel;
             
             _level.Value = _heroCardInfo.Level;
-            _experienceViewModel.Experience.Subscribe(CheckExp);//.AddTo(_disposables);
+            _experienceViewModel.Experience.Subscribe(CheckExp).AddTo(ref _disposables);
         }
 
         public void AddLevel()

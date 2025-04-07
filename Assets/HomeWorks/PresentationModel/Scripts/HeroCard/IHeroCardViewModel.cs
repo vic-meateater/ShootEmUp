@@ -10,12 +10,12 @@ namespace Popup
         public ReadOnlyReactiveProperty<int> Level { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
         public ReadOnlyReactiveProperty<float> Experience { get; }
-        public int MoveSpeed { get; }
-        public int Stamina { get; }
-        public int Dexterity { get; }
-        public int Intelligence { get; }
-        public int Damage { get; }
-        public int Regeneration { get; }
+        public ReadOnlyReactiveProperty<int> MoveSpeed { get; }
+        public ReadOnlyReactiveProperty<int> Stamina { get; }
+        public ReadOnlyReactiveProperty<int> Dexterity { get; }
+        public ReadOnlyReactiveProperty<int> Intelligence { get; }
+        public ReadOnlyReactiveProperty<int> Damage { get; }
+        public ReadOnlyReactiveProperty<int> Regeneration { get; }
         
         public ReadOnlyReactiveProperty<bool> CanLevelUp { get; }
         public void LevelUp();

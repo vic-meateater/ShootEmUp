@@ -11,44 +11,47 @@ namespace Popup
         public ReadOnlyReactiveProperty<int> Level { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
         public ReadOnlyReactiveProperty<float> Experience { get; }
-        public int MoveSpeed { get; }
-        public int Stamina { get; }
-        public int Dexterity { get; }
-        public int Intelligence { get; }
-        public int Damage { get; }
-        public int Regeneration { get; }
-        
+        public ReadOnlyReactiveProperty<int> MoveSpeed { get; }
+        public ReadOnlyReactiveProperty<int> Stamina { get; }
+        public ReadOnlyReactiveProperty<int> Dexterity { get; }
+        public ReadOnlyReactiveProperty<int> Intelligence { get; }
+        public ReadOnlyReactiveProperty<int> Damage { get; }
+        public ReadOnlyReactiveProperty<int> Regeneration { get; }
         public ReadOnlyReactiveProperty<bool> CanLevelUp => _levelViewModel.CanLevelUp;
         
         private HeroCardInfo _cardInfo;
         private IExperienceViewModel _experienceViewModel;
         private ILevelViewModel _levelViewModel;
         private ICharacterInfoViewModel _characterInfoViewModel;
+        private IStatsViewModel _statsViewModel;
+        
         private DisposableBag _disposableBag;
 
         public HeroCardViewModel(
             HeroCardInfo info, 
             IExperienceViewModel experienceViewModel,
             ILevelViewModel levelViewModel,
-            ICharacterInfoViewModel characterInfoViewModel)
+            ICharacterInfoViewModel characterInfoViewModel,
+            IStatsViewModel statsViewModel)
         {
             
             _cardInfo = info;
             _experienceViewModel = experienceViewModel;
             _levelViewModel = levelViewModel;
             _characterInfoViewModel = characterInfoViewModel;
+            _statsViewModel = statsViewModel;
             
             Title = _characterInfoViewModel.Title;
             Avatar = _characterInfoViewModel.Avatar;
             Level = _levelViewModel.Level;
             Description = _characterInfoViewModel.Description;
             Experience = _experienceViewModel.Experience;
-            MoveSpeed = _cardInfo.MoveSpeed;
-            Stamina = _cardInfo.Stamina;
-            Dexterity = _cardInfo.Dexterity;
-            Intelligence = _cardInfo.Intelligence;
-            Damage = _cardInfo.Damage;
-            Regeneration = _cardInfo.Regeneration;
+            MoveSpeed = _statsViewModel.MoveSpeed;
+            Stamina = _statsViewModel.Stamina;
+            Dexterity = _statsViewModel.Dexterity;
+            Intelligence = _statsViewModel.Intelligence;
+            Damage = _statsViewModel.Damage;
+            Regeneration = _statsViewModel.Regeneration;
         }
 
         public void AddExp(float exp)

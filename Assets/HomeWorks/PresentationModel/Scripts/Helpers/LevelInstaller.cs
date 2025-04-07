@@ -9,6 +9,7 @@ namespace Popup
             ExperienceModelInstaller.Install(Container);
             LevelModelInstaller.Install(Container);
             CharacterInfoModelInstaller.Install(Container);
+            StatModelInstaller.Install(Container);
             HeroCardInstaller.Install(Container);
         }
     }

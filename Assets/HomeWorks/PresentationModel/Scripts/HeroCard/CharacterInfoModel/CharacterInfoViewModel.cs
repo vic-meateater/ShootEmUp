@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Popup
 {
-    public class CharacterInfoViewModel: ICharacterInfoViewModel
+    public sealed class CharacterInfoViewModel: ICharacterInfoViewModel
     {
         public ReadOnlyReactiveProperty<string> Title => _title;
         public ReadOnlyReactiveProperty<Sprite> Avatar => _avatar;
@@ -20,19 +20,9 @@ namespace Popup
             _description = new ReactiveProperty<string>(config.Description);
         }
 
-        public void SetTitle(string title)
-        {
-            _title.Value = title;
-        }
-
-        public void SetAvatar(Sprite avatar)
-        {
-            _avatar.Value = avatar;
-        }
-
-        public void SetDescription(string description)
-        {
-            _description.Value = description;
-        }
+        public void SetTitle(string title) => _title.Value = title;
+        public void SetAvatar(Sprite avatar) => _avatar.Value = avatar;
+        public void SetDescription(string description) => _description.Value = description;
+        
     }
 }

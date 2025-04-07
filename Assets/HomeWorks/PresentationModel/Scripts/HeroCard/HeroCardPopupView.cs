@@ -24,11 +24,11 @@ namespace Popup
         [SerializeField] private TMP_Text _damage;
         [SerializeField] private TMP_Text _regeneration;
         [Header("Buttons")]
-        [SerializeField] private Button _closeButton;
+        [SerializeField] private CloseButton _closeButton;
         [SerializeField] private LevelUpButton _levelUpButton;
         
         private IHeroCardViewModel _heroCardViewModel;
-        private readonly DisposableBag _disposables = new();
+        private DisposableBag _disposables;
 
         public void Show(IViewModel viewModel)
         {
@@ -38,40 +38,48 @@ namespace Popup
             _heroCardViewModel = heroCardViewModel;
 
             Subscribes();
-            UpdateUI();
+            gameObject.SetActive(true);
         }
 
         
         private void Subscribes()
         {
-            _heroCardViewModel.Title.Subscribe(title => _title.text = title);
-            _heroCardViewModel.Avatar.Subscribe(avatar => _avatar.sprite = avatar);
-            _heroCardViewModel.Description.Subscribe(description => _description.text = description);
-            _heroCardViewModel.Experience.Subscribe(value => _exp.text = value.ToString());
-            _heroCardViewModel.Experience.Subscribe(value => _expSlider.value = value);
-            _heroCardViewModel.CanLevelUp.Subscribe(value => 
-                _levelUpButton.SetAvailable(value));
-            _heroCardViewModel.Level.Subscribe(value =>_level.text = value.ToString());
+            _heroCardViewModel.Title.Subscribe(title => _title.text = title)
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Avatar.Subscribe(avatar => _avatar.sprite = avatar)
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Description.Subscribe(description => _description.text = description)
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Experience.Subscribe(experience => _exp.text = experience.ToString())
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Experience.Subscribe(experience => _expSlider.value = experience)
+                .AddTo(ref _disposables);
+            _heroCardViewModel.CanLevelUp.Subscribe(canLevelUp => _levelUpButton.SetAvailable(canLevelUp))
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Level.Subscribe(level =>_level.text = level.ToString())
+                .AddTo(ref _disposables);
+            _heroCardViewModel.MoveSpeed.Subscribe(moveSpeed => _moveSpeed.text = moveSpeed.ToString())
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Stamina.Subscribe(stamina => _stamina.text = stamina.ToString())
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Dexterity.Subscribe(dexterity => _dexterity.text = dexterity.ToString())
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Intelligence.Subscribe(intelligence => _intelligence.text = intelligence.ToString())
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Damage.Subscribe(damage => _damage.text = damage.ToString())
+                .AddTo(ref _disposables);
+            _heroCardViewModel.Regeneration.Subscribe(regeneration => _regeneration.text = regeneration.ToString())
+                .AddTo(ref _disposables);
             
             _levelUpButton.AddListener(OnLevelUpButtonClicked);
+            _closeButton.AddListener(OnCloseButtonClicked);
         }
 
-
-        private void UpdateUI()
+        private void OnCloseButtonClicked()
         {
-            //_title.text = _heroCardViewModel.Title;
-            //_avatar.sprite = _heroCardViewModel.Avatar;
-            //_level.text = _heroCardViewModel.Level.ToString();
-            //_description.text = _heroCardViewModel.Description;
-            //_exp.text = _heroCardViewModel.Experience.ToString();
-            //_expSlider.value = _heroCardViewModel.Experience.CurrentValue;
-            _moveSpeed.text = _heroCardViewModel.MoveSpeed.ToString();
-            _stamina.text = _heroCardViewModel.Stamina.ToString();
-            _dexterity.text = _heroCardViewModel.Dexterity.ToString();
-            _intelligence.text = _heroCardViewModel.Intelligence.ToString();
-            _damage.text = _heroCardViewModel.Damage.ToString();
-            _regeneration.text = _heroCardViewModel.Regeneration.ToString();
+            gameObject.SetActive(false);
         }
+
         private void OnLevelUpButtonClicked()
         {
             if (_heroCardViewModel.CanLevelUp.CurrentValue)
@@ -80,6 +88,8 @@ namespace Popup
 
         public void Dispose()
         {
+            _closeButton.RemoveListener(OnCloseButtonClicked);
+            _levelUpButton.RemoveListener(OnLevelUpButtonClicked);
             _disposables.Dispose();
         }
     }

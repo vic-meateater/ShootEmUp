@@ -24,7 +24,7 @@ namespace Popup
         [Button]
         public void HeroCardPopupShow()
         {
-            _experienceViewModel = _heroCardPresenterFactory.Create(_cardInfo);
+            _experienceViewModel ??= _heroCardPresenterFactory.Create(_cardInfo);
             _cardPopupView.Show(_experienceViewModel);
         }
 
