@@ -1,10 +1,7 @@
 namespace Popup
 {
-    public interface IExperiencePresenterFactory : IPresenterFactory
+    public interface IExperiencePresenterFactory: IPresenterFactory
     {
-        public ExperienceViewModel Create(HeroCardInfo config)
-        {
-            return Create(config);
-        }
+        public ExperienceViewModel Create(HeroCardInfo config);
     }
 }

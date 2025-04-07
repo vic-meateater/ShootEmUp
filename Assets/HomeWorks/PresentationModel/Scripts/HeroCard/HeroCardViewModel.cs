@@ -6,10 +6,10 @@ namespace Popup
 {
     public sealed class HeroCardViewModel: IHeroCardViewModel, IDisposable
     {
-        public string Title { get; }
-        public Sprite Avatar { get; }
+        public ReadOnlyReactiveProperty<string> Title { get; }
+        public ReadOnlyReactiveProperty<Sprite> Avatar { get; }
         public ReadOnlyReactiveProperty<int> Level { get; }
-        public string Description { get; }
+        public ReadOnlyReactiveProperty<string> Description { get; }
         public ReadOnlyReactiveProperty<float> Experience { get; }
         public int MoveSpeed { get; }
         public int Stamina { get; }
@@ -23,22 +23,25 @@ namespace Popup
         private HeroCardInfo _cardInfo;
         private IExperienceViewModel _experienceViewModel;
         private ILevelViewModel _levelViewModel;
+        private ICharacterInfoViewModel _characterInfoViewModel;
         private DisposableBag _disposableBag;
 
         public HeroCardViewModel(
             HeroCardInfo info, 
             IExperienceViewModel experienceViewModel,
-            ILevelViewModel levelViewModel)
+            ILevelViewModel levelViewModel,
+            ICharacterInfoViewModel characterInfoViewModel)
         {
             
             _cardInfo = info;
             _experienceViewModel = experienceViewModel;
             _levelViewModel = levelViewModel;
+            _characterInfoViewModel = characterInfoViewModel;
             
-            Title = _cardInfo.Title;
-            Avatar = _cardInfo.Avatar;
+            Title = _characterInfoViewModel.Title;
+            Avatar = _characterInfoViewModel.Avatar;
             Level = _levelViewModel.Level;
-            Description = _cardInfo.Description;
+            Description = _characterInfoViewModel.Description;
             Experience = _experienceViewModel.Experience;
             MoveSpeed = _cardInfo.MoveSpeed;
             Stamina = _cardInfo.Stamina;
@@ -62,6 +65,11 @@ namespace Popup
         public void Dispose()
         {
             _disposableBag.Dispose();
+        }
+
+        public void SetAvatar(Sprite avatar)
+        {
+            _characterInfoViewModel.SetAvatar(avatar);
         }
     }
 }

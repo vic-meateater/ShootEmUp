@@ -5,10 +5,10 @@ namespace Popup
 {
     public interface IHeroCardViewModel: IViewModel
     {
-        public string Title { get; }
-        public Sprite Avatar { get; }
+        public ReadOnlyReactiveProperty<string> Title { get; }
+        public ReadOnlyReactiveProperty<Sprite> Avatar { get; }
         public ReadOnlyReactiveProperty<int> Level { get; }
-        public string Description { get; }
+        public ReadOnlyReactiveProperty<string> Description { get; }
         public ReadOnlyReactiveProperty<float> Experience { get; }
         public int MoveSpeed { get; }
         public int Stamina { get; }

@@ -9,6 +9,7 @@ namespace Popup
         [SerializeField] private HeroCardPopupView _cardPopupView;
         [SerializeField] private HeroCardInfo _cardInfo;
         [SerializeField] private float _expAmount;
+        [SerializeField] private Sprite _avatar;
         
         private HeroCardPresenterFactory _heroCardPresenterFactory;
         private HeroCardViewModel _experienceViewModel;
@@ -27,10 +28,17 @@ namespace Popup
             _cardPopupView.Show(_experienceViewModel);
         }
 
+        [ButtonGroup]
         [Button]
         public void AddExp()
         {
             _experienceViewModel.AddExp(_expAmount);
+        }
+
+        [Button]
+        public void SetAvatar()
+        {
+            _experienceViewModel.SetAvatar(_avatar);
         }
     }
 }

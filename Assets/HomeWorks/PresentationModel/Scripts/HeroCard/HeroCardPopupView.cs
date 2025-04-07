@@ -44,7 +44,9 @@ namespace Popup
         
         private void Subscribes()
         {
-            //_heroCardViewModel.Experience.Subscribe(UpdateExperience).RegisterTo(destroyCancellationToken);
+            _heroCardViewModel.Title.Subscribe(title => _title.text = title);
+            _heroCardViewModel.Avatar.Subscribe(avatar => _avatar.sprite = avatar);
+            _heroCardViewModel.Description.Subscribe(description => _description.text = description);
             _heroCardViewModel.Experience.Subscribe(value => _exp.text = value.ToString());
             _heroCardViewModel.Experience.Subscribe(value => _expSlider.value = value);
             _heroCardViewModel.CanLevelUp.Subscribe(value => 
@@ -57,10 +59,10 @@ namespace Popup
 
         private void UpdateUI()
         {
-            _title.text = _heroCardViewModel.Title;
-            _avatar.sprite = _heroCardViewModel.Avatar;
+            //_title.text = _heroCardViewModel.Title;
+            //_avatar.sprite = _heroCardViewModel.Avatar;
             //_level.text = _heroCardViewModel.Level.ToString();
-            _description.text = _heroCardViewModel.Description;
+            //_description.text = _heroCardViewModel.Description;
             //_exp.text = _heroCardViewModel.Experience.ToString();
             //_expSlider.value = _heroCardViewModel.Experience.CurrentValue;
             _moveSpeed.text = _heroCardViewModel.MoveSpeed.ToString();

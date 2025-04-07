@@ -79,3 +79,10 @@ crashlytics-build.properties
 /[Aa]ssets/[Pp]ackages/R3.1.3.0
 /[Aa]ssets/NuGet
 /[Aa]ssets/[Pp]lugins/[Ss]irenix
+
+/[Aa]ssets/[Pp]ackages/ObservableCollections.3.3.3/*.meta
+/[Aa]ssets/[Pp]ackages/ObservableCollections.R3.3.3.3/*.meta
+/[Aa]ssets/[Pp]ackages/R3.1.3.0/*.meta
+/[Aa]ssets/NuGet/*.meta
+/[Aa]ssets/[Pp]lugins/[Ss]irenix/**/*.meta
+/[Aa]ssets/[Pp]ackages/**/.meta

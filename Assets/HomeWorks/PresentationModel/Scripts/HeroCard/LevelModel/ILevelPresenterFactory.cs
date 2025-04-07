@@ -2,9 +2,6 @@
 {
     public interface ILevelPresenterFactory : IPresenterFactory
     {
-        public LevelViewModel Create(HeroCardInfo config, ExperienceViewModel experienceViewModel)
-        {
-            return Create(config, experienceViewModel);
-        }
+        public LevelViewModel Create(HeroCardInfo config, ExperienceViewModel experienceViewModel);
     }
 }

@@ -8,13 +8,15 @@ namespace Popup
         private const float RESET_EXPERIENCE = 0;
         public ReadOnlyReactiveProperty<float> Experience => _experience;
         public float MaxExperience => _maxExperience;
-        private readonly ReactiveProperty<float> _experience = new();
+        
+        private readonly ReactiveProperty<float> _experience;
         private float _maxExperience;
 
 
         public ExperienceViewModel(HeroCardInfo heroCardInfo)
         {
-            _experience.Value = heroCardInfo.Experience;
+            //_experience.Value = heroCardInfo.Experience;
+            _experience = new ReactiveProperty<float>(heroCardInfo.Experience);
             _maxExperience = MAX_EXPERIENCE;
         }
         public void AddExperience(float value)

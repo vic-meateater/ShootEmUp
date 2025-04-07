@@ -7,7 +7,6 @@ namespace Popup
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<HeroCardPresenterFactory>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ExperiencePresenterFactory>().AsSingle().NonLazy();
         }
     }
 }
