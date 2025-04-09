@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Popup
         [SerializeField] private TMP_Text _description;
         [Header("Experience")]
         [SerializeField] private TMP_Text _exp;
-        [SerializeField] private Slider _expSlider;
+        [SerializeField] private ExpSlider _expSlider;
         [Header("Stats")]
         [SerializeField] private TMP_Text _moveSpeed;
         [SerializeField] private TMP_Text _stamina;
@@ -50,10 +51,7 @@ namespace Popup
                 .AddTo(ref _disposables);
             _heroCardViewModel.Description.Subscribe(description => _description.text = description)
                 .AddTo(ref _disposables);
-            _heroCardViewModel.Experience.Subscribe(experience => _exp.text = experience.ToString())
-                .AddTo(ref _disposables);
-            _heroCardViewModel.Experience.Subscribe(experience => _expSlider.value = experience)
-                .AddTo(ref _disposables);
+            _heroCardViewModel.Experience.Subscribe(OnExperienceChanged).AddTo(ref _disposables);
             _heroCardViewModel.CanLevelUp.Subscribe(canLevelUp => _levelUpButton.SetAvailable(canLevelUp))
                 .AddTo(ref _disposables);
             _heroCardViewModel.Level.Subscribe(level =>_level.text = level.ToString())
@@ -75,6 +73,13 @@ namespace Popup
             _closeButton.AddListener(OnCloseButtonClicked);
         }
 
+        private void OnExperienceChanged(float experience)
+        {
+            _exp.text =
+                $"XP: {experience.ToString()}/{_heroCardViewModel.MaxExperience}";
+            _expSlider.SetExpValue(experience);
+        }
+
         private void OnCloseButtonClicked()
         {
             gameObject.SetActive(false);
@@ -83,7 +88,10 @@ namespace Popup
         private void OnLevelUpButtonClicked()
         {
             if (_heroCardViewModel.CanLevelUp.CurrentValue)
+            {
                 _heroCardViewModel.LevelUp();
+                _expSlider.RestImage();
+            }
         }
 
         public void Dispose()

@@ -16,8 +16,8 @@ namespace Popup
         public ReadOnlyReactiveProperty<int> Intelligence { get; }
         public ReadOnlyReactiveProperty<int> Damage { get; }
         public ReadOnlyReactiveProperty<int> Regeneration { get; }
-        
         public ReadOnlyReactiveProperty<bool> CanLevelUp { get; }
+        public float MaxExperience { get; }
         public void LevelUp();
     }
 }

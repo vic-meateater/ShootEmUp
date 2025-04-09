@@ -18,6 +18,7 @@ namespace Popup
         public ReadOnlyReactiveProperty<int> Damage { get; }
         public ReadOnlyReactiveProperty<int> Regeneration { get; }
         public ReadOnlyReactiveProperty<bool> CanLevelUp => _levelViewModel.CanLevelUp;
+        public float MaxExperience => _experienceViewModel.MaxExperience;
         
         private HeroCardInfo _cardInfo;
         private IExperienceViewModel _experienceViewModel;
