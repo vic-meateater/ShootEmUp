@@ -25,5 +25,11 @@ namespace DataEngine
         {
             _saveLoader.SaveGame(_unitManager, _resourceService);
         }
+
+        [Button]
+        public void Load()
+        {
+            _saveLoader.LoadGame(_unitManager, _resourceService);
+        }
     }
 }

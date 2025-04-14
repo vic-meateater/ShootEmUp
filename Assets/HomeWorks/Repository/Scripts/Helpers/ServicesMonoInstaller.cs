@@ -4,7 +4,7 @@ using Zenject;
 
 namespace DataEngine
 {
-    public class MonoInstaller : MonoInstaller
+    public class ServicesMonoInstaller : MonoInstaller
     {
         [SerializeField] private UnitManager _unitManager;
         [SerializeField] private ResourceService _resourceService;
