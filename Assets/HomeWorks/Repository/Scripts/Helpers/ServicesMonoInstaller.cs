@@ -11,12 +11,13 @@ namespace DataEngine
         
         public override void InstallBindings()
         {
-            var units = FindObjectsOfType<Unit>();
-            var resources = FindObjectsOfType<Resource>();
-            
-            Container.Bind<SaveLoader>().FromNew().AsSingle().WithArguments(units, resources).NonLazy();
             Container.Bind<UnitManager>().FromInstance(_unitManager).AsSingle().NonLazy();
             Container.Bind<ResourceService>().FromInstance(_resourceService).AsSingle().NonLazy();
+            
+            Container.BindInterfacesAndSelfTo<SaveLoadGameServices>()
+                .AsSingle()
+                .WithArguments(_unitManager, _resourceService)
+                .NonLazy();
         }
     }
 }
