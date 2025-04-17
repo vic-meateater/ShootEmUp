@@ -14,15 +14,17 @@ namespace DataEngine
             _units = units;
         }
 
-        public void SaveGame(ISaveLoadGameServices gameServices)
+        void ISaveLoader.SaveGame(ISaveLoadGameServices gameServices, IGameRepository gameRepository)
         {
             gameServices.UnitManager.SetupUnits(_units);
             Debug.Log("Save game units called");
         }
 
-        public void LoadGame(ISaveLoadGameServices gameServices)
+        void ISaveLoader.LoadGame(ISaveLoadGameServices gameServices, IGameRepository gameRepository)
         {
             Debug.Log("Load game units called");
         }
     }
+    
+    
 }
