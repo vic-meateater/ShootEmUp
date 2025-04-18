@@ -2,7 +2,7 @@
 
 namespace DataEngine
 {
-    public class SaveLoaderManager
+    public sealed class SaveLoaderManager
     {
         private ISaveLoader[] _saveLoaders;
         private ISaveLoadGameServices _gameServices;
@@ -28,11 +28,11 @@ namespace DataEngine
 
         public void LoadGame()
         {
+            _gameRepository.LoadState();
             foreach (var loader in _saveLoaders)
             {
                 loader.LoadGame(_gameServices, _gameRepository);
             }
-            _gameRepository.LoadState();
         }
     }
 }

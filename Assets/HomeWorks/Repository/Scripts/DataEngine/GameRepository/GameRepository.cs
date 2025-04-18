@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DataEngine
 {
-    public class GameRepository : IGameRepository
+    public sealed class GameRepository : IGameRepository
     {
         private const string SAVE_KEY = "SaveKey";
         private const string FILE_NAME = "savegame.json";

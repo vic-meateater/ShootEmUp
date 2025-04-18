@@ -2,7 +2,7 @@
 
 namespace DataEngine
 {
-    public class UnitsInstaller : MonoInstaller<UnitsInstaller>
+    public sealed class UnitsInstaller : MonoInstaller<UnitsInstaller>
     {
         public override void InstallBindings()
         {

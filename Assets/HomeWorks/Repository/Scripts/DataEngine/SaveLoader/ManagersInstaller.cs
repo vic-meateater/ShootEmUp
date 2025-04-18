@@ -2,7 +2,7 @@
 
 namespace DataEngine
 {
-    public class ManagersInstaller : MonoInstaller<ManagersInstaller>
+    public sealed class ManagersInstaller : MonoInstaller<ManagersInstaller>
     {
         public override void InstallBindings()
         {

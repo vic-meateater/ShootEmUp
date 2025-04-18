@@ -2,7 +2,7 @@
 
 namespace DataEngine
 {
-    public class SaveLoadGameServices : ISaveLoadGameServices
+    public sealed class SaveLoadGameServices : ISaveLoadGameServices
     {
         public UnitManager UnitManager { get; }
         public ResourceService ResourceService { get; }

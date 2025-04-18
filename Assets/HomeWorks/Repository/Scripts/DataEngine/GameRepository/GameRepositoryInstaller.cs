@@ -2,7 +2,7 @@
 
 namespace DataEngine
 {
-    public class GameRepositoryInstaller : MonoInstaller<GameRepositoryInstaller>
+    public sealed class GameRepositoryInstaller : MonoInstaller<GameRepositoryInstaller>
     {
         public override void InstallBindings()
         {

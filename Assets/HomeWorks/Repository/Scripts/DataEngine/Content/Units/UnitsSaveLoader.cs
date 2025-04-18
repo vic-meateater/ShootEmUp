@@ -1,11 +1,9 @@
-using System;
 using GameEngine;
 using UnityEngine;
-using Zenject;
 
 namespace DataEngine
 {
-    public class UnitsSaveLoader: ISaveLoader
+    public sealed class UnitsSaveLoader: ISaveLoader
     {
         private Unit[] _units;
         
@@ -16,7 +14,7 @@ namespace DataEngine
 
         void ISaveLoader.SaveGame(ISaveLoadGameServices gameServices, IGameRepository gameRepository)
         {
-            gameServices.UnitManager.SetupUnits(_units);
+            //gameServices.UnitManager.SetupUnits(_units);
             Debug.Log("Save game units called");
         }
 
