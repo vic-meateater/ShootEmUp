@@ -22,7 +22,7 @@ namespace DataEngine
                 {
                     ID = r.ID,
                     Amount = r.Amount,
-                    Position = Vector3ToArray(r.transform.position),
+                    Position = Converter.Vector3ToArray(r.transform.position),
                 })
             };
             gameRepository.SetData(saveData);
@@ -56,23 +56,23 @@ namespace DataEngine
                 if (saveDict.TryGetValue(resource.ID, out var data))
                 {
                     resource.Amount = data.Amount;
-                    resource.transform.position = ArrayToVector3(data.Position);
+                    resource.transform.position = Converter.ArrayToVector3(data.Position);
                     yield return resource;
                 }
             }
         }
         
-        private float[] Vector3ToArray(Vector3 vector)
-        {
-            return new float[] { vector.x, vector.y, vector.z };
-        }
-
-        private Vector3 ArrayToVector3(float[] array)
-        {
-            if (array == null || array.Length != 3)
-                return Vector3.zero;
-            
-            return new Vector3(array[0], array[1], array[2]);
-        }
+        // private float[] Vector3ToArray(Vector3 vector)
+        // {
+        //     return new float[] { vector.x, vector.y, vector.z };
+        // }
+        //
+        // private Vector3 ArrayToVector3(float[] array)
+        // {
+        //     if (array == null || array.Length != 3)
+        //         return Vector3.zero;
+        //     
+        //     return new Vector3(array[0], array[1], array[2]);
+        // }
     }
 }
