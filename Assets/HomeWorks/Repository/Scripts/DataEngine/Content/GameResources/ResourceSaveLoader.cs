@@ -7,12 +7,6 @@ namespace DataEngine
 {
     public sealed class ResourceSaveLoader: ISaveLoader
     {
-        private Resource[] _resources;
-
-        public ResourceSaveLoader(Resource[] resources)
-        {
-            _resources = resources;
-        }
         void ISaveLoader.SaveGame(ISaveLoadGameServices gameServices, IGameRepository gameRepository)
         {
             var resources = gameServices.ResourceService.GetResources();
@@ -61,18 +55,5 @@ namespace DataEngine
                 }
             }
         }
-        
-        // private float[] Vector3ToArray(Vector3 vector)
-        // {
-        //     return new float[] { vector.x, vector.y, vector.z };
-        // }
-        //
-        // private Vector3 ArrayToVector3(float[] array)
-        // {
-        //     if (array == null || array.Length != 3)
-        //         return Vector3.zero;
-        //     
-        //     return new Vector3(array[0], array[1], array[2]);
-        // }
     }
 }

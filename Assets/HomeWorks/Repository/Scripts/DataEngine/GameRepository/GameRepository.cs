@@ -18,8 +18,9 @@ namespace DataEngine
         {
             string key = typeof(T).Name;
 
-            if (_gameState.TryGetValue(key, out var jsonData))
+            if (_gameState.TryGetValue(key, out var encryptedJsonData))
             {
+                string jsonData = Encryptor.Decrypt(encryptedJsonData);
                 data = JsonConvert.DeserializeObject<T>(jsonData);
                 return true;
             }
@@ -31,7 +32,8 @@ namespace DataEngine
         public void SetData<T>(T data)
         {
             string key = typeof(T).Name;
-            _gameState[key] = JsonConvert.SerializeObject(data);
+            string json = JsonConvert.SerializeObject(data);
+            _gameState[key] = Encryptor.Encrypt(json);
         }
 
         public void SaveState()
@@ -39,7 +41,8 @@ namespace DataEngine
             try
             {
                 var jsonData = JsonConvert.SerializeObject(_gameState, Formatting.Indented);
-                File.WriteAllText(FilePath, jsonData);
+                string encryptedData = Encryptor.Encrypt(jsonData);
+                File.WriteAllText(FilePath, encryptedData);
                 Debug.Log($"Game saved to: {FilePath}");
             }
             catch (Exception ex)
@@ -58,7 +61,8 @@ namespace DataEngine
                     return;
                 }
 
-                var jsonData = File.ReadAllText(FilePath);
+                var encryptedData = File.ReadAllText(FilePath);
+                string jsonData = Encryptor.Decrypt(encryptedData);
                 _gameState = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
                 Debug.Log("Game loaded successfully");
             }

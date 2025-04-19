@@ -6,12 +6,10 @@ namespace DataEngine
 {
     public sealed class UnitsSaveLoader: ISaveLoader
     {
-        private readonly Unit[] _units;
         private readonly Dictionary<string, Unit> _unitPrefabs;
         
-        public UnitsSaveLoader(Unit[] units, Dictionary<string, Unit> unitPrefabs)
+        public UnitsSaveLoader(Dictionary<string, Unit> unitPrefabs)
         {
-            _units = units;
             _unitPrefabs = unitPrefabs;
         }
 
@@ -65,24 +63,7 @@ namespace DataEngine
                     Debug.LogWarning($"Unit prefab not found for type: {record.UnitType}");
                 }
             }
-
             Debug.Log($"Load game units called.\nLoaded {saveData.Units.Count} units");
         }
     }
-    
-    [System.Serializable]
-    public class UnitsSaveData
-    {
-        public HashSet<UnitsData> Units;
-    }
-
-    [System.Serializable]
-    public struct UnitsData
-    {
-        public string UnitType;
-        public int HitPoints;
-        public float[] Position;
-        public float[] Rotation;
-    }
-    
 }

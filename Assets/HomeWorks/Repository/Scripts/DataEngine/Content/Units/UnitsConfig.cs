@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DataEngine
 {
     [CreateAssetMenu(fileName = "UnitsConfig", menuName = "Repository/UnitsConfig")]
-    public class UnitsConfig : ScriptableObject
+    public sealed class UnitsConfig : ScriptableObject
     {
         public List<GameEngine.Unit> Prefabs;
     
