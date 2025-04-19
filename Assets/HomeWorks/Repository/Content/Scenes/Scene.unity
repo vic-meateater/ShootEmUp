@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0309ea58df4b4ecd88eb00f9f58a9bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitsConfig: {fileID: 11400000, guid: cbf4f53f666c26e4493b443b43098524, type: 2}
 --- !u!114 &427880573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitManager:
-    container: {fileID: 0}
+    container: {fileID: 1263304700}
 --- !u!1001 &710706770
 PrefabInstance:
   m_ObjectHideFlags: 0

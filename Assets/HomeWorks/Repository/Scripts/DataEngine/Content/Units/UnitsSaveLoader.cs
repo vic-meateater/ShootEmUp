@@ -6,11 +6,13 @@ namespace DataEngine
 {
     public sealed class UnitsSaveLoader: ISaveLoader
     {
-        private Unit[] _units;
+        private readonly Unit[] _units;
+        private readonly Dictionary<string, Unit> _unitPrefabs;
         
-        public UnitsSaveLoader(Unit[] units)
+        public UnitsSaveLoader(Unit[] units, Dictionary<string, Unit> unitPrefabs)
         {
             _units = units;
+            _unitPrefabs = unitPrefabs;
         }
 
         void ISaveLoader.SaveGame(ISaveLoadGameServices gameServices, IGameRepository gameRepository)
@@ -46,23 +48,23 @@ namespace DataEngine
                 gameServices.UnitManager.DestroyUnit(unit);
             }
             
-            // foreach (var record in saveData.Units)
-            // {
-            //     if (_unitPrefabs.TryGetValue(record.UnitType, out Unit prefab))
-            //     {
-            //         var unit = gameServices.UnitManager.SpawnUnit(
-            //             prefab,
-            //             Converter.ArrayToVector3(record.Position),
-            //             Quaternion.Euler(Converter.ArrayToVector3(record.Rotation))
-            //         );
-            //         
-            //         unit.HitPoints = record.HitPoints;
-            //     }
-            //     else
-            //     {
-            //         Debug.LogWarning($"Unit prefab not found for type: {record.UnitType}");
-            //     }
-            // }
+            foreach (var record in saveData.Units)
+            {
+                if (_unitPrefabs.TryGetValue(record.UnitType, out Unit prefab))
+                {
+                    var unit = gameServices.UnitManager.SpawnUnit(
+                        prefab,
+                        Converter.ArrayToVector3(record.Position),
+                        Quaternion.Euler(Converter.ArrayToVector3(record.Rotation))
+                    );
+                    
+                    unit.HitPoints = record.HitPoints;
+                }
+                else
+                {
+                    Debug.LogWarning($"Unit prefab not found for type: {record.UnitType}");
+                }
+            }
 
             Debug.Log($"Load game units called.\nLoaded {saveData.Units.Count} units");
         }
