@@ -19,7 +19,7 @@ namespace Popup
             }
         }
 
-        public void RestImage()
+        public void ResetImage()
         {
             _sourceImage.sprite = _unFilledImage;
         }

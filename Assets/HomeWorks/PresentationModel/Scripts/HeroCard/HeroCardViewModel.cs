@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using R3;
 using UnityEngine;
 
@@ -11,14 +12,9 @@ namespace Popup
         public ReadOnlyReactiveProperty<int> Level { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
         public ReadOnlyReactiveProperty<float> Experience { get; }
-        public ReadOnlyReactiveProperty<int> MoveSpeed { get; }
-        public ReadOnlyReactiveProperty<int> Stamina { get; }
-        public ReadOnlyReactiveProperty<int> Dexterity { get; }
-        public ReadOnlyReactiveProperty<int> Intelligence { get; }
-        public ReadOnlyReactiveProperty<int> Damage { get; }
-        public ReadOnlyReactiveProperty<int> Regeneration { get; }
+        public IReadOnlyDictionary<StatId, StatViewModel> Stats { get; }
         public ReadOnlyReactiveProperty<bool> CanLevelUp => _levelViewModel.CanLevelUp;
-        public float MaxExperience => _experienceViewModel.MaxExperience;
+        public string ExperienceToLvlUp => $"XP: {Experience}/{_experienceViewModel.MaxExperience}";
         
         private HeroCardInfo _cardInfo;
         private IExperienceViewModel _experienceViewModel;
@@ -47,12 +43,7 @@ namespace Popup
             Level = _levelViewModel.Level;
             Description = _characterInfoViewModel.Description;
             Experience = _experienceViewModel.Experience;
-            MoveSpeed = _statsViewModel.MoveSpeed;
-            Stamina = _statsViewModel.Stamina;
-            Dexterity = _statsViewModel.Dexterity;
-            Intelligence = _statsViewModel.Intelligence;
-            Damage = _statsViewModel.Damage;
-            Regeneration = _statsViewModel.Regeneration;
+            Stats = _statsViewModel.Stats;
         }
 
         public void AddExp(float exp)

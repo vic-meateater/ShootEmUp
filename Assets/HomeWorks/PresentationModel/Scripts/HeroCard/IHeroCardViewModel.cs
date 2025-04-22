@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using R3;
 using UnityEngine;
 
@@ -10,14 +11,9 @@ namespace Popup
         public ReadOnlyReactiveProperty<int> Level { get; }
         public ReadOnlyReactiveProperty<string> Description { get; }
         public ReadOnlyReactiveProperty<float> Experience { get; }
-        public ReadOnlyReactiveProperty<int> MoveSpeed { get; }
-        public ReadOnlyReactiveProperty<int> Stamina { get; }
-        public ReadOnlyReactiveProperty<int> Dexterity { get; }
-        public ReadOnlyReactiveProperty<int> Intelligence { get; }
-        public ReadOnlyReactiveProperty<int> Damage { get; }
-        public ReadOnlyReactiveProperty<int> Regeneration { get; }
         public ReadOnlyReactiveProperty<bool> CanLevelUp { get; }
-        public float MaxExperience { get; }
+        public IReadOnlyDictionary<StatId, StatViewModel> Stats { get; }
+        public string ExperienceToLvlUp { get; }
         public void LevelUp();
     }
 }
