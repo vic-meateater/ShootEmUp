@@ -9,9 +9,9 @@ namespace Popup
         public ReadOnlyReactiveProperty<Sprite> Avatar => _avatar;
         public ReadOnlyReactiveProperty<string> Description => _description;
         
-        private ReactiveProperty<string> _title;
-        private ReactiveProperty<Sprite> _avatar;
-        private ReactiveProperty<string> _description;
+        private readonly ReactiveProperty<string> _title;
+        private readonly ReactiveProperty<Sprite> _avatar;
+        private readonly ReactiveProperty<string> _description;
 
         public CharacterInfoViewModel(HeroCardInfo config)
         {
@@ -23,6 +23,5 @@ namespace Popup
         public void SetTitle(string title) => _title.Value = title;
         public void SetAvatar(Sprite avatar) => _avatar.Value = avatar;
         public void SetDescription(string description) => _description.Value = description;
-        
     }
 }

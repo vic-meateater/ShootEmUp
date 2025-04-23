@@ -1358,6 +1358,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5885028612371908572, guid: e7a9dd1af5843b147b394348844da378,
         type: 3}
+      propertyPath: _levelView
+      value: 
+      objectReference: {fileID: 4366904840668369905}
+    - target: {fileID: 5885028612371908572, guid: e7a9dd1af5843b147b394348844da378,
+        type: 3}
       propertyPath: _statsView
       value: 
       objectReference: {fileID: 4366904840668369903}
@@ -1682,6 +1687,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4366904840668369903}
+    - targetCorrespondingSourceObject: {fileID: 5107813010599443154, guid: e7a9dd1af5843b147b394348844da378,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4366904840668369905}
   m_SourcePrefab: {fileID: 100100000, guid: e7a9dd1af5843b147b394348844da378, type: 3}
 --- !u!114 &4366904840668369901 stripped
 MonoBehaviour:
@@ -1743,6 +1752,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _exp: {fileID: 1598761159}
   _expSlider: {fileID: 991115695}
+--- !u!114 &4366904840668369905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520260005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9797f7671145a8875136e4799c665a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: {fileID: 1955058031}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

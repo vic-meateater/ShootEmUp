@@ -14,25 +14,24 @@ namespace Popup
         [SerializeField] private TMP_Text _level;
         [SerializeField] private TMP_Text _description;
 
-        private IHeroCardViewModel _heroCardViewModel;
+        private ICharacterInfoViewModel _characterInfoViewModel;
         private DisposableBag _disposables;
         
-        public void Init(IHeroCardViewModel heroCardViewModel)
+        public void Init(ICharacterInfoViewModel characterInfoViewModel)
         {
-            _heroCardViewModel = heroCardViewModel;
+            _characterInfoViewModel = characterInfoViewModel;
 
             Subscribes();
         }
 
         private void Subscribes()
         {
-            _heroCardViewModel.Title.Subscribe(title => _title.text = title)
+            
+            _characterInfoViewModel.Title.Subscribe(title => _title.text = title)
                 .AddTo(ref _disposables);
-            _heroCardViewModel.Avatar.Subscribe(avatar => _avatar.sprite = avatar)
+            _characterInfoViewModel.Avatar.Subscribe(avatar => _avatar.sprite = avatar)
                 .AddTo(ref _disposables);
-            _heroCardViewModel.Description.Subscribe(description => _description.text = description)
-                .AddTo(ref _disposables);
-            _heroCardViewModel.Level.Subscribe(level =>_level.text = level.ToString())
+            _characterInfoViewModel.Description.Subscribe(description => _description.text = description)
                 .AddTo(ref _disposables);
         }
         

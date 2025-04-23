@@ -11,12 +11,12 @@ namespace Popup
         [SerializeField] private TMP_Text _exp;
         [SerializeField] private ExpSlider _expSlider;
         
-        private IHeroCardViewModel _heroCardViewModel;
+        private IExperienceViewModel _experienceViewModel;
         private DisposableBag _disposables;
         
-        public void Init(IHeroCardViewModel heroCardViewModel)
+        public void Init(IExperienceViewModel experienceViewModel)
         {
-            _heroCardViewModel = heroCardViewModel;
+            _experienceViewModel = experienceViewModel;
 
             Subscribes();
         }
@@ -28,12 +28,12 @@ namespace Popup
 
         private void Subscribes()
         {
-            _heroCardViewModel.Experience.Subscribe(OnExperienceChanged).AddTo(ref _disposables);
+            _experienceViewModel.Experience.Subscribe(OnExperienceChanged).AddTo(ref _disposables);
         }
 
         private void OnExperienceChanged(float experience)
         {
-            _exp.text = _heroCardViewModel.ExperienceToLvlUp;
+            _exp.text = _experienceViewModel.ExperienceToLvlUp;
             _expSlider.SetExpValue(experience);
         }
         

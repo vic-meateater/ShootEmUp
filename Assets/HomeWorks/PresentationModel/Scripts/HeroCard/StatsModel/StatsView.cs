@@ -16,13 +16,13 @@ namespace Popup
         [SerializeField] private TMP_Text _damage;
         [SerializeField] private TMP_Text _regeneration;
         
-        private Dictionary<StatId, TMP_Text> _statsDictionary = new();
-        private IHeroCardViewModel _heroCardViewModel;
+        private readonly Dictionary<StatId, TMP_Text> _statsDictionary = new();
+        private IStatsViewModel _statsViewModel;
         private DisposableBag _disposables;
         
-        public void Init(IHeroCardViewModel heroCardViewModel)
+        public void Init(IStatsViewModel statsViewModel)
         {
-            _heroCardViewModel = heroCardViewModel;
+            _statsViewModel = statsViewModel;
 
             FillStatsDictionary();
             Subscribes();
@@ -46,7 +46,7 @@ namespace Popup
                 var statKey = kvp.Key;
                 var statText = kvp.Value;
 
-                if (_heroCardViewModel.Stats.TryGetValue(statKey, out var stat))
+                if (_statsViewModel.Stats.TryGetValue(statKey, out var stat))
                 {
                     stat.Value.Subscribe(value => statText.text = value.ToString())
                         .AddTo(ref _disposables);

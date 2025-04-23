@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using R3;
 using UnityEngine;
 
@@ -7,20 +6,16 @@ namespace Popup
 {
     public sealed class HeroCardViewModel: IHeroCardViewModel, IDisposable
     {
-        public ReadOnlyReactiveProperty<string> Title { get; }
-        public ReadOnlyReactiveProperty<Sprite> Avatar { get; }
-        public ReadOnlyReactiveProperty<int> Level { get; }
-        public ReadOnlyReactiveProperty<string> Description { get; }
-        public ReadOnlyReactiveProperty<float> Experience { get; }
-        public IReadOnlyDictionary<StatId, StatViewModel> Stats { get; }
-        public ReadOnlyReactiveProperty<bool> CanLevelUp => _levelViewModel.CanLevelUp;
-        public string ExperienceToLvlUp => $"XP: {Experience}/{_experienceViewModel.MaxExperience}";
+        public ICharacterInfoViewModel CharacterInfoViewModel => _characterInfoViewModel;
+        public ILevelViewModel LevelViewModel => _levelViewModel;
+        public IExperienceViewModel ExperienceViewModel => _experienceViewModel;
+        public IStatsViewModel StatsViewModel => _statsViewModel;
         
-        private HeroCardInfo _cardInfo;
-        private IExperienceViewModel _experienceViewModel;
-        private ILevelViewModel _levelViewModel;
-        private ICharacterInfoViewModel _characterInfoViewModel;
-        private IStatsViewModel _statsViewModel;
+        private readonly HeroCardInfo _cardInfo;
+        private readonly IExperienceViewModel _experienceViewModel;
+        private readonly ILevelViewModel _levelViewModel;
+        private readonly ICharacterInfoViewModel _characterInfoViewModel;
+        private readonly IStatsViewModel _statsViewModel;
         
         private DisposableBag _disposableBag;
 
@@ -37,13 +32,6 @@ namespace Popup
             _levelViewModel = levelViewModel;
             _characterInfoViewModel = characterInfoViewModel;
             _statsViewModel = statsViewModel;
-            
-            Title = _characterInfoViewModel.Title;
-            Avatar = _characterInfoViewModel.Avatar;
-            Level = _levelViewModel.Level;
-            Description = _characterInfoViewModel.Description;
-            Experience = _experienceViewModel.Experience;
-            Stats = _statsViewModel.Stats;
         }
 
         public void AddExp(float exp)
@@ -56,15 +44,14 @@ namespace Popup
             _levelViewModel.AddLevel();
             _experienceViewModel.ResetExperience();
         }
-
-        public void Dispose()
-        {
-            _disposableBag.Dispose();
-        }
-
+        
         public void SetAvatar(Sprite avatar)
         {
             _characterInfoViewModel.SetAvatar(avatar);
+        }
+        public void Dispose()
+        {
+            _disposableBag.Dispose();
         }
     }
 }
