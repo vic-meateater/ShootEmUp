@@ -12,7 +12,7 @@ namespace Popup
         [SerializeField] private Sprite _avatar;
         
         private HeroCardPresenterFactory _heroCardPresenterFactory;
-        private HeroCardViewModel _experienceViewModel;
+        private IHeroCardViewModel _experienceViewModel;
 
         [Inject]
         private void Construct(HeroCardPresenterFactory heroCardPresenterFactory)

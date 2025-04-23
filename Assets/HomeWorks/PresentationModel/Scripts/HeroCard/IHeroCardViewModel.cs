@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Popup
 {
     public interface IHeroCardViewModel: IViewModel
@@ -7,5 +9,7 @@ namespace Popup
         public IExperienceViewModel ExperienceViewModel { get; }
         public IStatsViewModel StatsViewModel { get; }
         public void LevelUp();
+        public void AddExp(float exp);
+        public void SetAvatar(Sprite avatar);
     }
 }
