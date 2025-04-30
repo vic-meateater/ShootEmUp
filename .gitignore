@@ -73,6 +73,3 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .qodo
-/[Aa]ssets/[Pp]ackages/**/*.meta
-/[Aa]ssets/[Nn]u[Gg]et/**/*.meta
-Assets/NuGet.meta
