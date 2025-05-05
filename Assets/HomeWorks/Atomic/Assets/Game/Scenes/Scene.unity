@@ -170,6 +170,8 @@ MonoBehaviour:
   _moveController: {fileID: 1293439160}
   _playerInputController:
     _playerEntity: {fileID: 625937920}
+  _playerService:
+    PlayerEntity: {fileID: 625937920}
 --- !u!114 &18385287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,7 +437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &401456843
 Transform:
   m_ObjectHideFlags: 0
@@ -467,6 +469,8 @@ MonoBehaviour:
     type: 3}
   _playerSpawnPoint: {fileID: 1366530279}
   _playerParent: {fileID: 1366530278}
+  _playerService:
+    PlayerEntity: {fileID: 0}
 --- !u!1 &532027486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,6 +1044,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveDirection:
+    value: {x: 0, y: 0, z: 0}
+  LookPoint:
     value: {x: 0, y: 0, z: 0}
   _groundLayer:
     serializedVersion: 2
@@ -1709,7 +1715,7 @@ PrefabInstance:
     - target: {fileID: 1881559313263177472, guid: e187c7d37e4b56347adb40ed467fc7b6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3527064153079331022, guid: e187c7d37e4b56347adb40ed467fc7b6,
         type: 3}

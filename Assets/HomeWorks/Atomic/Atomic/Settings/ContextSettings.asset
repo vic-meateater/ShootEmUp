@@ -23,3 +23,6 @@ MonoBehaviour:
     - id: 1
       name: MoveController
       type: MoveController
+    - id: 2
+      name: PlayerService
+      type: PlayerService

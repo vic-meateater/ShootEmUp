@@ -12,6 +12,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         private const float MAX_DISTANCE = 100f;
         
         public ReactiveVector3 MoveDirection;
+        public ReactiveVector3 LookPoint;
         
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private SceneEntity _playerEntity;
@@ -60,6 +61,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             {
                 Vector3 lookPoint = hit.point;
                 //_playerEntity.Entity.GetLookPoint().Value = lookPoint;
+                LookPoint = new ReactiveVector3(lookPoint);
             }
         }
     }

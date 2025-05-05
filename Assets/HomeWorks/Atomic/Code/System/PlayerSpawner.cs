@@ -1,4 +1,5 @@
 using System;
+using Atomic.Entities;
 using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
@@ -8,14 +9,16 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private GameObject _playerParent;
+        [SerializeField] private PlayerService _playerService;
 
         private void Start()
         {
-            Instantiate(
+            var player = Instantiate(
                 _playerPrefab,
                 _playerSpawnPoint.position,
                 _playerSpawnPoint.rotation,
                 _playerParent.transform);
+            _playerService.SetPlayerEntity(player.GetComponent<SceneEntity>());
         }
     }
 }

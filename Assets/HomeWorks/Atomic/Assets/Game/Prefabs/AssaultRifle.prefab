@@ -4913,7 +4913,6 @@ GameObject:
   - component: {fileID: 6005445381689242305}
   - component: {fileID: 6922167316465414671}
   - component: {fileID: 3135230819848581786}
-  - component: {fileID: 3048420566031472662}
   m_Layer: 0
   m_Name: AssaultRifle
   m_TagString: Untagged
@@ -5041,19 +5040,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &3048420566031472662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7260203697527130024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82752fed00d948f7a053c09fe615802c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 6005445381689242305}
 --- !u!1 &8972663182930029208
 GameObject:
   m_ObjectHideFlags: 0

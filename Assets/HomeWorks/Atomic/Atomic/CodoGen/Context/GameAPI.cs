@@ -12,6 +12,7 @@ namespace ShootEmUp.HomeWorks.Atomic
 	{
 		///Keys
 		public const int MoveController = 1; // MoveController
+		public const int PlayerService = 2; // PlayerService
 
 
 		///Extensions
@@ -32,5 +33,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasMoveController(this IContext obj) => obj.HasValue(MoveController);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static PlayerService GetPlayerService(this IContext obj) => obj.ResolveValue<PlayerService>(PlayerService);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetPlayerService(this IContext obj, out PlayerService value) => obj.TryResolveValue(PlayerService, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddPlayerService(this IContext obj, PlayerService value) => obj.AddValue(PlayerService, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelPlayerService(this IContext obj) => obj.DelValue(PlayerService);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetPlayerService(this IContext obj, PlayerService value) => obj.SetValue(PlayerService, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasPlayerService(this IContext obj) => obj.HasValue(PlayerService);
     }
 }
