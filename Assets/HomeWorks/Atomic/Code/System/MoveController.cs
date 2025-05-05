@@ -1,4 +1,5 @@
 using System.Linq;
+using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,8 +11,10 @@ namespace ShootEmUp.HomeWorks.Atomic
     {
         private const float MAX_DISTANCE = 100f;
         
+        public ReactiveVector3 MoveDirection;
+        
         [SerializeField] private LayerMask _groundLayer;
-        //[SerializeField] private SceneEntity _playerEntity;
+        [SerializeField] private SceneEntity _playerEntity;
         //private readonly IEntityFilter _playerFilter = new EntityFilter(entity => entity.HasTag(TagAPI.PlayerTag));
         
         private Camera _mainCamera;
@@ -19,7 +22,6 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         private void Start()
         {
-            IEntityFilter _playerFilter = new EntityFilter(entity => entity.HasTag(TagAPI.PlayerTag));
             _mainCamera = Camera.main;
         }
 
@@ -45,7 +47,9 @@ namespace ShootEmUp.HomeWorks.Atomic
             float vertical = Input.GetAxisRaw("Vertical");
 
             _direction = new Vector3(horizontal, 0f, vertical).normalized;
-            //_playerEntity.Entity.GetMoveDirection().Value = _direction;
+            MoveDirection = new ReactiveVector3(_direction);
+            //Debug.Log(_direction);
+            // _playerEntity.Entity.GetMoveDirection().Value = _direction;
         }
 
         private void HandleMouseInput()

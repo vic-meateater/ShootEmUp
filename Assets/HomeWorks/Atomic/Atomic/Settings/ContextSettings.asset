@@ -15,8 +15,11 @@ MonoBehaviour:
   <Inactive>k__BackingField: 0
   categories:
   - Name: Game
-    Namespace: Atomic.Contexts
+    Namespace: ShootEmUp.HomeWorks.Atomic
     DirectoryPath: Assets/HomeWorks/Atomic/Atomic/CodoGen/Context
     ClassSuffix: API
     Imports: []
-    items: []
+    items:
+    - id: 1
+      name: MoveController
+      type: MoveController

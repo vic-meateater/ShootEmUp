@@ -24,7 +24,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             Move(deltaTime);
         }
         
-        void Move(float deltaTime)
+        private void Move(float deltaTime)
         {
             Vector3 newPosition = _rb.position + _direction.Value * _moveSpeed.Value * deltaTime;
             _rb.MovePosition(newPosition);

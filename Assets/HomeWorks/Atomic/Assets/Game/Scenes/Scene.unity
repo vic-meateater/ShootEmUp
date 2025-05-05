@@ -128,6 +128,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 18385285}
+  - component: {fileID: 18385287}
+  - component: {fileID: 18385286}
+  - component: {fileID: 18385288}
   m_Layer: 0
   m_Name: '[System]'
   m_TagString: GameContext
@@ -152,6 +155,55 @@ Transform:
   - {fileID: 401456843}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &18385286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18385282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c234f741724ce43bb1586cfbc17ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveController: {fileID: 1293439160}
+  _playerInputController:
+    _playerEntity: {fileID: 625937920}
+--- !u!114 &18385287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18385282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7ec72f0dfc41099626eca8f3353622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  installOnAwake: 1
+  initialParent: {fileID: 0}
+  installers:
+  - {fileID: 18385286}
+  children: []
+  onInstalled:
+    m_PersistentCalls:
+      m_Calls: []
+  refreshOnValidate: 1
+--- !u!114 &18385288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18385282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f2414fcf5314631b6dda955bd109e3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dependencyInjection: 0
 --- !u!1 &91941558
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &401456843
 Transform:
   m_ObjectHideFlags: 0
@@ -987,9 +1039,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6691656dd69205248b545d26e73ad316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveDirection:
+    value: {x: 0, y: 0, z: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  _playerEntity: {fileID: 625937920}
 --- !u!1 &1366530278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1709,7 @@ PrefabInstance:
     - target: {fileID: 1881559313263177472, guid: e187c7d37e4b56347adb40ed467fc7b6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3527064153079331022, guid: e187c7d37e4b56347adb40ed467fc7b6,
         type: 3}
