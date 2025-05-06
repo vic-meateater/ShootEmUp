@@ -168,11 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveController: {fileID: 1293439160}
-  _playerInputController:
-    _playerEntity: {fileID: 4349760689078777771, guid: e187c7d37e4b56347adb40ed467fc7b6,
-      type: 3}
   _playerService:
     PlayerEntity: {fileID: 0}
+  _uiView: {fileID: 1980450348533929287}
 --- !u!114 &18385287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,8 +1041,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6691656dd69205248b545d26e73ad316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LookPoint:
-    value: {x: 0, y: 0, z: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1544,7 +1540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0c63c6947d7ba469af9412e98e4756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneEntity: {fileID: 625937920}
   _healthText: {fileID: 6615131717051902429}
   _ammoText: {fileID: 1625409112}
   _killedText: {fileID: 91941560}
@@ -1620,7 +1615,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HIT POINTS: 5'
+  m_text: 'HIT POINTS: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

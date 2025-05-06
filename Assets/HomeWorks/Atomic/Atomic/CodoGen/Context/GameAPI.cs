@@ -13,6 +13,7 @@ namespace ShootEmUp.HomeWorks.Atomic
 		///Keys
 		public const int MoveController = 1; // MoveController
 		public const int PlayerService = 2; // PlayerService
+		public const int IUIViewModel = 3; // IUIViewModel
 
 
 		///Extensions
@@ -51,5 +52,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasPlayerService(this IContext obj) => obj.HasValue(PlayerService);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IUIViewModel GetIUIViewModel(this IContext obj) => obj.ResolveValue<IUIViewModel>(IUIViewModel);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetIUIViewModel(this IContext obj, out IUIViewModel value) => obj.TryResolveValue(IUIViewModel, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddIUIViewModel(this IContext obj, IUIViewModel value) => obj.AddValue(IUIViewModel, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelIUIViewModel(this IContext obj) => obj.DelValue(IUIViewModel);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetIUIViewModel(this IContext obj, IUIViewModel value) => obj.SetValue(IUIViewModel, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasIUIViewModel(this IContext obj) => obj.HasValue(IUIViewModel);
     }
 }

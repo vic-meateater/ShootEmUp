@@ -26,3 +26,6 @@ MonoBehaviour:
     - id: 2
       name: PlayerService
       type: PlayerService
+    - id: 3
+      name: IUIViewModel
+      type: IUIViewModel

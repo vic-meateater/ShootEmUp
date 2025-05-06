@@ -8,24 +8,18 @@ namespace ShootEmUp.HomeWorks.Atomic
 {
     public class UIView : MonoBehaviour, IDisposable
     {
-        [SerializeField] private SceneEntity _sceneEntity;
         [SerializeField] private TMP_Text _healthText;
         [SerializeField] private TMP_Text _ammoText;
         [SerializeField] private TMP_Text _killedText;
         [SerializeField] private GameObject _endGameScreen;
         
-        private IReactiveVariable<float> _currentHealth;
-        private IReactiveVariable<bool> _isDead;
+        private IReactiveVariable<bool> _isDead = new ReactiveVariable<bool>();
+        private IUIViewModel _viewModel;
 
-        private void Start()
+        public void Init(IUIViewModel viewModel)
         {
-            _currentHealth = _sceneEntity.Entity.GetCurrentHealth();
-            _currentHealth.Subscribe(OnHealthChanged);
-
-            _isDead = _sceneEntity.Entity.GetIsDead();
-            _isDead.Subscribe(OnIsDead);
-            
-            _healthText.text = $"HIT POINTS: {_currentHealth.Value}";
+            _viewModel = viewModel;
+            _viewModel.CurrentHealth.Subscribe(OnHealthChanged);
         }
 
         private void OnIsDead(bool isDead)
@@ -41,7 +35,6 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         public void Dispose()
         {
-            _currentHealth.Unsubscribe(OnHealthChanged);
             _isDead.Unsubscribe(OnIsDead);
         }
     }

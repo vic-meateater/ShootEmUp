@@ -12,23 +12,61 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private MoveController _moveController;
         [SerializeField] private PlayerInputController _playerInputController;
         [SerializeField] private PlayerService _playerService;
+        [SerializeField] private UIView _uiView;
+        
 
         public override void Install(IContext context)
         {
             context.AddMoveController(_moveController);
             context.AddPlayerService(_playerService);
-            
+            context.AddIUIViewModel(new UIViewModel(_uiView));
+
+            context.AddSystem(new UIViewController());
             context.AddSystem(_playerInputController);
         }
     }
+
+//    [Serializable]
+     public class UIViewController : IContextInit
+     {
+         private IUIViewModel _viewModel;
+         private PlayerService _playerService;
+         
+         public void Init(IContext context)
+         {
+             _viewModel = context.GetIUIViewModel();
+             _playerService = context.GetPlayerService();
+    
+             var currentHealth= _playerService.PlayerEntity.GetCurrentHealth();
+             _viewModel.CurrentHealth.Value = currentHealth.Value;
+             currentHealth.Subscribe(OnHealthChanged);
+         }
+    
+         private void OnHealthChanged(float health)
+         {
+             _viewModel.CurrentHealth.Value = health;
+         }
+     }
+    
+     [Serializable]
+     public class UIViewInstaller : IContextInstaller
+     {
+         //переделать через UIViewInstaller in context
+         [SerializeField] private UIView _uiView;
+         public void Install(IContext context)
+         {
+             context.AddIUIViewModel(new UIViewModel(_uiView));
+    
+             context.AddSystem(new UIViewController());
+         }
+     }
 
     [Serializable]
     public class PlayerInputController : IContextInit
     {
         private MoveController _moveController;
         private PlayerService _playerService;
-        private SceneEntity _playerEnt;
-        private IReactiveVariable<Vector3> _movedirection;
+        private IReactiveVariable<Vector3> _moveDirection;
         private ReactiveVector3 _lookPoint;
         private ReactiveBool _isShooting;
 
@@ -37,8 +75,8 @@ namespace ShootEmUp.HomeWorks.Atomic
         {
             _moveController = context.GetMoveController();
             _playerService = context.GetPlayerService();
-            _movedirection = _moveController.MoveDirection;
-            _movedirection.Subscribe(OnMoveChange);
+            _moveDirection = _moveController.MoveDirection;
+            _moveDirection.Subscribe(OnMoveChange);
 
             _lookPoint = _moveController.LookPoint;
             _lookPoint.Subscribe(OnLookPointChange);

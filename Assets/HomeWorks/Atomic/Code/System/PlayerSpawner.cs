@@ -6,12 +6,13 @@ namespace ShootEmUp.HomeWorks.Atomic
 {
     public class PlayerSpawner : MonoBehaviour
     {
+        //переделать в context
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private GameObject _playerParent;
         [SerializeField] private SceneContext _context;
 
-        private void Start()
+        private void Awake()
         {
             var playerGo = Instantiate(
                 _playerPrefab,
