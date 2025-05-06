@@ -15,8 +15,6 @@ namespace ShootEmUp.HomeWorks.Atomic
             _moveInstaller.Install(entity);
             _rotationInstaller.Install(entity);
             _dealDamageEventsInstaller.Install(entity);
-            
-            entity.AddTag(TagAPI.PlayerTag);
         }
     }
 }

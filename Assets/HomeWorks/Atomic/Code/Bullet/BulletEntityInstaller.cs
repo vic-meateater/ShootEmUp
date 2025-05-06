@@ -30,7 +30,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             entity.AddBulletPrefab(_bulletPrefab);
             entity.AddBulletSpawnPoint(_weaponEntity.Entity.GetShootPoint());
             entity.AddBehaviour(new BulletBehaviour());
-            entity.AddDealDamageEvent(new Event());
+            //entity.AddDealDamageEvent(new Event());
         }
     }
 

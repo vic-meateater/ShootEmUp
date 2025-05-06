@@ -3,7 +3,7 @@ using Atomic.Contexts;
 using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
@@ -23,26 +23,47 @@ namespace ShootEmUp.HomeWorks.Atomic
     }
 
     [Serializable]
-    public class PlayerInputController : IContextInit, IContextUpdate
+    public class PlayerInputController : IContextInit
     {
-        [SerializeField] private SceneEntity _playerEntity;
         private MoveController _moveController;
         private PlayerService _playerService;
         private SceneEntity _playerEnt;
+        private IReactiveVariable<Vector3> _movedirection;
+        private ReactiveVector3 _lookPoint;
+        private ReactiveBool _isShooting;
+
 
         public void Init(IContext context)
         {
             _moveController = context.GetMoveController();
             _playerService = context.GetPlayerService();
-            _playerEnt = _playerService.PlayerEntity;
+            _movedirection = _moveController.MoveDirection;
+            _movedirection.Subscribe(OnMoveChange);
+
+            _lookPoint = _moveController.LookPoint;
+            _lookPoint.Subscribe(OnLookPointChange);
+
+            _isShooting = _moveController.IsShooting;
+            _isShooting.Subscribe(OnPlayerShooting);
         }
 
-
-        public void Update(IContext context, float deltaTime)
+        private void OnPlayerShooting(bool isShooting)
         {
-            _playerEnt.GetMoveDirection().Value = _moveController.MoveDirection.Value;
-            //_playerEntity.Entity.GetMoveDirection().Value = _moveController.MoveDirection.Value;
-            _playerEntity.Entity.GetLookPoint().Value = _moveController.LookPoint.Value;
+            if (isShooting)
+            {
+                Debug.Log("Context IsShooting");
+                _playerService.PlayerEntity.GetDealDamageEvent().Invoke();
+            }
+        }
+
+        private void OnLookPointChange(Vector3 lookPoint)
+        {
+            _playerService.PlayerEntity.GetLookPoint().Value = lookPoint;
+        }
+
+        private void OnMoveChange(Vector3 direction)
+        {
+            _playerService.PlayerEntity.GetMoveDirection().Value = direction;
         }
     }
 }

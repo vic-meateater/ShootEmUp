@@ -169,9 +169,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveController: {fileID: 1293439160}
   _playerInputController:
-    _playerEntity: {fileID: 625937920}
+    _playerEntity: {fileID: 4349760689078777771, guid: e187c7d37e4b56347adb40ed467fc7b6,
+      type: 3}
   _playerService:
-    PlayerEntity: {fileID: 625937920}
+    PlayerEntity: {fileID: 0}
 --- !u!114 &18385287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,8 +470,7 @@ MonoBehaviour:
     type: 3}
   _playerSpawnPoint: {fileID: 1366530279}
   _playerParent: {fileID: 1366530278}
-  _playerService:
-    PlayerEntity: {fileID: 0}
+  _context: {fileID: 18385287}
 --- !u!1 &532027486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,8 +1043,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6691656dd69205248b545d26e73ad316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveDirection:
-    value: {x: 0, y: 0, z: 0}
   LookPoint:
     value: {x: 0, y: 0, z: 0}
   _groundLayer:

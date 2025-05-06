@@ -2,6 +2,7 @@
 using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
+
 namespace ShootEmUp.HomeWorks.Atomic
 {
     [Serializable]

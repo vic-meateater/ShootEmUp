@@ -11,12 +11,12 @@ namespace ShootEmUp.HomeWorks.Atomic
     {
         private const float MAX_DISTANCE = 100f;
         
-        public ReactiveVector3 MoveDirection;
-        public ReactiveVector3 LookPoint;
+        public ReactiveVector3 MoveDirection { get; } = new ReactiveVector3();
+        public ReactiveVector3 LookPoint { get; } = new ReactiveVector3();
+        public ReactiveBool IsShooting { get; } = new ReactiveBool();
         
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private SceneEntity _playerEntity;
-        //private readonly IEntityFilter _playerFilter = new EntityFilter(entity => entity.HasTag(TagAPI.PlayerTag));
         
         private Camera _mainCamera;
         private Vector3 _direction;
@@ -35,6 +35,7 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         private void HandleFireInput()
         {
+            IsShooting.Value = Input.GetButtonDown("Fire1");
             if (Input.GetButtonDown("Fire1"))
             {
                 //_playerEntity.Entity.GetDealDamageEvent().Invoke();
@@ -48,9 +49,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             float vertical = Input.GetAxisRaw("Vertical");
 
             _direction = new Vector3(horizontal, 0f, vertical).normalized;
-            MoveDirection = new ReactiveVector3(_direction);
-            //Debug.Log(_direction);
-            // _playerEntity.Entity.GetMoveDirection().Value = _direction;
+            MoveDirection.Value = _direction;
         }
 
         private void HandleMouseInput()
@@ -60,8 +59,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             if (Physics.Raycast(ray, out RaycastHit hit, MAX_DISTANCE, _groundLayer))
             {
                 Vector3 lookPoint = hit.point;
-                //_playerEntity.Entity.GetLookPoint().Value = lookPoint;
-                LookPoint = new ReactiveVector3(lookPoint);
+                LookPoint.Value = lookPoint;
             }
         }
     }
