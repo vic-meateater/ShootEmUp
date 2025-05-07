@@ -168,9 +168,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveController: {fileID: 1293439160}
+  _playerSpawner: {fileID: 401456844}
   _playerService:
     PlayerEntity: {fileID: 0}
-  _uiView: {fileID: 1980450348533929287}
+  _playerConfig: {fileID: 11400000, guid: 2317dab597f22fb44aa46e75676d8546, type: 2}
+  _uiViewInstaller:
+    _uiView: {fileID: 1980450348533929287}
 --- !u!114 &18385287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,8 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07afdf2dcd37c8488059a052d22b4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 1881559313263177472, guid: e187c7d37e4b56347adb40ed467fc7b6,
-    type: 3}
   _playerSpawnPoint: {fileID: 1366530279}
   _playerParent: {fileID: 1366530278}
   _context: {fileID: 18385287}

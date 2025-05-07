@@ -29,3 +29,9 @@ MonoBehaviour:
     - id: 3
       name: IUIViewModel
       type: IUIViewModel
+    - id: 4
+      name: PlayerConfig
+      type: PlayerConfig
+    - id: 5
+      name: PlayerSpawner
+      type: PlayerSpawner

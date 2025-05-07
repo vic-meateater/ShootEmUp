@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83af3bd137622b74086a2025cacaf0c6, type: 3}
+  m_Name: PlayerConfig
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 1881559313263177472, guid: e187c7d37e4b56347adb40ed467fc7b6,
+    type: 3}
+  <Weapon>k__BackingField: {fileID: 11400000, guid: 921ee1e8e248a0a48a203681f7b96cad,
+    type: 2}
+  <Bullet>k__BackingField: {fileID: 11400000, guid: fd8b495049938f24e96982ea7d700ead,
+    type: 2}

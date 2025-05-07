@@ -10,56 +10,43 @@ namespace ShootEmUp.HomeWorks.Atomic
     public class GameContextInstaller : SceneContextInstallerBase
     {
         [SerializeField] private MoveController _moveController;
+        [SerializeField] private PlayerSpawner _playerSpawner;
         [SerializeField] private PlayerInputController _playerInputController;
         [SerializeField] private PlayerService _playerService;
-        [SerializeField] private UIView _uiView;
+        [SerializeField] private PlayerConfig _playerConfig;
+        [SerializeField] private UIViewInstaller _uiViewInstaller;
         
 
         public override void Install(IContext context)
         {
             context.AddMoveController(_moveController);
+            context.AddPlayerSpawner(_playerSpawner);
             context.AddPlayerService(_playerService);
-            context.AddIUIViewModel(new UIViewModel(_uiView));
+            context.AddPlayerConfig(_playerConfig);
 
+            context.AddSystem(new PlayerSpawnerController());
+            _uiViewInstaller.Install(context);
             context.AddSystem(new UIViewController());
             context.AddSystem(_playerInputController);
         }
     }
-
-//    [Serializable]
-     public class UIViewController : IContextInit
-     {
-         private IUIViewModel _viewModel;
-         private PlayerService _playerService;
-         
-         public void Init(IContext context)
-         {
-             _viewModel = context.GetIUIViewModel();
-             _playerService = context.GetPlayerService();
     
-             var currentHealth= _playerService.PlayerEntity.GetCurrentHealth();
-             _viewModel.CurrentHealth.Value = currentHealth.Value;
-             currentHealth.Subscribe(OnHealthChanged);
-         }
-    
-         private void OnHealthChanged(float health)
-         {
-             _viewModel.CurrentHealth.Value = health;
-         }
-     }
-    
-     [Serializable]
-     public class UIViewInstaller : IContextInstaller
-     {
-         //переделать через UIViewInstaller in context
-         [SerializeField] private UIView _uiView;
-         public void Install(IContext context)
-         {
-             context.AddIUIViewModel(new UIViewModel(_uiView));
-    
-             context.AddSystem(new UIViewController());
-         }
-     }
+    public class PlayerSpawnerController : IContextInit
+    {
+        private PlayerConfig _playerConfig;
+        private PlayerSpawner _playerSpawner;
+        private PlayerService _playerService;
+        
+        public void Init(IContext context)
+        {
+            _playerConfig = context.GetPlayerConfig();
+            _playerSpawner = context.GetPlayerSpawner();
+            _playerService = context.GetPlayerService();
+            
+            _playerSpawner.SpawnPlayer(_playerConfig.Prefab);
+            _playerService.SetPlayerEntity(_playerSpawner.PlayerGO.GetComponent<SceneEntity>());
+        }
+    }
 
     [Serializable]
     public class PlayerInputController : IContextInit
