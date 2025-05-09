@@ -12,10 +12,10 @@ namespace ShootEmUp.HomeWorks.Atomic
 	{
 		///Keys
 		public const int MoveController = 1; // MoveController
-		public const int PlayerService = 2; // PlayerService
 		public const int IUIViewModel = 3; // IUIViewModel
-		public const int PlayerConfig = 4; // PlayerConfig
 		public const int PlayerSpawner = 5; // PlayerSpawner
+		public const int GameServices = 6; // GameServices
+		public const int GameObjectSpawner = 2; // GameObjectSpawner
 
 
 		///Extensions
@@ -38,24 +38,6 @@ namespace ShootEmUp.HomeWorks.Atomic
 		public static bool HasMoveController(this IContext obj) => obj.HasValue(MoveController);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static PlayerService GetPlayerService(this IContext obj) => obj.ResolveValue<PlayerService>(PlayerService);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetPlayerService(this IContext obj, out PlayerService value) => obj.TryResolveValue(PlayerService, out value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddPlayerService(this IContext obj, PlayerService value) => obj.AddValue(PlayerService, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelPlayerService(this IContext obj) => obj.DelValue(PlayerService);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetPlayerService(this IContext obj, PlayerService value) => obj.SetValue(PlayerService, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasPlayerService(this IContext obj) => obj.HasValue(PlayerService);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static IUIViewModel GetIUIViewModel(this IContext obj) => obj.ResolveValue<IUIViewModel>(IUIViewModel);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -74,24 +56,6 @@ namespace ShootEmUp.HomeWorks.Atomic
 		public static bool HasIUIViewModel(this IContext obj) => obj.HasValue(IUIViewModel);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static PlayerConfig GetPlayerConfig(this IContext obj) => obj.ResolveValue<PlayerConfig>(PlayerConfig);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetPlayerConfig(this IContext obj, out PlayerConfig value) => obj.TryResolveValue(PlayerConfig, out value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool AddPlayerConfig(this IContext obj, PlayerConfig value) => obj.AddValue(PlayerConfig, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelPlayerConfig(this IContext obj) => obj.DelValue(PlayerConfig);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetPlayerConfig(this IContext obj, PlayerConfig value) => obj.SetValue(PlayerConfig, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasPlayerConfig(this IContext obj) => obj.HasValue(PlayerConfig);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static PlayerSpawner GetPlayerSpawner(this IContext obj) => obj.ResolveValue<PlayerSpawner>(PlayerSpawner);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -108,5 +72,41 @@ namespace ShootEmUp.HomeWorks.Atomic
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasPlayerSpawner(this IContext obj) => obj.HasValue(PlayerSpawner);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static GameServices GetGameServices(this IContext obj) => obj.ResolveValue<GameServices>(GameServices);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetGameServices(this IContext obj, out GameServices value) => obj.TryResolveValue(GameServices, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddGameServices(this IContext obj, GameServices value) => obj.AddValue(GameServices, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelGameServices(this IContext obj) => obj.DelValue(GameServices);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetGameServices(this IContext obj, GameServices value) => obj.SetValue(GameServices, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasGameServices(this IContext obj) => obj.HasValue(GameServices);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static GameObjectSpawner GetGameObjectSpawner(this IContext obj) => obj.ResolveValue<GameObjectSpawner>(GameObjectSpawner);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetGameObjectSpawner(this IContext obj, out GameObjectSpawner value) => obj.TryResolveValue(GameObjectSpawner, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddGameObjectSpawner(this IContext obj, GameObjectSpawner value) => obj.AddValue(GameObjectSpawner, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelGameObjectSpawner(this IContext obj) => obj.DelValue(GameObjectSpawner);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetGameObjectSpawner(this IContext obj, GameObjectSpawner value) => obj.SetValue(GameObjectSpawner, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasGameObjectSpawner(this IContext obj) => obj.HasValue(GameObjectSpawner);
     }
 }

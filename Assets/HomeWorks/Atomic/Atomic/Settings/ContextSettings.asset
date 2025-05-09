@@ -23,15 +23,15 @@ MonoBehaviour:
     - id: 1
       name: MoveController
       type: MoveController
-    - id: 2
-      name: PlayerService
-      type: PlayerService
     - id: 3
       name: IUIViewModel
       type: IUIViewModel
-    - id: 4
-      name: PlayerConfig
-      type: PlayerConfig
     - id: 5
       name: PlayerSpawner
       type: PlayerSpawner
+    - id: 6
+      name: GameServices
+      type: GameServices
+    - id: 2
+      name: GameObjectSpawner
+      type: GameObjectSpawner

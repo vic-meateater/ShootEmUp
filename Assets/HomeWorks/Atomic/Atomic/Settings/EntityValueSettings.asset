@@ -83,3 +83,6 @@ MonoBehaviour:
     - id: 16
       name: ShootPoint
       type: Transform
+    - id: 18
+      name: WeaponSlot
+      type: Transform

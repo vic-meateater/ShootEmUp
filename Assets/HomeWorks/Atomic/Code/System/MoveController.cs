@@ -16,7 +16,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public ReactiveBool IsShooting { get; } = new ReactiveBool();
         
         [SerializeField] private LayerMask _groundLayer;
-        [SerializeField] private SceneEntity _playerEntity;
+        //[SerializeField] private SceneEntity _playerEntity;
         
         private Camera _mainCamera;
         private Vector3 _direction;

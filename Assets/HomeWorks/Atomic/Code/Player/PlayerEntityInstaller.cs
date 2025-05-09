@@ -8,6 +8,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private HealthInstaller _healthInstaller;
         [SerializeField] private MoveInstaller _moveInstaller;
         [SerializeField] private RotationInstaller _rotationInstaller;
+        [SerializeField] private WeaponSlotInstaller _weaponSlotInstaller;
         [SerializeField] private DealDamageEventsInstaller _dealDamageEventsInstaller;
         public override void Install(IEntity entity)
         {
@@ -15,6 +16,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             _moveInstaller.Install(entity);
             _rotationInstaller.Install(entity);
             _dealDamageEventsInstaller.Install(entity);
+            _weaponSlotInstaller.Install(entity);
         }
     }
 }

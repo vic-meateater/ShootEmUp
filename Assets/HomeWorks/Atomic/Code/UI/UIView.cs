@@ -6,23 +6,23 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class UIView : MonoBehaviour, IDisposable
+    public class UIView : MonoBehaviour
     {
         [SerializeField] private TMP_Text _healthText;
         [SerializeField] private TMP_Text _ammoText;
         [SerializeField] private TMP_Text _killedText;
         [SerializeField] private GameObject _endGameScreen;
         
-        private IReactiveVariable<bool> _isDead = new ReactiveVariable<bool>();
         private IUIViewModel _viewModel;
 
         public void Init(IUIViewModel viewModel)
         {
             _viewModel = viewModel;
             _viewModel.CurrentHealth.Subscribe(OnHealthChanged);
+            _viewModel.IsDead.Subscribe(OnIsDeadAction);
         }
 
-        private void OnIsDead(bool isDead)
+        private void OnIsDeadAction(bool isDead)
         {
             if (isDead)
                 _endGameScreen.gameObject.SetActive(true);
@@ -31,11 +31,6 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void OnHealthChanged(float currentHealth)
         {
             _healthText.text = $"HIT POINTS: {currentHealth}";
-        }
-
-        public void Dispose()
-        {
-            _isDead.Unsubscribe(OnIsDead);
         }
     }
 }

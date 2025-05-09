@@ -664,6 +664,8 @@ MonoBehaviour:
   _rotationInstaller:
     _rotationSpeed:
       value: 15
+  _weaponSlotInstaller:
+    _weaponSlot: {fileID: 200941678426744973}
   references:
     version: 2
     RefIds: []
@@ -17023,6 +17025,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AssaultRifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260203697527130024, guid: fdc998e0107a8c643bc18d4d5f0af381,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

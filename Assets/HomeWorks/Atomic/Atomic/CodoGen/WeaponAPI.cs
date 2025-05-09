@@ -14,6 +14,7 @@ namespace Atomic.Entities
     {
         ///Keys
         public const int ShootPoint = 16; // Transform
+        public const int WeaponSlot = 18; // Transform
 
 
         ///Extensions
@@ -34,5 +35,23 @@ namespace Atomic.Entities
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetShootPoint(this IEntity obj, Transform value) => obj.SetValue(ShootPoint, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Transform GetWeaponSlot(this IEntity obj) => obj.GetValue<Transform>(WeaponSlot);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetWeaponSlot(this IEntity obj, out Transform value) => obj.TryGetValue(WeaponSlot, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddWeaponSlot(this IEntity obj, Transform value) => obj.AddValue(WeaponSlot, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasWeaponSlot(this IEntity obj) => obj.HasValue(WeaponSlot);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelWeaponSlot(this IEntity obj) => obj.DelValue(WeaponSlot);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetWeaponSlot(this IEntity obj, Transform value) => obj.SetValue(WeaponSlot, value);
     }
 }

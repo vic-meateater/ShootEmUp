@@ -5,6 +5,7 @@ namespace ShootEmUp.HomeWorks.Atomic
     public class UIViewModel : IUIViewModel
     {
         public IReactiveVariable<float> CurrentHealth { get; } = new ReactiveVariable<float>();
+        public IReactiveVariable<bool> IsDead { get; } = new ReactiveVariable<bool>();
         
         private readonly UIView _view;
         
@@ -18,5 +19,6 @@ namespace ShootEmUp.HomeWorks.Atomic
     public interface IUIViewModel
     {
         IReactiveVariable<float> CurrentHealth { get; }
+        IReactiveVariable<bool> IsDead { get; }
     }
 }
