@@ -18,6 +18,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             entity.AddTransform(_transform);
             entity.AddMoveSpeed(_moveSpeed);
             entity.AddMoveDirection(new ReactiveVariable<Vector3>());
+            entity.AddIsMoving(new ReactiveBool());
 
             entity.AddBehaviour(new MoveBehaviour());
         }

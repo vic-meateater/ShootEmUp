@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EntityValueSettings
   m_EditorClassIdentifier: 
   local: 0
-  namespace: Atomic.Entities
+  namespace: ShootEmUp.HomeWorks.Atomic
   directoryPath: Assets/HomeWorks/Atomic/Atomic/CodoGen
   suffix: API
   imports:
@@ -48,6 +48,9 @@ MonoBehaviour:
     - id: 10
       name: Transform
       type: Transform
+    - id: 21
+      name: IsMoving
+      type: ReactiveBool
   - name: Rotation
     indexes:
     - id: 8
@@ -86,3 +89,26 @@ MonoBehaviour:
     - id: 18
       name: WeaponSlot
       type: Transform
+    - id: 22
+      name: MaxBullets
+      type: ReactiveInt
+    - id: 23
+      name: CurrentBullets
+      type: ReactiveInt
+    - id: 24
+      name: RealoadInterval
+      type: ReactiveFloat
+    - id: 25
+      name: ShootCoolDown
+      type: ReactiveFloat
+    - id: 26
+      name: ReloadTimer
+      type: ReactiveFloat
+  - name: Animation
+    indexes:
+    - id: 19
+      name: Animator
+      type: Animator
+    - id: 20
+      name: AnimationEventDispatcher
+      type: AnimationEventDispatcher

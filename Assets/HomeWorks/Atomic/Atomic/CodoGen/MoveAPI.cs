@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using Atomic.Elements;
 using Atomic.Extensions;
 
-namespace Atomic.Entities
+namespace ShootEmUp.HomeWorks.Atomic
 {
     public static class MoveAPI
     {
@@ -17,6 +17,7 @@ namespace Atomic.Entities
         public const int MoveSpeed = 6; // IReactiveVariable<float>
         public const int Rigidbody = 7; // Rigidbody
         public const int Transform = 10; // Transform
+        public const int IsMoving = 21; // ReactiveBool
 
 
         ///Extensions
@@ -91,5 +92,23 @@ namespace Atomic.Entities
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetTransform(this IEntity obj, Transform value) => obj.SetValue(Transform, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveBool GetIsMoving(this IEntity obj) => obj.GetValue<ReactiveBool>(IsMoving);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetIsMoving(this IEntity obj, out ReactiveBool value) => obj.TryGetValue(IsMoving, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddIsMoving(this IEntity obj, ReactiveBool value) => obj.AddValue(IsMoving, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasIsMoving(this IEntity obj) => obj.HasValue(IsMoving);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelIsMoving(this IEntity obj) => obj.DelValue(IsMoving);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetIsMoving(this IEntity obj, ReactiveBool value) => obj.SetValue(IsMoving, value);
     }
 }

@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using Atomic.Elements;
 using Atomic.Extensions;
 
-namespace Atomic.Entities
+namespace ShootEmUp.HomeWorks.Atomic
 {
     public static class RotationAPI
     {

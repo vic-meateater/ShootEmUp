@@ -666,6 +666,9 @@ MonoBehaviour:
       value: 15
   _weaponSlotInstaller:
     _weaponSlot: {fileID: 200941678426744973}
+  _animatorInstaller:
+    _animator: {fileID: 3453746358818318631}
+    _eventDispatcher: {fileID: 8970498846963172780}
   references:
     version: 2
     RefIds: []
@@ -16340,6 +16343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5155236517928666862}
   - component: {fileID: 3453746358818318631}
+  - component: {fileID: 8970498846963172780}
   m_Layer: 0
   m_Name: Solder
   m_TagString: Untagged
@@ -16375,7 +16379,7 @@ Animator:
   m_GameObject: {fileID: 7155266467014033055}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b82ef9d9ddd27e142b74f3586059c87f, type: 3}
-  m_Controller: {fileID: 9100000, guid: fd86273d433c9b7459f80cdc7eb4db4e, type: 2}
+  m_Controller: {fileID: 9100000, guid: a823ebe997c235e42bab90732b1d2e93, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -16387,6 +16391,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8970498846963172780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7155266467014033055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ed6e6db126966429c724701869e129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7173099775220560718
 GameObject:
   m_ObjectHideFlags: 0

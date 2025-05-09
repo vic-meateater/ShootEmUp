@@ -9,15 +9,19 @@ namespace ShootEmUp.HomeWorks.Atomic
     {
         private MoveController _moveController;
         private PlayerService _playerService;
+        private WeaponService _weaponService;
         private IReactiveVariable<Vector3> _moveDirection;
         private ReactiveVector3 _lookPoint;
         private ReactiveBool _isShooting;
+        private IEvent _damageAction;
 
 
         public void Init(IContext context)
         {
-            _moveController = context.GetMoveController();
             _playerService = context.GetGameServices().PlayerService;
+            _weaponService = context.GetGameServices().WeaponService;
+            
+            _moveController = context.GetMoveController();
             _moveDirection = _moveController.MoveDirection;
             _moveDirection.Subscribe(OnMoveChange);
 
@@ -25,15 +29,24 @@ namespace ShootEmUp.HomeWorks.Atomic
             _lookPoint.Subscribe(OnLookPointChange);
 
             _isShooting = _moveController.IsShooting;
-            _isShooting.Subscribe(OnPlayerShooting);
+            _isShooting.Subscribe(ShootingRequestAction);
+
+            _damageAction = _playerService.Player.GetDealDamageAction();
+            _damageAction.Subscribe(OnDealDamageAction);
         }
 
-        private void OnPlayerShooting(bool isShooting)
+        private void OnDealDamageAction()
+        {
+            Debug.Log("weapn DealDamageAction context");
+            _weaponService.Weapon.GetDealDamageAction()?.Invoke();
+        }
+
+        private void ShootingRequestAction(bool isShooting)
         {
             if (isShooting)
             {
                 Debug.Log("Context IsShooting");
-                _playerService.Player.GetDealDamageEvent().Invoke();
+                _playerService.Player.GetDealDamageReqest()?.Invoke();
             }
         }
 
@@ -45,6 +58,8 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void OnMoveChange(Vector3 direction)
         {
             _playerService.Player.GetMoveDirection().Value = direction;
+            _playerService.Player.GetIsMoving().Value = direction.sqrMagnitude > 0;
+
         }
     }
 }

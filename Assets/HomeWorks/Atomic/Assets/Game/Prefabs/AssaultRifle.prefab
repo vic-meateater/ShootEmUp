@@ -5037,6 +5037,12 @@ MonoBehaviour:
   logics: []
   _weaponInstaller:
     _shootPoint: {fileID: 6550809557441448054}
+    _maxBullets:
+      value: 10
+    _reloadInterval:
+      value: 2
+    _shootCooldown:
+      value: 0.5
   references:
     version: 2
     RefIds: []

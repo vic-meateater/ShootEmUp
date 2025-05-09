@@ -13,7 +13,6 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private UIViewInstaller _uiViewInstaller;
         [SerializeField] private GameServices _gameServices;
 
-
         public override void Install(IContext context)
         {
             context.AddPlayerSpawner(_playerSpawner);

@@ -8,13 +8,18 @@ using System.Runtime.CompilerServices;
 using Atomic.Elements;
 using Atomic.Extensions;
 
-namespace Atomic.Entities
+namespace ShootEmUp.HomeWorks.Atomic
 {
     public static class WeaponAPI
     {
         ///Keys
         public const int ShootPoint = 16; // Transform
         public const int WeaponSlot = 18; // Transform
+        public const int MaxBullets = 22; // ReactiveInt
+        public const int CurrentBullets = 23; // ReactiveInt
+        public const int RealoadInterval = 24; // ReactiveFloat
+        public const int ShootCoolDown = 25; // ReactiveFloat
+        public const int ReloadTimer = 26; // ReactiveFloat
 
 
         ///Extensions
@@ -53,5 +58,95 @@ namespace Atomic.Entities
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetWeaponSlot(this IEntity obj, Transform value) => obj.SetValue(WeaponSlot, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveInt GetMaxBullets(this IEntity obj) => obj.GetValue<ReactiveInt>(MaxBullets);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetMaxBullets(this IEntity obj, out ReactiveInt value) => obj.TryGetValue(MaxBullets, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddMaxBullets(this IEntity obj, ReactiveInt value) => obj.AddValue(MaxBullets, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasMaxBullets(this IEntity obj) => obj.HasValue(MaxBullets);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelMaxBullets(this IEntity obj) => obj.DelValue(MaxBullets);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetMaxBullets(this IEntity obj, ReactiveInt value) => obj.SetValue(MaxBullets, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveInt GetCurrentBullets(this IEntity obj) => obj.GetValue<ReactiveInt>(CurrentBullets);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetCurrentBullets(this IEntity obj, out ReactiveInt value) => obj.TryGetValue(CurrentBullets, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddCurrentBullets(this IEntity obj, ReactiveInt value) => obj.AddValue(CurrentBullets, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasCurrentBullets(this IEntity obj) => obj.HasValue(CurrentBullets);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelCurrentBullets(this IEntity obj) => obj.DelValue(CurrentBullets);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetCurrentBullets(this IEntity obj, ReactiveInt value) => obj.SetValue(CurrentBullets, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveFloat GetRealoadInterval(this IEntity obj) => obj.GetValue<ReactiveFloat>(RealoadInterval);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetRealoadInterval(this IEntity obj, out ReactiveFloat value) => obj.TryGetValue(RealoadInterval, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddRealoadInterval(this IEntity obj, ReactiveFloat value) => obj.AddValue(RealoadInterval, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasRealoadInterval(this IEntity obj) => obj.HasValue(RealoadInterval);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelRealoadInterval(this IEntity obj) => obj.DelValue(RealoadInterval);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetRealoadInterval(this IEntity obj, ReactiveFloat value) => obj.SetValue(RealoadInterval, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveFloat GetShootCoolDown(this IEntity obj) => obj.GetValue<ReactiveFloat>(ShootCoolDown);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetShootCoolDown(this IEntity obj, out ReactiveFloat value) => obj.TryGetValue(ShootCoolDown, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddShootCoolDown(this IEntity obj, ReactiveFloat value) => obj.AddValue(ShootCoolDown, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasShootCoolDown(this IEntity obj) => obj.HasValue(ShootCoolDown);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelShootCoolDown(this IEntity obj) => obj.DelValue(ShootCoolDown);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetShootCoolDown(this IEntity obj, ReactiveFloat value) => obj.SetValue(ShootCoolDown, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveFloat GetReloadTimer(this IEntity obj) => obj.GetValue<ReactiveFloat>(ReloadTimer);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetReloadTimer(this IEntity obj, out ReactiveFloat value) => obj.TryGetValue(ReloadTimer, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddReloadTimer(this IEntity obj, ReactiveFloat value) => obj.AddValue(ReloadTimer, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasReloadTimer(this IEntity obj) => obj.HasValue(ReloadTimer);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelReloadTimer(this IEntity obj) => obj.DelValue(ReloadTimer);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetReloadTimer(this IEntity obj, ReactiveFloat value) => obj.SetValue(ReloadTimer, value);
     }
 }
