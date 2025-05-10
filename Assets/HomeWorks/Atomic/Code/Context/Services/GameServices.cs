@@ -7,6 +7,6 @@ namespace ShootEmUp.HomeWorks.Atomic
     {
         public PlayerService PlayerService;
         public WeaponService WeaponService;
-        public BulletPoolService BulletsService;
+        public BulletsService BulletsService;
     }
 }

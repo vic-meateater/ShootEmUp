@@ -39,7 +39,7 @@ namespace ShootEmUp.HomeWorks.Atomic
                 _currentBullets.Value--;
                 _lastShootTime = Time.time;
                 _shootEvent?.Invoke();
-                Debug.Log($"Dealing damage {_currentBullets.Value} left");
+                Debug.Log($"Dealing damage. {_currentBullets.Value} bullets left");
             }
             else
             {

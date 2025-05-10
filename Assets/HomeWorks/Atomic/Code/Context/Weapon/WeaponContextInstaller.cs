@@ -1,6 +1,6 @@
 ﻿using System;
 using Atomic.Contexts;
-using Atomic.Entities;
+using Atomic.Elements;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
@@ -9,27 +9,22 @@ namespace ShootEmUp.HomeWorks.Atomic
     {
         public void Install(IContext context)
         {
-            //context.AddSystem(new WeaponController());
             context.AddSystem(new WeaponSpawnerController());
+            context.AddSystem(new WeaponController());
         }
     }
 
-    public class WeaponSpawnerController : IContextInit
+    public class WeaponController : IContextInit
     {
-        private PlayerService _playerService;
         private WeaponService _weaponService;
-        private GameObjectSpawner _spawner;
-        
+        private BulletsService _bulletsService;
+        private IEvent _shootEvent;
         public void Init(IContext context)
         {
-            _spawner = context.GetGameObjectSpawner();
-            _playerService = context.GetGameServices().PlayerService;
             _weaponService = context.GetGameServices().WeaponService;
-            
-            var weaponSlot = _playerService.Player.GetWeaponSlot();
-            
-            _spawner.SpawnGameObject(_weaponService.WeaponConfig.Prefab, weaponSlot, weaponSlot);
-            _weaponService.SetWeaponEntity(_spawner.SpawnedGO.GetComponent<SceneEntity>());
+            _bulletsService = context.GetGameServices().BulletsService;
+            _shootEvent = _weaponService.Weapon.GetDealDamageEvent();
+            _shootEvent.OnEvent += _bulletsService.OnShootEvent;
         }
     }
 }

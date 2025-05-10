@@ -7,6 +7,7 @@ namespace ShootEmUp.HomeWorks.Atomic
     [Serializable]
     public class PlayerInputInstaller : IContextInstaller
     {        
+        //refactor this to PlayerInstaller
         [SerializeField] private MoveController _moveController;
 
         public void Install(IContext context)

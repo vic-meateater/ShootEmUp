@@ -16,6 +16,7 @@ namespace ShootEmUp.HomeWorks.Atomic
 		public const int PlayerSpawner = 5; // PlayerSpawner
 		public const int GameServices = 6; // GameServices
 		public const int GameObjectSpawner = 2; // GameObjectSpawner
+		public const int BulletsPool = 4; // Transform
 
 
 		///Extensions
@@ -108,5 +109,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasGameObjectSpawner(this IContext obj) => obj.HasValue(GameObjectSpawner);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Transform GetBulletsPool(this IContext obj) => obj.ResolveValue<Transform>(BulletsPool);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetBulletsPool(this IContext obj, out Transform value) => obj.TryResolveValue(BulletsPool, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddBulletsPool(this IContext obj, Transform value) => obj.AddValue(BulletsPool, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelBulletsPool(this IContext obj) => obj.DelValue(BulletsPool);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetBulletsPool(this IContext obj, Transform value) => obj.SetValue(BulletsPool, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasBulletsPool(this IContext obj) => obj.HasValue(BulletsPool);
     }
 }

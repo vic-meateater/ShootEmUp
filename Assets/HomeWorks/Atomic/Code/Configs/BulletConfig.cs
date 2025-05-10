@@ -1,6 +1,4 @@
-﻿using System;
-using Atomic.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
@@ -8,5 +6,6 @@ namespace ShootEmUp.HomeWorks.Atomic
     public class BulletConfig : ScriptableObject
     {
         [field: SerializeField] public GameObject Prefab {get; private set;}
+        [field: SerializeField] public int PoolSize {get; private set;}
     }
 }

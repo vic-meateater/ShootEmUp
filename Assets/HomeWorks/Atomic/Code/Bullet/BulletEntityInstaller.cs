@@ -13,9 +13,9 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private DealDamageEventsInstaller _dealDamageEventsInstaller;
         public override void Install(IEntity entity)
         {
-            _bulletInstaller.Install(entity);
-            _moveInstaller.Install(entity);
-            _dealDamageEventsInstaller.Install(entity);
+            // _bulletInstaller.Install(entity);
+            // _moveInstaller.Install(entity);
+            // _dealDamageEventsInstaller.Install(entity);
         }
     }
 

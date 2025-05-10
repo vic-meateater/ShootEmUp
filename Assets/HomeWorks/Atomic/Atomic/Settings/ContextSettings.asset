@@ -35,3 +35,6 @@ MonoBehaviour:
     - id: 2
       name: GameObjectSpawner
       type: GameObjectSpawner
+    - id: 4
+      name: BulletsPool
+      type: Transform

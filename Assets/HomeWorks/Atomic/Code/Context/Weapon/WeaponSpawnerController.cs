@@ -17,8 +17,11 @@ namespace ShootEmUp.HomeWorks.Atomic
             
             var weaponSlot = _playerService.Player.GetWeaponSlot();
             
-            _spawner.SpawnGameObject(_weaponService.WeaponConfig.Prefab, weaponSlot, weaponSlot);
-            _weaponService.SetWeaponEntity(_spawner.SpawnedGO.GetComponent<SceneEntity>());
+            var weapon = _spawner.SpawnGameObject(
+                _weaponService.WeaponConfig.Prefab, 
+                weaponSlot, 
+                weaponSlot);
+            _weaponService.SetWeaponEntity(weapon.GetComponent<SceneEntity>());
         }
     }
 }

@@ -182,6 +182,7 @@ MonoBehaviour:
       WeaponConfig: {fileID: 11400000, guid: 921ee1e8e248a0a48a203681f7b96cad, type: 2}
     BulletsService:
       BulletConfig: {fileID: 11400000, guid: fd8b495049938f24e96982ea7d700ead, type: 2}
+  _bulletsPool: {fileID: 569392339}
 --- !u!114 &18385287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,6 +614,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532027486}
   m_CullTransparentMesh: 1
+--- !u!1 &569392338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 569392339}
+  m_Layer: 0
+  m_Name: '[BulletsPool]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &569392339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569392338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &797904596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1870,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1060751499}
   - {fileID: 18385285}
+  - {fileID: 569392339}
   - {fileID: 1366530279}
   - {fileID: 1192262376}
   - {fileID: 1980450348533929280}
