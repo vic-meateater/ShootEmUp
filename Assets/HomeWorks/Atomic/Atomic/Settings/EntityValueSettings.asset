@@ -51,6 +51,9 @@ MonoBehaviour:
     - id: 21
       name: IsMoving
       type: ReactiveBool
+    - id: 31
+      name: MovePosition
+      type: ReactiveVector3
   - name: Rotation
     indexes:
     - id: 8

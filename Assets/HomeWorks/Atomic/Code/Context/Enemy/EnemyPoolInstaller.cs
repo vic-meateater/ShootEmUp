@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Atomic.Contexts;
+using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace ShootEmUp.HomeWorks.Atomic.Enemy
     public class EnemyPoolController : IContextInit
     {
         private EnemyService _enemyService;
+        private PlayerService _playerService;
         private GameObjectSpawner _spawner;
         private List<Transform> _parents;
         private int _poolSize;
@@ -26,6 +28,7 @@ namespace ShootEmUp.HomeWorks.Atomic.Enemy
         public void Init(IContext context)
         {
             _enemyService = context.GetGameServices().EnemyService;
+            _playerService = context.GetGameServices().PlayerService;
             _spawner = context.GetGameObjectSpawner();
             _parents = context.GetEnemyPools();
             _poolSize = _enemyService.EnemyConfig.PoolSize;
@@ -57,9 +60,17 @@ namespace ShootEmUp.HomeWorks.Atomic.Enemy
 
             if (enemy.TryGetEntity(out var enemyEntity))
             {
+                var playerPosition = _playerService.Player.GetMovePosition();
+                playerPosition.OnValueChanged += (value) => OnPlayerPositionChanged(value, enemyEntity);
                 var deadZombie = enemyEntity.GetIsDead();
                 deadZombie.OnValueChanged += (value) => OnIsDeadAction(value, enemy);
             }
+        }
+
+        private void OnPlayerPositionChanged(Vector3 playerPosition, IEntity enemyEntity)
+        {
+            var direction = (playerPosition - enemyEntity.GetMovePosition().Value).normalized;
+            enemyEntity.GetMoveDirection().Value = direction;
         }
 
         private void FirstZombieRun()

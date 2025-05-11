@@ -18,6 +18,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public const int Rigidbody = 7; // Rigidbody
         public const int Transform = 10; // Transform
         public const int IsMoving = 21; // ReactiveBool
+        public const int MovePosition = 31; // ReactiveVector3
 
 
         ///Extensions
@@ -110,5 +111,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetIsMoving(this IEntity obj, ReactiveBool value) => obj.SetValue(IsMoving, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveVector3 GetMovePosition(this IEntity obj) => obj.GetValue<ReactiveVector3>(MovePosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetMovePosition(this IEntity obj, out ReactiveVector3 value) => obj.TryGetValue(MovePosition, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddMovePosition(this IEntity obj, ReactiveVector3 value) => obj.AddValue(MovePosition, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasMovePosition(this IEntity obj) => obj.HasValue(MovePosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelMovePosition(this IEntity obj) => obj.DelValue(MovePosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetMovePosition(this IEntity obj, ReactiveVector3 value) => obj.SetValue(MovePosition, value);
     }
 }

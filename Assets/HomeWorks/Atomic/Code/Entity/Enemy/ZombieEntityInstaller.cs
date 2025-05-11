@@ -1,4 +1,5 @@
-﻿using Atomic.Entities;
+﻿using Atomic.Elements;
+using Atomic.Entities;
 using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic.HomeWorks.Atomic.Code.Entity.Enemy
@@ -20,5 +21,15 @@ namespace ShootEmUp.HomeWorks.Atomic.HomeWorks.Atomic.Code.Entity.Enemy
             _weaponSlotInstaller.Install(entity);
             _animatorInstaller.Install(entity);
         }
+    }
+
+    public class ZombieBehaviour : IEntityInit
+    {
+        private IReactiveVariable<Vector3> _moveDirection;
+
+        public void Init(IEntity entity)
+        {
+        }
+
     }
 }
