@@ -18,7 +18,8 @@ MonoBehaviour:
     Namespace: ShootEmUp.HomeWorks.Atomic
     DirectoryPath: Assets/HomeWorks/Atomic/Atomic/CodoGen/Context
     ClassSuffix: API
-    Imports: []
+    Imports:
+    - System.Collections.Generic
     items:
     - id: 1
       name: MoveController
@@ -38,3 +39,6 @@ MonoBehaviour:
     - id: 4
       name: BulletsPool
       type: Transform
+    - id: 7
+      name: EnemyPools
+      type: List<Transform>

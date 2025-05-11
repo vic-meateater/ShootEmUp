@@ -7,14 +7,14 @@ using Event = Atomic.Elements.Event;
 namespace ShootEmUp.HomeWorks.Atomic
 {
     [Serializable]
-    public class DealDamageEventsInstaller : IEntityInstaller
+    public class BulletInstaller : IEntityInstaller
     {
+        [SerializeField] private ReactiveFloat _baseDamage;
         public void Install(IEntity entity)
         {
-            entity.AddDealDamageReqest(new Event());
-            entity.AddDealDamageAction(new Event());
+            entity.AddBehaviour(new BulletBehaviour());
             entity.AddDealDamageEvent(new Event());
-            entity.AddCharacterDie(new Event());
+            entity.AddBaseDamage(_baseDamage);
         }
     }
 }

@@ -20,6 +20,8 @@ namespace ShootEmUp.HomeWorks.Atomic
         public const int RealoadInterval = 24; // ReactiveFloat
         public const int ShootCoolDown = 25; // ReactiveFloat
         public const int ReloadTimer = 26; // ReactiveFloat
+        public const int BulletSpeed = 27; // ReactiveFloat
+        public const int DamageMultiplier = 30; // ReactiveFloat
 
 
         ///Extensions
@@ -148,5 +150,41 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetReloadTimer(this IEntity obj, ReactiveFloat value) => obj.SetValue(ReloadTimer, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveFloat GetBulletSpeed(this IEntity obj) => obj.GetValue<ReactiveFloat>(BulletSpeed);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetBulletSpeed(this IEntity obj, out ReactiveFloat value) => obj.TryGetValue(BulletSpeed, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddBulletSpeed(this IEntity obj, ReactiveFloat value) => obj.AddValue(BulletSpeed, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasBulletSpeed(this IEntity obj) => obj.HasValue(BulletSpeed);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelBulletSpeed(this IEntity obj) => obj.DelValue(BulletSpeed);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetBulletSpeed(this IEntity obj, ReactiveFloat value) => obj.SetValue(BulletSpeed, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveFloat GetDamageMultiplier(this IEntity obj) => obj.GetValue<ReactiveFloat>(DamageMultiplier);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetDamageMultiplier(this IEntity obj, out ReactiveFloat value) => obj.TryGetValue(DamageMultiplier, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddDamageMultiplier(this IEntity obj, ReactiveFloat value) => obj.AddValue(DamageMultiplier, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasDamageMultiplier(this IEntity obj) => obj.HasValue(DamageMultiplier);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelDamageMultiplier(this IEntity obj) => obj.DelValue(DamageMultiplier);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetDamageMultiplier(this IEntity obj, ReactiveFloat value) => obj.SetValue(DamageMultiplier, value);
     }
 }

@@ -70,6 +70,9 @@ MonoBehaviour:
     - id: 17
       name: WeaponEntity
       type: SceneEntity
+    - id: 29
+      name: BaseDamage
+      type: ReactiveFloat
   - name: DealDamage
     indexes:
     - id: 13
@@ -80,6 +83,9 @@ MonoBehaviour:
       type: IEvent
     - id: 15
       name: DealDamageEvent
+      type: IEvent
+    - id: 28
+      name: CharacterDie
       type: IEvent
   - name: Weapon
     indexes:
@@ -103,6 +109,12 @@ MonoBehaviour:
       type: ReactiveFloat
     - id: 26
       name: ReloadTimer
+      type: ReactiveFloat
+    - id: 27
+      name: BulletSpeed
+      type: ReactiveFloat
+    - id: 30
+      name: DamageMultiplier
       type: ReactiveFloat
   - name: Animation
     indexes:

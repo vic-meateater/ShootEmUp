@@ -16,6 +16,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public const int DealDamageReqest = 13; // IEvent
         public const int DealDamageAction = 14; // IEvent
         public const int DealDamageEvent = 15; // IEvent
+        public const int CharacterDie = 28; // IEvent
 
 
         ///Extensions
@@ -72,5 +73,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetDealDamageEvent(this IEntity obj, IEvent value) => obj.SetValue(DealDamageEvent, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEvent GetCharacterDie(this IEntity obj) => obj.GetValue<IEvent>(CharacterDie);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetCharacterDie(this IEntity obj, out IEvent value) => obj.TryGetValue(CharacterDie, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddCharacterDie(this IEntity obj, IEvent value) => obj.AddValue(CharacterDie, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasCharacterDie(this IEntity obj) => obj.HasValue(CharacterDie);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelCharacterDie(this IEntity obj) => obj.DelValue(CharacterDie);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetCharacterDie(this IEntity obj, IEvent value) => obj.SetValue(CharacterDie, value);
     }
 }

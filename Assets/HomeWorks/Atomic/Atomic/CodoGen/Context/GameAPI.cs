@@ -5,6 +5,7 @@
 using UnityEngine;
 using Atomic.Contexts;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
@@ -17,6 +18,7 @@ namespace ShootEmUp.HomeWorks.Atomic
 		public const int GameServices = 6; // GameServices
 		public const int GameObjectSpawner = 2; // GameObjectSpawner
 		public const int BulletsPool = 4; // Transform
+		public const int EnemyPools = 7; // List<Transform>
 
 
 		///Extensions
@@ -127,5 +129,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasBulletsPool(this IContext obj) => obj.HasValue(BulletsPool);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static List<Transform> GetEnemyPools(this IContext obj) => obj.ResolveValue<List<Transform>>(EnemyPools);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetEnemyPools(this IContext obj, out List<Transform> value) => obj.TryResolveValue(EnemyPools, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool AddEnemyPools(this IContext obj, List<Transform> value) => obj.AddValue(EnemyPools, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelEnemyPools(this IContext obj) => obj.DelValue(EnemyPools);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetEnemyPools(this IContext obj, List<Transform> value) => obj.SetValue(EnemyPools, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasEnemyPools(this IContext obj) => obj.HasValue(EnemyPools);
     }
 }

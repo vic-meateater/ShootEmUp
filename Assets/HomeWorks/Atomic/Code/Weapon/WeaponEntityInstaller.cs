@@ -23,6 +23,8 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private ReactiveInt _maxBullets;
         [SerializeField] private ReactiveFloat _reloadInterval;
         [SerializeField] private ReactiveFloat _shootCooldown;
+        [SerializeField] private ReactiveFloat _bulletSpeed;
+        [SerializeField] private ReactiveFloat _damageMultiplier;
         
         public void Install(IEntity entity)
         {
@@ -32,6 +34,8 @@ namespace ShootEmUp.HomeWorks.Atomic
             entity.AddShootCoolDown(_shootCooldown);
             entity.AddReloadTimer(new ReactiveFloat(0f));
             entity.AddCurrentBullets(new ReactiveInt());
+            entity.AddBulletSpeed(_bulletSpeed);
+            entity.AddDamageMultiplier(_damageMultiplier);
             
             entity.AddBehaviour(new WeaponShootBehaviour());
         }

@@ -21,6 +21,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         {
             if (_currentHealth.Value - damage <= 0)
             {
+                _currentHealth.Value = 0;
                 _isDead.Value = true;
                 return;
             }

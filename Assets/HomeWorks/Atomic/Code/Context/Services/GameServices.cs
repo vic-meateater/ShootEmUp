@@ -8,5 +8,6 @@ namespace ShootEmUp.HomeWorks.Atomic
         public PlayerService PlayerService;
         public WeaponService WeaponService;
         public BulletsService BulletsService;
+        public EnemyService EnemyService;
     }
 }

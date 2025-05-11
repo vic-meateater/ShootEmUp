@@ -16,6 +16,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public const int BulletPrefab = 11; // GameObject
         public const int BulletSpawnPoint = 12; // Transform
         public const int WeaponEntity = 17; // SceneEntity
+        public const int BaseDamage = 29; // ReactiveFloat
 
 
         ///Extensions
@@ -72,5 +73,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetWeaponEntity(this IEntity obj, SceneEntity value) => obj.SetValue(WeaponEntity, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveFloat GetBaseDamage(this IEntity obj) => obj.GetValue<ReactiveFloat>(BaseDamage);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetBaseDamage(this IEntity obj, out ReactiveFloat value) => obj.TryGetValue(BaseDamage, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddBaseDamage(this IEntity obj, ReactiveFloat value) => obj.AddValue(BaseDamage, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasBaseDamage(this IEntity obj) => obj.HasValue(BaseDamage);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelBaseDamage(this IEntity obj) => obj.DelValue(BaseDamage);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetBaseDamage(this IEntity obj, ReactiveFloat value) => obj.SetValue(BaseDamage, value);
     }
 }

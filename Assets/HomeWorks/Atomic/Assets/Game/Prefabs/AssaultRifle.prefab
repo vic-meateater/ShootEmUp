@@ -5043,6 +5043,10 @@ MonoBehaviour:
       value: 2
     _shootCooldown:
       value: 0.5
+    _bulletSpeed:
+      value: 5
+    _damageMultiplier:
+      value: 3
   references:
     version: 2
     RefIds: []
