@@ -70,6 +70,7 @@ namespace ShootEmUp.HomeWorks.Atomic
                 bulletEntity.GetMoveDirection().Value = _shootPoint.forward;
                 bulletEntity.GetMoveSpeed().Value = _bulletSpeed.Value;
                 bulletEntity.GetBaseDamage().Value *= _weaponService.Weapon.GetDamageMultiplier().Value;
+                bulletEntity.AddPlayerTag();
             }
 
             bullet.SetActive(true);

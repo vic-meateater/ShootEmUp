@@ -40,8 +40,12 @@ namespace ShootEmUp.HomeWorks.Atomic.Enemy
                         parent);
                     enemy.SetActive(false);
                     enemy.TryGetEntity(out IEntity entity);
-                    if(entity != null)
+                    if (entity != null)
+                    {
                         entity.GetParentPosition().Value = parent.position;
+                        entity.AddEnemyTag();
+                    }
+
                     _enemiesPool.Enqueue(enemy);
                 }
             }

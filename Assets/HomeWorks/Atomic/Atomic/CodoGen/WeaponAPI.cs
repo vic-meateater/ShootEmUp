@@ -22,6 +22,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public const int ReloadTimer = 26; // ReactiveFloat
         public const int BulletSpeed = 27; // ReactiveFloat
         public const int DamageMultiplier = 30; // ReactiveFloat
+        public const int CanShoot = 35; // AndExpression
 
 
         ///Extensions
@@ -186,5 +187,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetDamageMultiplier(this IEntity obj, ReactiveFloat value) => obj.SetValue(DamageMultiplier, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static AndExpression GetCanShoot(this IEntity obj) => obj.GetValue<AndExpression>(CanShoot);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetCanShoot(this IEntity obj, out AndExpression value) => obj.TryGetValue(CanShoot, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddCanShoot(this IEntity obj, AndExpression value) => obj.AddValue(CanShoot, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasCanShoot(this IEntity obj) => obj.HasValue(CanShoot);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelCanShoot(this IEntity obj) => obj.DelValue(CanShoot);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetCanShoot(this IEntity obj, AndExpression value) => obj.SetValue(CanShoot, value);
     }
 }

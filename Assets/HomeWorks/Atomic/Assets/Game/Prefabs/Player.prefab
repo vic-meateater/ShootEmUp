@@ -656,6 +656,8 @@ MonoBehaviour:
   _healthInstaller:
     _healthPoints:
       value: 100
+    _isDead:
+      value: 0
   _moveInstaller:
     _rigidbody: {fileID: 544080766039375948}
     _transform: {fileID: 3527064153079331022}

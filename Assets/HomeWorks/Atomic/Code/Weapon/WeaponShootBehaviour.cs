@@ -1,4 +1,5 @@
-﻿using Atomic.Elements;
+﻿using System;
+using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 
@@ -11,11 +12,12 @@ namespace ShootEmUp.HomeWorks.Atomic
         private ReactiveFloat _reloadInterval;
         private ReactiveFloat _shootCooldown;
         private ReactiveFloat _reloadTimer;
+        private AndExpression _canShoot;
         private float _lastShootTime;
-        
+
         private IEvent _shootAction;
         private IEvent _shootEvent;
-        
+
         public void Init(IEntity entity)
         {
             _shootAction = entity.GetDealDamageAction();
@@ -26,15 +28,20 @@ namespace ShootEmUp.HomeWorks.Atomic
             _reloadInterval = entity.GetRealoadInterval();
             _shootCooldown = entity.GetShootCoolDown();
             _reloadTimer = entity.GetReloadTimer();
-            
+
             _currentBullets.Value = _maxBullets.Value;
             _reloadTimer.Value = 0f;
             _lastShootTime = -_shootCooldown.Value;
+
+
+            _canShoot = entity.GetCanShoot();
+            _canShoot.Append(() => _currentBullets.Value > 0);
+            _canShoot.Append(() => Time.time - _lastShootTime >= _shootCooldown.Value);
         }
 
         private void OnDealDamageAction()
         {
-            if (CanShoot())
+            if (_canShoot.Value)
             {
                 _currentBullets.Value--;
                 _lastShootTime = Time.time;
@@ -53,17 +60,16 @@ namespace ShootEmUp.HomeWorks.Atomic
             bool cooldownPassed = Time.time - _lastShootTime >= _shootCooldown.Value;
             return hasAmmo && cooldownPassed;
         }
-        
+
         public void OnUpdate(IEntity entity, float deltaTime)
         {
-            if (_currentBullets.Value >= _maxBullets.Value) 
+            if (_currentBullets.Value >= _maxBullets.Value)
             {
-                //_reloadTimer.Value = 0f;
                 return;
             }
 
             _reloadTimer.Value += deltaTime;
-        
+
             if (_reloadTimer.Value >= _reloadInterval.Value)
             {
                 _currentBullets.Value = Mathf.Min(_currentBullets.Value + 1, _maxBullets.Value);

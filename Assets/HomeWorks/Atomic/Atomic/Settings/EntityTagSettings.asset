@@ -17,4 +17,6 @@ MonoBehaviour:
   className: TagAPI
   items:
   - id: 1
-    type: PlayerTag
+    type: Player
+  - id: 2
+    type: Enemy

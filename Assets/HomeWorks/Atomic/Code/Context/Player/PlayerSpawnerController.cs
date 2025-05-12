@@ -17,6 +17,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             
             _playerSpawner.SpawnPlayer(_playerService.PlayerConfig.Prefab);
             _playerService.SetPlayerEntity(_playerSpawner.PlayerGO.GetComponent<SceneEntity>());
+            _playerService.Player.AddPlayerTag();
         }
     }
 }

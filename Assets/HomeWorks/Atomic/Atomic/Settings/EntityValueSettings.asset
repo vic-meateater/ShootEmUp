@@ -122,6 +122,9 @@ MonoBehaviour:
     - id: 30
       name: DamageMultiplier
       type: ReactiveFloat
+    - id: 35
+      name: CanShoot
+      type: AndExpression
   - name: Animation
     indexes:
     - id: 19

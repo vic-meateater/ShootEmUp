@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
+    //change name to MachineGun
     public class WeaponEntityInstaller : SceneEntityInstaller
     {
         [SerializeField] private WeaponInstaller _weaponInstaller;
@@ -36,6 +37,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             entity.AddCurrentBullets(new ReactiveInt());
             entity.AddBulletSpeed(_bulletSpeed);
             entity.AddDamageMultiplier(_damageMultiplier);
+            entity.AddCanShoot(new AndExpression());
             
             entity.AddBehaviour(new WeaponShootBehaviour());
         }
