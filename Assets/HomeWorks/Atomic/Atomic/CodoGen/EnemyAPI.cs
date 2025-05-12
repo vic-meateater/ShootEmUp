@@ -14,6 +14,7 @@ namespace ShootEmUp.HomeWorks.Atomic
     {
         ///Keys
         public const int SpawnedEvent = 32; // IEvent<IEntity>
+        public const int ParentPosition = 34; // ReactiveVector3
 
 
         ///Extensions
@@ -34,5 +35,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetSpawnedEvent(this IEntity obj, IEvent<IEntity> value) => obj.SetValue(SpawnedEvent, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ReactiveVector3 GetParentPosition(this IEntity obj) => obj.GetValue<ReactiveVector3>(ParentPosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetParentPosition(this IEntity obj, out ReactiveVector3 value) => obj.TryGetValue(ParentPosition, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddParentPosition(this IEntity obj, ReactiveVector3 value) => obj.AddValue(ParentPosition, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasParentPosition(this IEntity obj) => obj.HasValue(ParentPosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelParentPosition(this IEntity obj) => obj.DelValue(ParentPosition);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetParentPosition(this IEntity obj, ReactiveVector3 value) => obj.SetValue(ParentPosition, value);
     }
 }

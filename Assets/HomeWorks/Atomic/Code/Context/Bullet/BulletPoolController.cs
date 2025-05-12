@@ -23,13 +23,13 @@ namespace ShootEmUp.HomeWorks.Atomic
             _weaponService = context.GetGameServices().WeaponService;
             _spawner = context.GetGameObjectSpawner();
             _parent = context.GetBulletsPool();
-            
-            _shootPoint = _weaponService.Weapon.GetShootPoint(); 
+
+            _shootPoint = _weaponService.Weapon.GetShootPoint();
             _bulletSpeed = _weaponService.Weapon.GetBulletSpeed();
             _poolSize = _bulletsService.BulletConfig.PoolSize;
-            
+
             _bulletsService.ShootEvent += SpawnBullet;
-            
+
             PoolInit();
         }
 
@@ -46,6 +46,12 @@ namespace ShootEmUp.HomeWorks.Atomic
             }
         }
 
+        private void OnEntityInit(IEntity bulletEntity)
+        {
+            if (bulletEntity.TryGetDespawnEvent(out IEvent<IEntity> despawnEvent))
+                despawnEvent.OnEvent += ReturnBulletToPool;
+        }
+        
         private void SpawnBullet()
         {
 #if UNITY_EDITOR
@@ -61,28 +67,18 @@ namespace ShootEmUp.HomeWorks.Atomic
 
             if (bullet.TryGetEntity(out IEntity bulletEntity))
             {
-
                 bulletEntity.GetMoveDirection().Value = _shootPoint.forward;
                 bulletEntity.GetMoveSpeed().Value = _bulletSpeed.Value;
                 bulletEntity.GetBaseDamage().Value *= _weaponService.Weapon.GetDamageMultiplier().Value;
             }
 
             bullet.SetActive(true);
-            
             bulletEntity.OnInitialized += () => OnEntityInit(bulletEntity);
-
-
         }
-
-        private void OnEntityInit(IEntity bulletEntity)
-        {
-            if(bulletEntity.TryGetDespawnEvent(out IEvent<IEntity> despawnEvent))
-                despawnEvent.OnEvent += ReturnBulletToPool;
-        }
-
+        
         private void ReturnBulletToPool(IEntity bulletEntity)
         {
-            var bullet = (bulletEntity as MonoBehaviour)?.gameObject;
+            var bullet = bulletEntity.GetTransform().gameObject;
             if (bullet)
             {
                 bullet.SetActive(false);

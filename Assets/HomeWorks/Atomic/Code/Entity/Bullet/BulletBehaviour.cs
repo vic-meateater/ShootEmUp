@@ -4,31 +4,17 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class BulletEntityInstaller : SceneEntityInstaller
-    {
-        [SerializeField] private BulletInstaller _bulletInstaller;
-        [SerializeField] private MoveInstaller _moveInstaller;
-        [SerializeField] private DealDamageEventsInstaller _dealDamageEventsInstaller;
-        public override void Install(IEntity entity)
-        {
-            _bulletInstaller.Install(entity);
-            _moveInstaller.Install(entity);
-            _dealDamageEventsInstaller.Install(entity);
-        }
-    }
-
-    public class BulletBehaviour : IEntityInit
+    public class BulletBehaviour : IEntityInit, IEntityUpdate
     {
         private IEvent _shootEvent;
-        private IReactiveVariable<Vector3> _direction;
         private IReactiveVariable<float> _moveSpeed;
         private IEvent<IEntity> _despawnEvent;
         private IEntity _bulletEntity;
+        private float _destroyTimer;
 
 
         public void Init(IEntity entity)
         {
-            //_direction = entity.GetMoveDirection();
             _moveSpeed = entity.GetMoveSpeed();
             _bulletEntity =  entity;
             
@@ -36,12 +22,25 @@ namespace ShootEmUp.HomeWorks.Atomic
             _shootEvent.Subscribe(OnDealDamageAction);
 
             _despawnEvent = entity.GetDespawnEvent();
+            
+            _destroyTimer = 0f;
         }
 
         public void OnDealDamageAction()
         {
             _moveSpeed.Value = 0;
             _despawnEvent?.Invoke(_bulletEntity);
+        }
+
+        public void OnUpdate(IEntity entity, float deltaTime)
+        {
+            var respawnInterval = 2f;
+            _destroyTimer += deltaTime;
+            if (_destroyTimer >= respawnInterval)
+            {
+                _despawnEvent?.Invoke(entity);
+                _destroyTimer = 0f;
+            }
         }
     }
 }

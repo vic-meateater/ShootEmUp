@@ -135,3 +135,6 @@ MonoBehaviour:
     - id: 32
       name: SpawnedEvent
       type: IEvent<IEntity>
+    - id: 34
+      name: ParentPosition
+      type: ReactiveVector3

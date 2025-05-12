@@ -53,7 +53,6 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         private void OnIsDeadAction(bool isDead)
         {
-            _moveSpeed.Value = 0;
             _moveDirection.Value = Vector3.zero;
         }
 
