@@ -14,7 +14,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             entity.AddDealDamageReqest(new Event());
             entity.AddDealDamageAction(new Event());
             entity.AddDealDamageEvent(new Event());
-            entity.AddCharacterDie(new Event());
+            entity.AddCharacterDieEvent(new Event());
         }
     }
 }

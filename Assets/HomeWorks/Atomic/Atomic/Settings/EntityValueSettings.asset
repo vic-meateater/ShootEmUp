@@ -30,7 +30,7 @@ MonoBehaviour:
       type: IReactiveVariable<float>
     - id: 3
       name: IsDead
-      type: IReactiveVariable<bool>
+      type: ReactiveBool
     - id: 4
       name: TakeDamage
       type: IEvent<float>
@@ -88,7 +88,7 @@ MonoBehaviour:
       name: DealDamageEvent
       type: IEvent
     - id: 28
-      name: CharacterDie
+      name: CharacterDieEvent
       type: IEvent
   - name: Weapon
     indexes:
@@ -127,3 +127,8 @@ MonoBehaviour:
     - id: 20
       name: AnimationEventDispatcher
       type: AnimationEventDispatcher
+  - name: Enemy
+    indexes:
+    - id: 32
+      name: SpawnedEvent
+      type: IEvent<IEntity>

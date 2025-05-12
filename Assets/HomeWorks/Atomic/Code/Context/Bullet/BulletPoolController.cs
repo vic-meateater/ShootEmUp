@@ -59,7 +59,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             bullet.transform.position = _shootPoint.position;
             bullet.transform.rotation = _shootPoint.rotation;
 
-            if (bullet.TryGetComponent(out IEntity bulletEntity))
+            if (bullet.TryGetEntity(out IEntity bulletEntity))
             {
 
                 bulletEntity.GetMoveDirection().Value = _shootPoint.forward;
@@ -76,7 +76,6 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         private void ReturnBulletToPool(IEntity bulletEntity)
         {
-            Debug.Log("Returning bullet to pool");
             var bullet = (bulletEntity as MonoBehaviour)?.gameObject;
             if (bullet)
             {

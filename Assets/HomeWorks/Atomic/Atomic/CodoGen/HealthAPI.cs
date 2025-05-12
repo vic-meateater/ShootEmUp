@@ -15,7 +15,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         ///Keys
         public const int MaxHealth = 1; // float
         public const int CurrentHealth = 2; // IReactiveVariable<float>
-        public const int IsDead = 3; // IReactiveVariable<bool>
+        public const int IsDead = 3; // ReactiveBool
         public const int TakeDamage = 4; // IEvent<float>
 
 
@@ -57,13 +57,13 @@ namespace ShootEmUp.HomeWorks.Atomic
         public static void SetCurrentHealth(this IEntity obj, IReactiveVariable<float> value) => obj.SetValue(CurrentHealth, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IReactiveVariable<bool> GetIsDead(this IEntity obj) => obj.GetValue<IReactiveVariable<bool>>(IsDead);
+        public static ReactiveBool GetIsDead(this IEntity obj) => obj.GetValue<ReactiveBool>(IsDead);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetIsDead(this IEntity obj, out IReactiveVariable<bool> value) => obj.TryGetValue(IsDead, out value);
+        public static bool TryGetIsDead(this IEntity obj, out ReactiveBool value) => obj.TryGetValue(IsDead, out value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AddIsDead(this IEntity obj, IReactiveVariable<bool> value) => obj.AddValue(IsDead, value);
+        public static bool AddIsDead(this IEntity obj, ReactiveBool value) => obj.AddValue(IsDead, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasIsDead(this IEntity obj) => obj.HasValue(IsDead);
@@ -72,7 +72,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public static bool DelIsDead(this IEntity obj) => obj.DelValue(IsDead);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetIsDead(this IEntity obj, IReactiveVariable<bool> value) => obj.SetValue(IsDead, value);
+        public static void SetIsDead(this IEntity obj, ReactiveBool value) => obj.SetValue(IsDead, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEvent<float> GetTakeDamage(this IEntity obj) => obj.GetValue<IEvent<float>>(TakeDamage);

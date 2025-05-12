@@ -7,5 +7,6 @@ namespace ShootEmUp.HomeWorks.Atomic
     {
         [field: SerializeField] public GameObject Prefab {get; private set;}
         [field: SerializeField] public int PoolSize {get; private set;}
+        [field: SerializeField] public float RespawnInterval {get; private set;}
     }
 }

@@ -19,6 +19,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             _position = entity.GetMovePosition();
             
             _rb.freezeRotation = true;
+            _position.Value =  _rb.position;
         }
 
         public void OnFixedUpdate(IEntity entity, float deltaTime)

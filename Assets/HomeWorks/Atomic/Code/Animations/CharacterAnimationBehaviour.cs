@@ -12,6 +12,8 @@ namespace ShootEmUp.HomeWorks.Atomic
         private ReactiveBool _isMoving;
         private Animator _animator;
         private IReactiveVariable<bool> _isDead;
+        private AnimationEventDispatcher _dispatcher;
+        private IEvent _isDeadEvent;
 
         public void Init(IEntity entity)
         {
@@ -21,6 +23,19 @@ namespace ShootEmUp.HomeWorks.Atomic
 
             _isDead = entity.GetIsDead();
             _isDead.Subscribe(OnIsDeadAction);
+            
+            _dispatcher = entity.GetAnimationEventDispatcher();
+            _dispatcher.OnEventReceived += OnAnimationEventReceived;
+
+            _isDeadEvent = entity.GetCharacterDieEvent();
+        }
+
+        private void OnAnimationEventReceived(string animationEvent)
+        {
+            if (animationEvent == "Dead")
+            {
+                _isDeadEvent.Invoke();
+            }
         }
 
         private void OnIsDeadAction(bool isDead)
