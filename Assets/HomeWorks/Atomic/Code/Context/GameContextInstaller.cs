@@ -33,9 +33,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             _weaponInstaller.Install(context);
             _bulletsPoolInstaller.Install(context);
             _uiViewInstaller.Install(context);
-            _bulletsPoolInstaller.Install(context);
             _enemyPoolInstaller.Install(context);
-            
         }
     }
 }

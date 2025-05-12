@@ -17,6 +17,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public const int BulletSpawnPoint = 12; // Transform
         public const int WeaponEntity = 17; // SceneEntity
         public const int BaseDamage = 29; // ReactiveFloat
+        public const int DespawnEvent = 33; // IEvent<IEntity>
 
 
         ///Extensions
@@ -91,5 +92,23 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetBaseDamage(this IEntity obj, ReactiveFloat value) => obj.SetValue(BaseDamage, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IEvent<IEntity> GetDespawnEvent(this IEntity obj) => obj.GetValue<IEvent<IEntity>>(DespawnEvent);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetDespawnEvent(this IEntity obj, out IEvent<IEntity> value) => obj.TryGetValue(DespawnEvent, out value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AddDespawnEvent(this IEntity obj, IEvent<IEntity> value) => obj.AddValue(DespawnEvent, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasDespawnEvent(this IEntity obj) => obj.HasValue(DespawnEvent);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DelDespawnEvent(this IEntity obj) => obj.DelValue(DespawnEvent);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetDespawnEvent(this IEntity obj, IEvent<IEntity> value) => obj.SetValue(DespawnEvent, value);
     }
 }

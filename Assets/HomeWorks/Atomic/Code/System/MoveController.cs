@@ -16,7 +16,6 @@ namespace ShootEmUp.HomeWorks.Atomic
         public ReactiveBool IsShooting { get; } = new ReactiveBool();
         
         [SerializeField] private LayerMask _groundLayer;
-        //[SerializeField] private SceneEntity _playerEntity;
         
         private Camera _mainCamera;
         private Vector3 _direction;
@@ -35,12 +34,11 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         private void HandleFireInput()
         {
-            IsShooting.Value = Input.GetButtonDown("Fire1");
-            if (Input.GetButtonDown("Fire1"))
-            {
-                //_playerEntity.Entity.GetDealDamageEvent().Invoke();
-                Debug.Log("Player fire");
-            }
+            IsShooting.Value = Input.GetMouseButtonDown(0);
+            // if (Input.GetButtonDown("Fire1"))
+            // {
+            //     Debug.Log("Player fire");
+            // }
         }
 
         private void HandleMovementInput()

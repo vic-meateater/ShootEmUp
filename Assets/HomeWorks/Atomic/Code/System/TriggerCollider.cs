@@ -8,14 +8,17 @@ namespace ShootEmUp.HomeWorks.Atomic
         private IEntity _entity; 
         private void OnTriggerEnter(Collider other)
         {
-            _entity = gameObject.GetComponent<IEntity>();
-            if (other.TryGetComponent(out IEntity collidedEntity))
+            other.enabled = false;
+            if(gameObject.TryGetEntity(out IEntity entity))
             {
-                if (collidedEntity.TryGetTakeDamage(out var damageable))
+                if (other.TryGetComponent(out IEntity collidedEntity))
                 {
-                    Debug.Log("collidedEntity takes damage");
-                    damageable.Invoke(_entity.GetBaseDamage().Value);
-                    _entity.GetDealDamageEvent().Invoke();
+                    if (collidedEntity.TryGetTakeDamage(out var damageable))
+                    {
+                        Debug.Log("collidedEntity takes damage");
+                        damageable.Invoke(entity.GetBaseDamage().Value);
+                        entity.GetDealDamageEvent()?.Invoke();
+                    }
                 }
             }
                 

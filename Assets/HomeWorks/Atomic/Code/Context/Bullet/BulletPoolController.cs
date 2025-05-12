@@ -69,9 +69,15 @@ namespace ShootEmUp.HomeWorks.Atomic
 
             bullet.SetActive(true);
             
-            if(bulletEntity.TryGetDealDamageEvent(out IEvent damageEvent))
-                damageEvent.OnEvent += () => ReturnBulletToPool(bulletEntity);
+            bulletEntity.OnInitialized += () => OnEntityInit(bulletEntity);
 
+
+        }
+
+        private void OnEntityInit(IEntity bulletEntity)
+        {
+            if(bulletEntity.TryGetDespawnEvent(out IEvent<IEntity> despawnEvent))
+                despawnEvent.OnEvent += ReturnBulletToPool;
         }
 
         private void ReturnBulletToPool(IEntity bulletEntity)

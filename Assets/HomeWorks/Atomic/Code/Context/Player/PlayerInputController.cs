@@ -58,7 +58,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void OnMoveChange(Vector3 direction)
         {
             _playerService.Player.GetMoveDirection().Value = direction;
-            _playerService.Player.GetIsMoving().Value = direction.sqrMagnitude > 0;
+            //_playerService.Player.GetIsMoving().Value = direction.sqrMagnitude > 0;
 
         }
     }

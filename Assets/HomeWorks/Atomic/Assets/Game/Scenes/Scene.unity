@@ -210,7 +210,7 @@ MonoBehaviour:
   onInstalled:
     m_PersistentCalls:
       m_Calls: []
-  refreshOnValidate: 1
+  refreshOnValidate: 0
 --- !u!114 &18385288
 MonoBehaviour:
   m_ObjectHideFlags: 0

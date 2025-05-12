@@ -58,7 +58,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         {
             if (_currentBullets.Value >= _maxBullets.Value) 
             {
-                _reloadTimer.Value = 0f;
+                //_reloadTimer.Value = 0f;
                 return;
             }
 

@@ -76,6 +76,9 @@ MonoBehaviour:
     - id: 29
       name: BaseDamage
       type: ReactiveFloat
+    - id: 33
+      name: DespawnEvent
+      type: IEvent<IEntity>
   - name: DealDamage
     indexes:
     - id: 13

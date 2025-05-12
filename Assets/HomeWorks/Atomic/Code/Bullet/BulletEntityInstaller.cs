@@ -22,19 +22,26 @@ namespace ShootEmUp.HomeWorks.Atomic
         private IEvent _shootEvent;
         private IReactiveVariable<Vector3> _direction;
         private IReactiveVariable<float> _moveSpeed;
+        private IEvent<IEntity> _despawnEvent;
+        private IEntity _bulletEntity;
+
 
         public void Init(IEntity entity)
         {
             //_direction = entity.GetMoveDirection();
-            //_moveSpeed = entity.GetMoveSpeed();
+            _moveSpeed = entity.GetMoveSpeed();
+            _bulletEntity =  entity;
             
             _shootEvent = entity.GetDealDamageEvent();
-            _shootEvent.Subscribe(OnShootEvent);
+            _shootEvent.Subscribe(OnDealDamageAction);
+
+            _despawnEvent = entity.GetDespawnEvent();
         }
 
-        public void OnShootEvent()
+        public void OnDealDamageAction()
         {
-            Debug.Log("Killed someone");
+            _moveSpeed.Value = 0;
+            _despawnEvent?.Invoke(_bulletEntity);
         }
     }
 }
