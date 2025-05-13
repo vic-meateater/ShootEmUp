@@ -141,3 +141,8 @@ MonoBehaviour:
     - id: 34
       name: ParentPosition
       type: ReactiveVector3
+  - name: Timer
+    indexes:
+    - id: 36
+      name: AtomicTimer
+      type: Timer

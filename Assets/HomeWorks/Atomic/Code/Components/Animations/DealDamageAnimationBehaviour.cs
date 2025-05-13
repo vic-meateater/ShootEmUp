@@ -11,15 +11,15 @@ namespace ShootEmUp.HomeWorks.Atomic
         private Animator _animator;
         private AnimationEventDispatcher _animationEventDispatcher;
         
-        private IEvent _shootRequest;
-        private IEvent _shootAction;
+        private IEvent _dealDamageRequest;
+        private IEvent _dealDamageAction;
 
         public void Init(IEntity entity)
         {
-            _shootRequest = entity.GetDealDamageReqest();
-            _shootRequest.Subscribe(OnShootRequest);
+            _dealDamageRequest = entity.GetDealDamageReqest();
+            _dealDamageRequest.Subscribe(OnShootRequest);
 
-            _shootAction = entity.GetDealDamageAction();
+            _dealDamageAction = entity.GetDealDamageAction();
             _animator = entity.GetAnimator();
 
             _animationEventDispatcher = entity.GetAnimationEventDispatcher();
@@ -37,7 +37,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             if (eventName == "DealDamage")
             {
                 Debug.Log("Поднял пестик и прицелился");
-                _shootAction?.Invoke();
+                _dealDamageAction?.Invoke();
             }
         }
     }

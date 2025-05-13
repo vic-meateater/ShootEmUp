@@ -54,13 +54,6 @@ namespace ShootEmUp.HomeWorks.Atomic
             }
         }
 
-        private bool CanShoot()
-        {
-            bool hasAmmo = _currentBullets.Value > 0;
-            bool cooldownPassed = Time.time - _lastShootTime >= _shootCooldown.Value;
-            return hasAmmo && cooldownPassed;
-        }
-
         public void OnUpdate(IEntity entity, float deltaTime)
         {
             if (_currentBullets.Value >= _maxBullets.Value)

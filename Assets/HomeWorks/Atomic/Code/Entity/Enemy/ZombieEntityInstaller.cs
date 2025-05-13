@@ -12,7 +12,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private DealDamageEventsInstaller _dealDamageEventsInstaller;
         [SerializeField] private AnimatorInstaller _animatorInstaller;
         [SerializeField] private EnemyInstaller _enemyInstaller;
-        [SerializeField] private BulletInstaller _bulletInstaller;
+        [SerializeField] private MeleeAttackInstaller _meleeAttackInstaller;
 
         public override void Install(IEntity entity)
         {
@@ -23,7 +23,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             _weaponSlotInstaller.Install(entity);
             _animatorInstaller.Install(entity);
             _enemyInstaller.Install(entity);
-            _bulletInstaller.Install(entity);
+            _meleeAttackInstaller.Install(entity);
         }
     }
 }

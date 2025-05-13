@@ -1,18 +1,21 @@
+﻿using System;
+using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class TriggerCollider : MonoBehaviour
+    public class MеleeTriggerCollider : MonoBehaviour
     {
+        private IEvent _damageableEvent;
+
         private void OnTriggerEnter(Collider other)
         {
             if (gameObject.TryGetEntity(out IEntity entity) &&
                 other.TryGetComponent(out IEntity collidedEntity))
             {
-                if (collidedEntity.HasEnemyTag())
+                if (entity.HasEnemyTag() && collidedEntity.HasPlayerTag())
                 {
-                    other.enabled = false;
                     DealDamage(entity, collidedEntity);
                 }
             }
@@ -22,9 +25,14 @@ namespace ShootEmUp.HomeWorks.Atomic
         {
             if (target.TryGetTakeDamage(out var damageable))
             {
-                damageable.Invoke(source.GetBaseDamage().Value);
-                source.GetDealDamageEvent()?.Invoke();
+                source.GetDealDamageEvent().OnEvent += () => DealDamageEventAction(source, target);
+                source.GetDealDamageReqest()?.Invoke();
             }
+        }
+
+        private void DealDamageEventAction(IEntity source, IEntity target)
+        {
+            target.GetTakeDamage().Invoke(source.GetBaseDamage().Value);
         }
     }
 }

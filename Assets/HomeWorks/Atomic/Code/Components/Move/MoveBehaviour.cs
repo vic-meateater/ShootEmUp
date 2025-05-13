@@ -33,7 +33,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             Vector3 newPosition = _rb.position + _direction.Value * _moveSpeed.Value * deltaTime;
             _position.Value = newPosition;
             _rb.MovePosition(newPosition);
-            _isMoving.Value = _direction.Value.sqrMagnitude > 0;
+            //_isMoving.Value = _direction.Value.sqrMagnitude > 0;
         }
     }
 }
