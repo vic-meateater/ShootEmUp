@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class BulletPoolController : IContextInit
+    public class BulletPoolController : IContextInit, IContextDispose
     {
         private BulletsService _bulletsService;
         private WeaponService _weaponService;
@@ -85,6 +85,11 @@ namespace ShootEmUp.HomeWorks.Atomic
                 bullet.transform.position = _parent.position;
                 _bulletsPool.Enqueue(bullet);
             }
+        }
+
+        public void Dispose(IContext context)
+        {
+            _bulletsService.ShootEvent -= SpawnBullet;
         }
     }
 }

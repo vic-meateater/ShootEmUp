@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class BulletBehaviour : IEntityInit, IEntityUpdate
+    public class BulletBehaviour : IEntityInit, IEntityUpdate, IEntityDispose
     {
         private IEvent _shootEvent;
         private IReactiveVariable<float> _moveSpeed;
@@ -41,6 +41,11 @@ namespace ShootEmUp.HomeWorks.Atomic
                 _despawnEvent?.Invoke(entity);
                 _destroyTimer = 0f;
             }
+        }
+
+        public void Dispose(IEntity entity)
+        {
+            _shootEvent.Unsubscribe(OnDealDamageAction);
         }
     }
 }

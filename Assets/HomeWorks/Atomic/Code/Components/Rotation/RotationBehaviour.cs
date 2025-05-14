@@ -10,6 +10,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         private Transform _transform;
         private Rigidbody _rb;
         private IReactiveVariable<float> _rotationSpeed;
+        private ReactiveBool _isDead;
 
         public void Init(IEntity entity)
         {
@@ -17,11 +18,13 @@ namespace ShootEmUp.HomeWorks.Atomic
             _lookPoint = entity.GetLookPoint();
             _rb = entity.GetRigidbody();
             _rotationSpeed = entity.GetRotationSpeed();
+            _isDead = entity.GetIsDead();
         }
 
         public void OnFixedUpdate(IEntity entity, float deltaTime)
         {
-            RotateBody(deltaTime);
+            if(!_isDead.Value)
+                RotateBody(deltaTime);
         }
 
         private void RotateBody(float deltaTime)

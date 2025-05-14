@@ -14,7 +14,7 @@ namespace ShootEmUp.HomeWorks.Atomic
             entity.AddSpawnedEvent(new Event<IEntity>());
             entity.AddParentPosition(new ReactiveVector3(Vector3.zero));
             entity.AddAtomicTimer(new Timer());
-
+            
             entity.AddBehaviour(new EnemyMoveBehaviour());
             entity.AddBehaviour(new EnemyAttackBehaviour());
         }

@@ -15,7 +15,6 @@ namespace ShootEmUp.HomeWorks.Atomic
             entity.AddAnimator(_animator);
             entity.AddBehaviour(new CharacterAnimationBehaviour());
             entity.AddBehaviour(new DealDamageAnimationBehaviour());
-            //entity.AddBehaviour(new ShootBehaviour());
 
             entity.AddAnimationEventDispatcher(_eventDispatcher);
         }

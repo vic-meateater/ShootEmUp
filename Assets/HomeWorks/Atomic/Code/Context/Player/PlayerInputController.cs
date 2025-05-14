@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class PlayerInputController : IContextInit
+    public class PlayerInputController : IContextInit, IContextDispose
     {
         private MoveController _moveController;
         private PlayerService _playerService;
@@ -58,8 +58,14 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void OnMoveChange(Vector3 direction)
         {
             _playerService.Player.GetMoveDirection().Value = direction;
-            _playerService.Player.GetIsMoving().Value = direction.sqrMagnitude > 0;
+        }
 
+        public void Dispose(IContext context)
+        {
+            _moveDirection.Unsubscribe(OnMoveChange);
+            _lookPoint.Unsubscribe(OnLookPointChange);
+            _isShooting.Unsubscribe(ShootingRequestAction);
+            _damageAction.Unsubscribe(OnDealDamageAction);
         }
     }
 }

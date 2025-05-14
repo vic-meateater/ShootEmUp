@@ -3,7 +3,7 @@ using Atomic.Entities;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class EnemyAttackBehaviour : IEntityInit
+    public class EnemyAttackBehaviour : IEntityInit, IEntityDispose
     {
         private IEvent _meleeAttackEvent;
         private IEvent _dealDamageAction;
@@ -19,6 +19,11 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void OnDealDamageActionReact()
         {
             _meleeAttackEvent?.Invoke();
+        }
+
+        public void Dispose(IEntity entity)
+        {
+            _dealDamageAction.Unsubscribe(OnDealDamageActionReact);
         }
     }
 }

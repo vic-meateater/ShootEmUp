@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class EnemyMoveBehaviour : IEntityInit, IEntityUpdate
+    public class EnemyMoveBehaviour : IEntityInit, IEntityUpdate, IEntityDispose
     {
         private const float STOP_DISTANCE = 1.5f;
         
@@ -16,7 +16,6 @@ namespace ShootEmUp.HomeWorks.Atomic
         private ReactiveVector3 _movePosition;
         private IReactiveVariable<bool> _isMoving;
         private IReactiveVariable<Vector3> _lookPoint;
-        private IEntity _entity;
         private IEntity _playerEntity;
         private IReactiveVariable<Vector3> _playerPositionReactive;
         private float _distanceToPlayer;
@@ -24,7 +23,6 @@ namespace ShootEmUp.HomeWorks.Atomic
 
         public void Init(IEntity entity)
         {
-            _entity = entity;
             _moveDirection = entity.GetMoveDirection();
             _movePosition = entity.GetMovePosition();
             _isMoving = entity.GetIsMoving();
@@ -35,8 +33,7 @@ namespace ShootEmUp.HomeWorks.Atomic
 
 
             _isDead = entity.GetIsDead();
-            _isDead.Subscribe(OnIsDeadAction);
-
+            
             _spawnedEvent = entity.GetSpawnedEvent();
             _spawnedEvent.Subscribe(OnSpawnedAction);
 
@@ -70,14 +67,7 @@ namespace ShootEmUp.HomeWorks.Atomic
                 var direction = (playerPosition - _movePosition.Value).normalized;
                 _moveDirection.Value = direction;
                 _lookPoint.Value = playerPosition;
-                _isMoving.Value = true;
             }
-        }
-
-        private void OnIsDeadAction(bool isDead)
-        {
-                _moveDirection.Value = Vector3.zero;
-                _isMoving.Value = false;
         }
 
         private void OnIsDeadAnimatorEventAction()
@@ -91,6 +81,14 @@ namespace ShootEmUp.HomeWorks.Atomic
                 return;
 
             PlayerPositionChanged(_playerEntity.GetMovePosition().Value);
+        }
+
+        public void Dispose(IEntity entity)
+        {
+            _isDeadAnimatorEvent.Unsubscribe(OnIsDeadAnimatorEventAction);
+            _spawnedEvent.Unsubscribe(OnSpawnedAction);
+            _dealDamageRequest.Unsubscribe(OnDealDamageRequestAction);
+            _playerPositionReactive.Unsubscribe(PlayerPositionChanged);
         }
     }
 }

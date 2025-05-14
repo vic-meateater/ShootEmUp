@@ -2233,6 +2233,8 @@ MonoBehaviour:
   _meleeAttackInstaller:
     _meleeBaseDamage:
       value: 5
+    _reloadInterval:
+      value: 2
   references:
     version: 2
     RefIds: []

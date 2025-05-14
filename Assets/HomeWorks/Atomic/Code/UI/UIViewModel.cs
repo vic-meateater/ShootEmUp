@@ -8,6 +8,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         public IReactiveVariable<bool> IsDead { get; } = new ReactiveVariable<bool>();
         public IReactiveVariable<int> MaxBullets { get; } = new ReactiveVariable<int>();
         public IReactiveVariable<int> CurrentBullets { get; } = new ReactiveVariable<int>();
+        public IReactiveVariable<int> Kills { get; } = new ReactiveInt();
 
         private readonly UIView _view;
         
@@ -24,6 +25,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         IReactiveVariable<bool> IsDead { get; }
         IReactiveVariable<int> MaxBullets { get; }
         IReactiveVariable<int> CurrentBullets { get; }
+        IReactiveVariable<int> Kills { get; }
         
     }
 }

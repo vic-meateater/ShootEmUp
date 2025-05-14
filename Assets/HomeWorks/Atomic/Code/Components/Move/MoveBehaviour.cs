@@ -11,6 +11,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         private IReactiveVariable<Vector3> _direction;
         private ReactiveVector3 _position;
         private ReactiveBool _isMoving;
+        private ReactiveBool _isDead;
 
         public void Init(IEntity entity)
         {
@@ -21,11 +22,20 @@ namespace ShootEmUp.HomeWorks.Atomic
             _isMoving = entity.GetIsMoving();
             _rb.freezeRotation = true;
             _position.Value =  _rb.position;
+            _isDead = entity.GetIsDead();
         }
 
         public void OnFixedUpdate(IEntity entity, float deltaTime)
         {
-            Move(deltaTime);
+            if (!_isDead.Value)
+            {
+                Move(deltaTime);
+            }
+            else
+            {
+                _direction.Value = Vector3.zero;
+            }
+            _isMoving.Value = _direction.Value.sqrMagnitude > 0;
         }
         
         private void Move(float deltaTime)
@@ -33,7 +43,6 @@ namespace ShootEmUp.HomeWorks.Atomic
             Vector3 newPosition = _rb.position + _direction.Value * _moveSpeed.Value * deltaTime;
             _position.Value = newPosition;
             _rb.MovePosition(newPosition);
-            //_isMoving.Value = _direction.Value.sqrMagnitude > 0;
         }
     }
 }

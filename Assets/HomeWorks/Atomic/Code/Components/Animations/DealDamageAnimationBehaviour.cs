@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class DealDamageAnimationBehaviour : IEntityInit
+    public class DealDamageAnimationBehaviour : IEntityInit, IEntityDispose
     {
         private static readonly int DealDamage = Animator.StringToHash("DealDamage");
         
@@ -39,6 +39,12 @@ namespace ShootEmUp.HomeWorks.Atomic
                 Debug.Log("Поднял пестик и прицелился");
                 _dealDamageAction?.Invoke();
             }
+        }
+
+        public void Dispose(IEntity entity)
+        {
+            _dealDamageRequest.Unsubscribe(OnShootRequest);
+            _animationEventDispatcher.OnEventReceived -= OnAnimationEventReceived;
         }
     }
 }

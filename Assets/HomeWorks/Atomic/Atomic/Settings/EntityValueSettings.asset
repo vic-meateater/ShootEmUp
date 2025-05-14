@@ -146,3 +146,8 @@ MonoBehaviour:
     - id: 36
       name: AtomicTimer
       type: Timer
+  - name: Player
+    indexes:
+    - id: 37
+      name: Kills
+      type: ReactiveInt

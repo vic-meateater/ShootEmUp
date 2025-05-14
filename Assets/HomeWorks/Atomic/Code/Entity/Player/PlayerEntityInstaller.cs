@@ -1,3 +1,4 @@
+using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace ShootEmUp.HomeWorks.Atomic
         [SerializeField] private AnimatorInstaller _animatorInstaller;
         public override void Install(IEntity entity)
         {
+            entity.AddKills(new ReactiveInt(0));
+            
             _healthInstaller.Install(entity);
             _moveInstaller.Install(entity);
             _rotationInstaller.Install(entity);

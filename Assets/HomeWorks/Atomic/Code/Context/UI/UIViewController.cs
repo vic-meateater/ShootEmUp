@@ -13,6 +13,7 @@ namespace ShootEmUp.HomeWorks.Atomic
         private IReactiveVariable<bool> _isDead;
         private IReactiveVariable<int> _maxBullets;
         private IReactiveVariable<int> _currentBullets;
+        private IReactiveVariable<int> _killed;
 
         public void Init(IContext context)
         {
@@ -27,6 +28,9 @@ namespace ShootEmUp.HomeWorks.Atomic
             _isDead = _playerService.Player.GetIsDead();
             _isDead.Subscribe(OnIsDeadAction);
 
+            _killed = _playerService.Player.GetKills();
+            _killed.Subscribe(OnKilledChanged);
+
             _maxBullets = _weaponService.Weapon.GetMaxBullets();
             _viewModel.MaxBullets.Value = _maxBullets.Value;
             _maxBullets.Subscribe(OnMaxBulletsChanged);
@@ -34,6 +38,12 @@ namespace ShootEmUp.HomeWorks.Atomic
             _currentBullets = _weaponService.Weapon.GetCurrentBullets();
             _viewModel.CurrentBullets.Value = _currentBullets.Value;
             _currentBullets.Subscribe(OnCurrentBulletsChanged);
+            
+        }
+
+        private void OnKilledChanged(int kills)
+        {
+            _viewModel.Kills.Value = kills;
         }
 
         private void OnCurrentBulletsChanged(int currentBullets)
@@ -60,6 +70,9 @@ namespace ShootEmUp.HomeWorks.Atomic
         {
             _currentHealth.Unsubscribe(OnHealthChanged);
             _isDead.Unsubscribe(OnIsDeadAction);
+            _killed.Unsubscribe(OnKilledChanged);
+            _maxBullets.Unsubscribe(OnMaxBulletsChanged);
+            _currentBullets.Unsubscribe(OnCurrentBulletsChanged);
         }
     }
 }

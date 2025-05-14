@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class UIView : MonoBehaviour
+    public class UIView : MonoBehaviour, IDisposable
     {
         [SerializeField] private TMP_Text _healthText;
         [SerializeField] private TMP_Text _ammoText;
@@ -24,8 +24,12 @@ namespace ShootEmUp.HomeWorks.Atomic
             _viewModel.IsDead.Subscribe(OnIsDeadAction);
             _viewModel.CurrentBullets.Subscribe(OnCurrentBulletsChanged);
             _viewModel.MaxBullets.Subscribe(OnMaxBulletsChanged);
+            _viewModel.Kills.Subscribe(OnKillsChanged);
+        }
 
-            
+        private void OnKillsChanged(int killedCount)
+        {
+            _killedText.text = $"KILLS: {killedCount.ToString()}";
         }
 
         private void OnMaxBulletsChanged(int maxBullets)
@@ -49,6 +53,15 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void OnHealthChanged(float currentHealth)
         {
             _healthText.text = $"HIT POINTS: {currentHealth}";
+        }
+
+        public void Dispose()
+        {
+            _viewModel.CurrentHealth.Unsubscribe(OnHealthChanged);
+            _viewModel.IsDead.Unsubscribe(OnIsDeadAction);
+            _viewModel.CurrentBullets.Unsubscribe(OnCurrentBulletsChanged);
+            _viewModel.MaxBullets.Unsubscribe(OnMaxBulletsChanged);
+            _viewModel.Kills.Unsubscribe(OnKillsChanged);
         }
     }
 }

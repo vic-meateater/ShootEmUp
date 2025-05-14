@@ -35,10 +35,6 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void HandleFireInput()
         {
             IsShooting.Value = Input.GetMouseButtonDown(0);
-            // if (Input.GetButtonDown("Fire1"))
-            // {
-            //     Debug.Log("Player fire");
-            // }
         }
 
         private void HandleMovementInput()

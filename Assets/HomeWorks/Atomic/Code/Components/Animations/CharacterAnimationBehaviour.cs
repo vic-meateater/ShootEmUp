@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class CharacterAnimationBehaviour : IEntityInit
+    public class CharacterAnimationBehaviour : IEntityInit, IEntityDispose
     {
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsDead = Animator.StringToHash("IsDead");
@@ -46,6 +46,12 @@ namespace ShootEmUp.HomeWorks.Atomic
         private void OnIsMovingAction(bool isMoving)
         {
             _animator.SetBool(IsMoving, isMoving);
+        }
+
+        public void Dispose(IEntity entity)
+        {
+            _isMoving.Unsubscribe(OnIsMovingAction);
+            _isDead.Unsubscribe(OnIsDeadAction);
         }
     }
 }

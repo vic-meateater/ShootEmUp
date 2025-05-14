@@ -66,10 +66,19 @@ namespace ShootEmUp.HomeWorks.Atomic.Enemy
             {
                 enemyEntity.OnInitialized += () => EnemyOnInit(enemyEntity);
                 var deadZombieEvent = enemyEntity.GetCharacterDieEvent();
-                deadZombieEvent.OnEvent += () => OnIsDeadAction(enemy, enemyEntity);
+                deadZombieEvent.OnEvent += () => OnIsDeadEventAction(enemy, enemyEntity);
+                
+                var isDead = enemyEntity.GetIsDead();
+                isDead.Subscribe(OnIsDeadAction);
             }
             enemy.GetComponent<Collider>().enabled = true;
             enemy.SetActive(true);
+        }
+
+        private void OnIsDeadAction(bool isDead)
+        {
+            if (isDead)
+                _playerService.Player.GetKills().Value++;
         }
 
         private void EnemyOnInit(IEntity enemyEntity)
@@ -77,7 +86,7 @@ namespace ShootEmUp.HomeWorks.Atomic.Enemy
             enemyEntity.GetSpawnedEvent()?.Invoke(_playerService.Player);
         }
         
-        private void OnIsDeadAction(GameObject enemy, IEntity entity)
+        private void OnIsDeadEventAction(GameObject enemy, IEntity entity)
         {
             enemy.SetActive(false);
             enemy.transform.position = entity.GetParentPosition().Value;

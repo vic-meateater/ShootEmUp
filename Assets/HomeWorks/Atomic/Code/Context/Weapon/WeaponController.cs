@@ -3,7 +3,7 @@ using Atomic.Elements;
 
 namespace ShootEmUp.HomeWorks.Atomic
 {
-    public class WeaponController : IContextInit
+    public class WeaponController : IContextInit, IContextDispose
     {
         private WeaponService _weaponService;
         private BulletsService _bulletsService;
@@ -14,6 +14,11 @@ namespace ShootEmUp.HomeWorks.Atomic
             _bulletsService = context.GetGameServices().BulletsService;
             _shootEvent = _weaponService.Weapon.GetDealDamageEvent();
             _shootEvent.OnEvent += _bulletsService.OnShootEvent;
+        }
+
+        public void Dispose(IContext context)
+        {
+            _shootEvent.OnEvent -= _bulletsService.OnShootEvent;
         }
     }
 }
