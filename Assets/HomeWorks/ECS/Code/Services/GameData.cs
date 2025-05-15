@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-namespace ShootEmUp.HomeWorks.ECS.Services
+namespace ShootEmUp.HomeWorks.ECS
 {
     public class GameData : MonoBehaviour
     {
-        [field: SerializeField] UnitConfig RedCube;
-        [field: SerializeField] UnitConfig BlueCube;
+        [field: SerializeField] public UnitConfig RedCube;
+        [field: SerializeField] public UnitConfig BlueCube;
         public Vector3 RedArmyStartPosition = new Vector3(-50, 0, 0);
         public Vector3 BlueArmyStartPosition = new Vector3(50, 0, 0);
         public float UnitsSpacing = 2f;

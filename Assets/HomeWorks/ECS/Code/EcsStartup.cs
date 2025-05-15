@@ -5,7 +5,7 @@ namespace ShootEmUp.HomeWorks.ECS
 {
     sealed class EcsStartup : MonoBehaviour
     {
-        [field:  SerializeField] GameData GameData;
+        [field:  SerializeField] public GameData GameData;
         
         EcsWorld _world;
         IEcsSystems _systems;
@@ -13,7 +13,7 @@ namespace ShootEmUp.HomeWorks.ECS
         void Start()
         {
             _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
+            _systems = new EcsSystems(_world, GameData);
             _systems
                 // register your systems here, for example:
                 // .Add (new TestSystem1 ())
