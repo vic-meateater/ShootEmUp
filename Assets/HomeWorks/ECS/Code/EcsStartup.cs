@@ -1,11 +1,13 @@
+using AB_Utility.FromSceneToEntityConverter;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.ECS
 {
     sealed class EcsStartup : MonoBehaviour
     {
-        [field:  SerializeField] public GameData GameData;
+        [field: SerializeField] public GameData _gameData;
         
         EcsWorld _world;
         IEcsSystems _systems;
@@ -13,19 +15,14 @@ namespace ShootEmUp.HomeWorks.ECS
         void Start()
         {
             _world = new EcsWorld();
-            _systems = new EcsSystems(_world, GameData);
+            _systems = new EcsSystems(_world);
             _systems
-                // register your systems here, for example:
-                // .Add (new TestSystem1 ())
-                // .Add (new TestSystem2 ())
-
-                // register additional worlds here, for example:
-                // .AddWorld (new EcsWorld (), "events")
+                .Add(new ArmySpawnSystem())
 #if UNITY_EDITOR
-                // add debug systems for custom worlds here, for example:
-                // .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem ("events"))
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
+                .Inject(_gameData)
+                .ConvertScene()
                 .Init();
         }
 
@@ -39,9 +36,6 @@ namespace ShootEmUp.HomeWorks.ECS
         {
             if (_systems != null)
             {
-                // list of custom worlds will be cleared
-                // during IEcsSystems.Destroy(). so, you
-                // need to save it here if you need.
                 _systems.Destroy();
                 _systems = null;
             }

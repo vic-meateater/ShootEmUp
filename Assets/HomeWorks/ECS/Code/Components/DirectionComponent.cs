@@ -1,11 +1,11 @@
+﻿using System;
 using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.ECS
 {
-    struct BulletComponent
+    [Serializable]
+    public struct DirectionComponent
     {
-        public int Team;
-        public float Speed;
         public Vector3 Direction;
     }
 }
