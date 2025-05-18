@@ -1,38 +1,46 @@
 using AB_Utility.FromSceneToEntityConverter;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
 namespace ShootEmUp.HomeWorks.ECS
 {
-    sealed class EcsStartup : MonoBehaviour
+    public sealed class EcsStartup : MonoBehaviour
     {
-        [field: SerializeField] public GameData _gameData;
-        
-        EcsWorld _world;
-        IEcsSystems _systems;
+        [field: SerializeField] public GameData GameData { get; private set; }
 
-        void Start()
+        private EcsWorld _world;
+        private IEcsSystems _systems;
+        private EntityManager _entityManager;
+
+        private void Awake()
         {
+            _entityManager = new EntityManager();
             _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
+            _systems = new EcsSystems(_world, GameData);
             _systems
                 .Add(new ArmySpawnSystem())
 #if UNITY_EDITOR
-                .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
+                .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem());
 #endif
-                .Inject(_gameData)
-                .ConvertScene()
-                .Init();
         }
 
-        void Update()
+        private void Start()
+        {
+            _entityManager.Initialize(_world);
+            _systems.ConvertScene();
+            _systems.Inject(GameData, _entityManager);
+            _systems.Init();
+        }
+
+        private void Update()
         {
             // process systems here.
             _systems?.Run();
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (_systems != null)
             {

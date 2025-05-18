@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f5806f29264f04ca4fb9ed4b6a1992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameData: {fileID: 410118720}
+  <GameData>k__BackingField: {fileID: 410118720}
 --- !u!4 &410118719
 Transform:
   m_ObjectHideFlags: 0
@@ -271,9 +271,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RedCube: {fileID: 11400000, guid: 3559b55b6048b9b4bb68abd35e54485a, type: 2}
   BlueCube: {fileID: 11400000, guid: 151a2037b532b2c4aa788d672ffee491, type: 2}
-  RedArmyStartPosition: {x: -10, y: 0, z: 9}
-  BlueArmyStartPosition: {x: 10, y: 0, z: -9}
-  UnitsSpacing: 1
+  RedParent: {fileID: 1168314327}
+  BlueParent: {fileID: 1051390761}
+  RedArmyStartPosition: {x: -10, y: 0.25, z: 9}
+  BlueArmyStartPosition: {x: 10, y: 0.25, z: -9}
+  UnitsSpacing: 1.5
+--- !u!1 &1051390761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1051390762}
+  m_Layer: 0
+  m_Name: BlueArmy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1051390762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051390761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1733003473}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1168314327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1168314328}
+  m_Layer: 0
+  m_Name: RedArmy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1168314328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168314327}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.07, y: 0.25, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1733003473}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1233041460
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +605,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1407037185}
+  - {fileID: 1168314328}
+  - {fileID: 1051390762}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
