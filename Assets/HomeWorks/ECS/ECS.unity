@@ -273,8 +273,6 @@ MonoBehaviour:
   BlueCube: {fileID: 11400000, guid: 151a2037b532b2c4aa788d672ffee491, type: 2}
   RedParent: {fileID: 1168314327}
   BlueParent: {fileID: 1051390761}
-  RedArmyStartPosition: {x: -10, y: 0.25, z: 9}
-  BlueArmyStartPosition: {x: 10, y: 0.25, z: -9}
   UnitsSpacing: 1.5
 --- !u!1 &1051390761
 GameObject:
@@ -301,7 +299,7 @@ Transform:
   m_GameObject: {fileID: 1051390761}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: -0}
+  m_LocalPosition: {x: -0, y: 0.25, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -332,7 +330,7 @@ Transform:
   m_GameObject: {fileID: 1168314327}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.07, y: 0.25, z: -0.5}
+  m_LocalPosition: {x: -15, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -398,7 +396,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1733003473}

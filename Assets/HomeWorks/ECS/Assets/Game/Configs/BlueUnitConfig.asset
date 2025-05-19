@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9a780d5b5b7424daefdf39ca314444, type: 3}
   m_Name: BlueUnitConfig
   m_EditorClassIdentifier: 
-  UnitPrefab: {fileID: 523737212375873862, guid: 2b6cef7e3d01fa148ba173bf413ead8d,
+  UnitPrefab: {fileID: 6996222753819523665, guid: 2b6cef7e3d01fa148ba173bf413ead8d,
     type: 3}
   Team: 1
   Health: 1

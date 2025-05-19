@@ -11,9 +11,12 @@ namespace ShootEmUp.HomeWorks.ECS
             entity.AddData(new DirectionComponent());
             entity.AddData(new HealthComponent());
             entity.AddData(new SpeedComponent());
-            entity.AddData(new TeamComponent {Team = _team});
+            entity.AddData(new TeamComponent {Team = Team.Red});
             entity.AddData(new UnitComponent());
             entity.AddData(new DestroyedTagComponent());
+            entity.AddData(new TransformViewComponent {Transform = transform});
+            entity.AddData(new PositionComponent {Position = transform.position});
+            
         }
 
         protected override void Dispose(Entity entity)

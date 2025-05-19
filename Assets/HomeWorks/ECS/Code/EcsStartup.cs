@@ -21,6 +21,7 @@ namespace ShootEmUp.HomeWorks.ECS
             _systems = new EcsSystems(_world, GameData);
             _systems
                 .Add(new ArmySpawnSystem())
+                .Add(new TransformViewSystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem());
 #endif
