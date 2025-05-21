@@ -23,15 +23,16 @@ namespace ShootEmUp.HomeWorks.ECSGame
         {
             var updateSystems = _world.CreateSystemsGroup();
             updateSystems.AddSystem(new HealthSystem());
+            updateSystems.AddSystem(new MovementSystem());
+            updateSystems.AddSystem(new TransformViewSynchronizerSystem());
+            _world.AddSystemsGroup(order: 1, updateSystems);
 
             //var fixedSystems = _world.CreateSystemsGroup();
             //fixedSystems.AddSystem(...);
+            //_world.AddSystemsGroup(order: 2, fixedSystems);
             
             //var lateSystems = _world.CreateSystemsGroup();
             //lateSystems.AddSystem(...);
-
-            _world.AddSystemsGroup(order: 1, updateSystems);
-            //_world.AddSystemsGroup(order: 2, fixedSystems);
             //_world.AddSystemsGroup(order: 3, lateSystems);
         }
     }

@@ -1,14 +1,12 @@
-using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh.Providers;
 using Unity.IL2CPP.CompilerServices;
 
 namespace ShootEmUp.Homeworks.ECSGame
 {
-    [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct Health : IComponent
+    public sealed class MoveDirectionProvider : MonoProvider<MoveDirection>
     {
-        public float Value;
     }
 }
