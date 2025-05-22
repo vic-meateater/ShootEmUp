@@ -1,5 +1,4 @@
 using Scellecs.Morpeh;
-using ShootEmUp.Homeworks.ECSGame;
 using Unity.IL2CPP.CompilerServices;
 
 namespace ShootEmUp.Homeworks.ECSGame
@@ -7,7 +6,7 @@ namespace ShootEmUp.Homeworks.ECSGame
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public sealed class TransformViewSynchronizerSystem : ISystem
+    public sealed class TransformViewSynchronizerSystem : ILateSystem
     {
         public World World { get; set; }
 
@@ -22,6 +21,10 @@ namespace ShootEmUp.Homeworks.ECSGame
         {
             _filter = World.Filter.With<TransformView>().With<Position>().Build();
             _filterRotation = World.Filter.With<Rotation>().Build();
+            
+            _transformViewStash = World.GetStash<TransformView>();
+            _positionStash = World.GetStash<Position>();
+            _rotationStash = World.GetStash<Rotation>();
         }
 
         public void OnUpdate(float deltaTime)

@@ -1,3 +1,4 @@
+using System;
 using Scellecs.Morpeh.Providers;
 using Unity.IL2CPP.CompilerServices;
 
@@ -8,5 +9,11 @@ namespace ShootEmUp.Homeworks.ECSGame
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class PositionProvider : MonoProvider<Position>
     {
+        private Position position;
+
+        private void Awake()
+        {
+            position = new Position { Value = transform.position };
+        }
     }
 }

@@ -1,5 +1,6 @@
 using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
+using UnityEngine;
 
 namespace ShootEmUp.Homeworks.ECSGame
 {
@@ -17,6 +18,7 @@ namespace ShootEmUp.Homeworks.ECSGame
 
         public void OnAwake()
         {
+            Debug.Log("OnAwake MovementSystem");
             _filter = World.Filter.With<MoveDirection>().With<MoveSpeed>().With<Position>().Build();
             _moveDirectionStash = World.GetStash<MoveDirection>();
             _moveSpeedStash = World.GetStash<MoveSpeed>();

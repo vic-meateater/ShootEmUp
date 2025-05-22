@@ -2,11 +2,14 @@ using Scellecs.Morpeh;
 using UnityEngine;
 using Unity.IL2CPP.CompilerServices;
 
-[System.Serializable]
-[Il2CppSetOption(Option.NullChecks, false)]
-[Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-[Il2CppSetOption(Option.DivideByZeroChecks, false)]
-public struct TransformView : IComponent 
+namespace ShootEmUp.Homeworks.ECSGame
 {
-    public Transform Value;
+    [System.Serializable]
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+    public struct TransformView : IComponent
+    {
+        public Transform Value;
+    }
 }

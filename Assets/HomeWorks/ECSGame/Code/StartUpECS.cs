@@ -14,16 +14,16 @@ namespace ShootEmUp.HomeWorks.ECSGame
         private void Awake()
         {
             _world = World.Default;
-            //var initSystems = _world.CreateSystemsGroup();
-            //initSystems.AddSystem(...);
-            //_world.AddSystemsGroup(order: 0, initSystems);
+            var initSystems = _world.CreateSystemsGroup();
+            initSystems.AddInitializer(new PositionInitializer());
+            _world.AddSystemsGroup(order: 0, initSystems);
         }
 
         private void Start()
         {
             var updateSystems = _world.CreateSystemsGroup();
-            updateSystems.AddSystem(new HealthSystem());
             updateSystems.AddSystem(new MovementSystem());
+            updateSystems.AddSystem(new HealthSystem());
             updateSystems.AddSystem(new TransformViewSynchronizerSystem());
             _world.AddSystemsGroup(order: 1, updateSystems);
 
@@ -31,9 +31,9 @@ namespace ShootEmUp.HomeWorks.ECSGame
             //fixedSystems.AddSystem(...);
             //_world.AddSystemsGroup(order: 2, fixedSystems);
             
-            //var lateSystems = _world.CreateSystemsGroup();
-            //lateSystems.AddSystem(...);
-            //_world.AddSystemsGroup(order: 3, lateSystems);
+            // var lateSystems = _world.CreateSystemsGroup();
+            // lateSystems.AddSystem(new TransformViewSynchronizerSystem());
+            // _world.AddSystemsGroup(order: 3, lateSystems);
         }
     }
 }
