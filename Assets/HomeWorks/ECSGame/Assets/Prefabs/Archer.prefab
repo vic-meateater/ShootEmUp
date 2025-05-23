@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -4905692258051634722}
   - component: {fileID: 8456069848669000992}
   - component: {fileID: 8153390449232112641}
+  - component: {fileID: -4897899922225797145}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -135,6 +136,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializedData:
     Value: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &-4897899922225797145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870072543877420731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c444ae94cde83044ae5a59890785e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    Value: {fileID: 1870072544967355838}
 --- !u!1001 &1870072544957858056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,6 +241,12 @@ PrefabInstance:
 --- !u!4 &1870072544957762166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494462, guid: 04c79b5f6e9ebab48af48fdcf7b6d570,
+    type: 3}
+  m_PrefabInstance: {fileID: 1870072544957858056}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1870072544967355838 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9563318, guid: 04c79b5f6e9ebab48af48fdcf7b6d570,
     type: 3}
   m_PrefabInstance: {fileID: 1870072544957858056}
   m_PrefabAsset: {fileID: 0}

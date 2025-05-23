@@ -13,7 +13,6 @@ namespace ShootEmUp.HomeWorks.ECSGame
 
         public void OnAwake()
         {
-            Debug.Log("OnAwake PositionInitializer");
         }
 
         public void Dispose()

@@ -15,14 +15,17 @@ namespace ShootEmUp.Homeworks.ECSGame
         private Stash<MoveDirection> _moveDirectionStash;
         private Stash<MoveSpeed> _moveSpeedStash;
         private Stash<Position> _positionStash;
+        
+        private Request<MoveRequest> _moveRequest;
 
         public void OnAwake()
         {
-            Debug.Log("OnAwake MovementSystem");
             _filter = World.Filter.With<MoveDirection>().With<MoveSpeed>().With<Position>().Build();
             _moveDirectionStash = World.GetStash<MoveDirection>();
             _moveSpeedStash = World.GetStash<MoveSpeed>();
             _positionStash = World.GetStash<Position>();
+            
+            _moveRequest = World.GetRequest<MoveRequest>();
         }
 
         public void OnUpdate(float deltaTime)
@@ -34,6 +37,8 @@ namespace ShootEmUp.Homeworks.ECSGame
                 ref Position position =  ref _positionStash.Get(entity);
                 
                 position.Value += direction.Value * (moveSpeed.Value * deltaTime);
+                var isMoving = direction.Value.sqrMagnitude > 0;
+                _moveRequest.Publish(new MoveRequest {IsMoving = isMoving});
             }
         }
 
