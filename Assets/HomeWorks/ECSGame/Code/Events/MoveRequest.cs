@@ -1,5 +1,4 @@
 using Scellecs.Morpeh;
-using UnityEngine;
 using Unity.IL2CPP.CompilerServices;
 
 namespace ShootEmUp.Homeworks.ECSGame
@@ -11,5 +10,6 @@ namespace ShootEmUp.Homeworks.ECSGame
     public struct MoveRequest : IRequestData
     {
         public bool IsMoving;
+        public Entity Entity;
     }
 }

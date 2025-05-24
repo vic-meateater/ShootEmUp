@@ -1,6 +1,5 @@
 using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
-using UnityEngine;
 
 namespace ShootEmUp.Homeworks.ECSGame
 {
@@ -38,7 +37,7 @@ namespace ShootEmUp.Homeworks.ECSGame
                 
                 position.Value += direction.Value * (moveSpeed.Value * deltaTime);
                 var isMoving = direction.Value.sqrMagnitude > 0;
-                _moveRequest.Publish(new MoveRequest {IsMoving = isMoving});
+                _moveRequest.Publish(new MoveRequest {IsMoving = isMoving, Entity = entity});
             }
         }
 

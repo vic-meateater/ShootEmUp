@@ -28,8 +28,11 @@ public sealed class AnimatorLateSystem : ILateSystem
         {
             foreach (var entity in _filter)
             {
-                AnimatorView animator = _animatorViewStash.Get(entity);
-                animator.Value.SetBool(_isMovingAnimatorBool, request.IsMoving);
+                if (request.Entity == entity)
+                {
+                    AnimatorView animator = _animatorViewStash.Get(entity);
+                    animator.Value.SetBool(_isMovingAnimatorBool, request.IsMoving);
+                }
             }
         }
     }
