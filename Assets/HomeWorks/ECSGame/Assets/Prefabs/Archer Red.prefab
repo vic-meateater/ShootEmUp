@@ -17,8 +17,9 @@ GameObject:
   - component: {fileID: 8456069848669000992}
   - component: {fileID: 8153390449232112641}
   - component: {fileID: -4897899922225797145}
+  - component: {fileID: -8522570749035357486}
   m_Layer: 0
-  m_Name: Archer
+  m_Name: Archer Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,6 +151,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializedData:
     Value: {fileID: 1870072544967355838}
+--- !u!114 &-8522570749035357486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870072543877420731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbef96dbb0644a65b93d6000eed3761, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    Team: 0
 --- !u!1001 &1870072544957858056
 PrefabInstance:
   m_ObjectHideFlags: 0
