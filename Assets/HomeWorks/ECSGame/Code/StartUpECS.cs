@@ -24,6 +24,7 @@ namespace ShootEmUp.HomeWorks.ECSGame
             var updateSystems = _world.CreateSystemsGroup();
             updateSystems.AddSystem(new MovementSystem());
             updateSystems.AddSystem(new HealthSystem());
+            updateSystems.AddSystem(new EnemyDetectionSystem());
             _world.AddSystemsGroup(order: 1, updateSystems);
 
             //var fixedSystems = _world.CreateSystemsGroup();
@@ -32,7 +33,7 @@ namespace ShootEmUp.HomeWorks.ECSGame
             
             var lateSystems = _world.CreateSystemsGroup();
             lateSystems.AddSystem(new TransformViewSynchronizerSystem());
-            lateSystems.AddSystem(new AnimatorLateSystem());
+            lateSystems.AddSystem(new MoveAnimatorLateSystem());
             _world.AddSystemsGroup(order: 3, lateSystems);
         }
     }
