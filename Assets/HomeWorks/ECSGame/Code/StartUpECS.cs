@@ -9,11 +9,18 @@ namespace ShootEmUp.HomeWorks.ECSGame
     [Serializable]
     public class StartUpECS : MonoBehaviour
     {
+        [SerializeField] private SystemsGroup _systemsGroup;
+        [SerializeField] private ArrowConfig _arrowConfig;
+        
         private World _world;
+        private FireRequestSystem _fireRequestSystem;
 
         private void Awake()
         {
             _world = World.Default;
+            _fireRequestSystem = new FireRequestSystem();
+            _fireRequestSystem.Initialize(_arrowConfig);
+            
             var initSystems = _world.CreateSystemsGroup();
             initSystems.AddInitializer(new PositionInitializer());
             _world.AddSystemsGroup(order: 0, initSystems);
@@ -25,6 +32,7 @@ namespace ShootEmUp.HomeWorks.ECSGame
             updateSystems.AddSystem(new MovementSystem());
             updateSystems.AddSystem(new HealthSystem());
             updateSystems.AddSystem(new EnemyDetectionSystem());
+            updateSystems.AddSystem(_fireRequestSystem);
             _world.AddSystemsGroup(order: 1, updateSystems);
 
             //var fixedSystems = _world.CreateSystemsGroup();

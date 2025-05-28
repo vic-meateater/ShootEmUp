@@ -43,11 +43,10 @@ namespace ShootEmUp.Homeworks.ECSGame
                     var target = _results[i].GetComponent<EntityProvider>().Entity;
                     var targetTeam = _teamStash.Get(target);
                     if(attackerTeam.Team != targetTeam.Team)
-                        _fireRequest.Publish(new FireRequest{Entity = entity});
+                        _fireRequest.Publish(new FireRequest{Requester = entity, Target = target});
                 }
             }
         }
-
         public void Dispose()
         {
 

@@ -15,7 +15,7 @@ namespace ShootEmUp.Homeworks.ECSGame
         private Stash<MoveSpeed> _moveSpeedStash;
         private Stash<Position> _positionStash;
         
-        private Request<MoveRequest> _moveRequest;
+        private Request<MoveRequest> _moveRequest; // переделать на Event
 
         public void OnAwake()
         {
@@ -24,7 +24,7 @@ namespace ShootEmUp.Homeworks.ECSGame
             _moveSpeedStash = World.GetStash<MoveSpeed>();
             _positionStash = World.GetStash<Position>();
             
-            _moveRequest = World.GetRequest<MoveRequest>();
+            _moveRequest = World.GetRequest<MoveRequest>(); 
         }
 
         public void OnUpdate(float deltaTime)

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: -4897899922225797145}
   - component: {fileID: -8522570749035357486}
   - component: {fileID: 6870930039119237085}
+  - component: {fileID: 102477256531993496}
   m_Layer: 0
   m_Name: Archer Red
   m_TagString: Untagged
@@ -178,6 +179,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c27d29f7875b147a5c9543184a7444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &102477256531993496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870072543877420731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93503ca8906ff314ca1c6824c575eb54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    Prefab: {fileID: 4625237848645339304, guid: 6b88cfc8c2c085c4b954467dc94d625e,
+      type: 3}
+    FirePoint: {fileID: 1870072544957759088}
 --- !u!1001 &1870072544957858056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266,6 +283,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
+--- !u!4 &1870072544957759088 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 425848, guid: 04c79b5f6e9ebab48af48fdcf7b6d570,
+    type: 3}
+  m_PrefabInstance: {fileID: 1870072544957858056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1870072544957762166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494462, guid: 04c79b5f6e9ebab48af48fdcf7b6d570,

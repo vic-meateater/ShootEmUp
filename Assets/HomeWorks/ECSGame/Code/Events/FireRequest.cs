@@ -4,6 +4,8 @@ namespace ShootEmUp.Homeworks.ECSGame
 {
     public struct FireRequest : IRequestData
     {
-        public Entity Entity;
+        public Entity Requester;
+        public Entity Target;
+        
     }
 }
