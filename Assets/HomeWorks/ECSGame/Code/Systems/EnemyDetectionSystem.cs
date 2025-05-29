@@ -23,7 +23,13 @@ namespace ShootEmUp.Homeworks.ECSGame
 
         public void OnAwake()
         {
-            _filter = World.Filter.With<TeamComponent>().With<Health>().With<Position>().With<TestComponent>().Build();
+            _filter = World.Filter
+                .With<TeamComponent>()
+                .With<Health>()
+                .With<Position>()
+                .With<AttackRange>()
+                .With<TestComponent>()
+                .Build();
             _teamStash = World.GetStash<TeamComponent>();
             _healthStash = World.GetStash<Health>();
             _positionStash = World.GetStash<Position>();

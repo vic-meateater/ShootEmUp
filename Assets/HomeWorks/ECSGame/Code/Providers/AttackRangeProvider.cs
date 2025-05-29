@@ -6,8 +6,7 @@ namespace ShootEmUp.Homeworks.ECSGame
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public sealed class RangeWeaponProvider : MonoProvider<RangeWeapon>
+    public sealed class AttackRangeProvider : MonoProvider<AttackRange>
     {
-
     }
 }

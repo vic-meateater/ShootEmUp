@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: -8522570749035357486}
   - component: {fileID: 6870930039119237085}
   - component: {fileID: 102477256531993496}
+  - component: {fileID: 1433544379023345380}
+  - component: {fileID: 7213624843024885292}
   m_Layer: 0
   m_Name: Archer Red
   m_TagString: Untagged
@@ -82,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
-    Value: 0
+    Value: 3
 --- !u!114 &-4684598705098670138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
-    Value: {x: 0, y: 0, z: 0}
+    Value: {x: -1, y: 0, z: 0}
 --- !u!114 &8153390449232112641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +197,33 @@ MonoBehaviour:
     Prefab: {fileID: 4625237848645339304, guid: 6b88cfc8c2c085c4b954467dc94d625e,
       type: 3}
     FirePoint: {fileID: 1870072544957759088}
+--- !u!114 &1433544379023345380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870072543877420731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7449087c4c73f48b505700ca07079f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    Value: 5
+--- !u!114 &7213624843024885292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870072543877420731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12200e2cb4fd794fb2cd44ac2d32b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackRange: 5
 --- !u!1001 &1870072544957858056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,10 +288,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2308382, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
     - target: {fileID: 9563318, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 1545ba011c3a4264faea258a66e0295f, type: 2}
+    - target: {fileID: 13742854, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
+    - target: {fileID: 13774182, guid: 04c79b5f6e9ebab48af48fdcf7b6d570, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
     - target: {fileID: 3478431685719019078, guid: 04c79b5f6e9ebab48af48fdcf7b6d570,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -1301,12 +1301,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1738537723}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1794206365 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1870072543877420731, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1914976719}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1914976719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1315,16 +1309,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1263304700}
     m_Modifications:
-    - target: {fileID: 1405339375528691751, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: serializedData.Value
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870072543877420728, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1870072543877420728, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1380,49 +1364,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Archer Red
       objectReference: {fileID: 0}
-    - target: {fileID: 1870072543877420731, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870072544955971606, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
-    - target: {fileID: 1870072544957974536, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870072544958011458, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870072544963146254, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
-    - target: {fileID: 1870072544963243118, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
-    - target: {fileID: 8456069848669000992, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      propertyPath: serializedData.Value.x
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1870072543877420731, guid: 7da00a84da0f5436eb5ce381dc6b2d6a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1914976731}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7da00a84da0f5436eb5ce381dc6b2d6a, type: 3}
 --- !u!4 &1914976720 stripped
 Transform:
@@ -1430,18 +1375,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1914976719}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1914976731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1794206365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12200e2cb4fd794fb2cd44ac2d32b34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1919196836
 PrefabInstance:
   m_ObjectHideFlags: 0
