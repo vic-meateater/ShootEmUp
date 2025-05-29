@@ -28,7 +28,7 @@ namespace ShootEmUp.Homeworks.ECSGame
             _healthStash = World.GetStash<Health>();
             _positionStash = World.GetStash<Position>();
             
-            _fireRequest = new Request<FireRequest>();
+            _fireRequest = World.GetRequest<FireRequest>();
         }
 
         public void OnUpdate(float deltaTime)
@@ -37,13 +37,15 @@ namespace ShootEmUp.Homeworks.ECSGame
             {
                 var position = _positionStash.Get(entity);
                 var attackerTeam = _teamStash.Get(entity);
-                var size = Physics.OverlapSphereNonAlloc(position.Value, 1f, _results);
+                var size = Physics.OverlapSphereNonAlloc(position.Value, 1f, _results, -1);
                 for (int i = 0; i < size; i++)
                 {
                     var target = _results[i].GetComponent<EntityProvider>().Entity;
                     var targetTeam = _teamStash.Get(target);
-                    if(attackerTeam.Team != targetTeam.Team)
-                        _fireRequest.Publish(new FireRequest{Requester = entity, Target = target});
+                    if (attackerTeam.Team != targetTeam.Team)
+                    {   
+                        _fireRequest.Publish(new FireRequest { Requester = entity, Target = target });
+                    }
                 }
             }
         }
