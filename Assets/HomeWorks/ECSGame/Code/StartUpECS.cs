@@ -33,6 +33,7 @@ namespace ShootEmUp.HomeWorks.ECSGame
             updateSystems.AddSystem(new HealthSystem());
             updateSystems.AddSystem(new EnemyDetectionSystem());
             updateSystems.AddSystem(_fireRequestSystem);
+            updateSystems.AddSystem(new ArrowSpawnSystem());
             _world.AddSystemsGroup(order: 1, updateSystems);
 
             //var fixedSystems = _world.CreateSystemsGroup();

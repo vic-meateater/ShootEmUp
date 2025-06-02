@@ -8,4 +8,9 @@ namespace ShootEmUp.Homeworks.ECSGame
         public Entity Target;
         
     }
+
+    public struct ArrowSpawnRequest : IRequestData
+    {
+        public Entity Requester;
+    }
 }

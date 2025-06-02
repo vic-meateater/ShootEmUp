@@ -1,5 +1,4 @@
 using Scellecs.Morpeh;
-using ShootEmUp.Homeworks.ECSGame;
 using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 

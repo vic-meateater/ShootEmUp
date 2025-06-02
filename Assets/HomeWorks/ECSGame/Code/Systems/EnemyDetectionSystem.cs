@@ -18,6 +18,7 @@ namespace ShootEmUp.Homeworks.ECSGame
         private Stash<TeamComponent> _teamStash;
         private Stash<Health> _healthStash;
         private Stash<Position> _positionStash;
+        private Stash<AttackRange> _attackRangeStash;
         
         private Collider[] _results = new Collider[10];
 
@@ -33,7 +34,8 @@ namespace ShootEmUp.Homeworks.ECSGame
             _teamStash = World.GetStash<TeamComponent>();
             _healthStash = World.GetStash<Health>();
             _positionStash = World.GetStash<Position>();
-            
+            _attackRangeStash = World.GetStash<AttackRange>();
+
             _fireRequest = World.GetRequest<FireRequest>();
         }
 
@@ -43,7 +45,9 @@ namespace ShootEmUp.Homeworks.ECSGame
             {
                 var position = _positionStash.Get(entity);
                 var attackerTeam = _teamStash.Get(entity);
-                var size = Physics.OverlapSphereNonAlloc(position.Value, 1f, _results, -1);
+                var attackRange = _attackRangeStash.Get(entity);
+                
+                var size = Physics.OverlapSphereNonAlloc(position.Value, attackRange.Value, _results, -1);
                 for (int i = 0; i < size; i++)
                 {
                     var target = _results[i].GetComponent<EntityProvider>().Entity;
