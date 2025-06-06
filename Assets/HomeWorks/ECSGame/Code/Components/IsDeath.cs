@@ -1,4 +1,4 @@
-using Scellecs.Morpeh;
+﻿using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
 
 namespace ShootEmUp.Homeworks.ECSGame
@@ -7,9 +7,7 @@ namespace ShootEmUp.Homeworks.ECSGame
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct MoveRequest : IRequestData
+    public struct IsDeath : IComponent
     {
-        public bool IsMoving;
-        public Entity Entity;
     }
 }

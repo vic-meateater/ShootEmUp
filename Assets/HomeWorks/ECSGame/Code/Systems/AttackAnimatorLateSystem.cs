@@ -12,13 +12,11 @@ namespace ShootEmUp.Homeworks.ECSGame
         private static readonly int AttackTrigger = Animator.StringToHash("Attack");
         public World World { get; set; }
 
-        private Filter _filter;
         private Stash<AnimatorView> _animatorViewStash;
         private Event<FireEvent> _fireEvent;
 
         public void OnAwake()
         {
-            _filter = World.Filter.With<AnimatorView>().Build();
             _animatorViewStash = World.GetStash<AnimatorView>();
             _fireEvent = World.GetEvent<FireEvent>();
         }

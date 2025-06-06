@@ -15,16 +15,17 @@ namespace ShootEmUp.Homeworks.ECSGame
         private Stash<MoveSpeed> _moveSpeedStash;
         private Stash<Position> _positionStash;
         
-        private Request<MoveRequest> _moveRequest; // переделать на Event
+        private Event<MoveEvent> _moveEvent;
+        
 
         public void OnAwake()
         {
-            _filter = World.Filter.With<MoveDirection>().With<MoveSpeed>().With<Position>().Build();
+            _filter = World.Filter.With<MoveDirection>().With<MoveSpeed>().With<Position>().Without<IsDeath>().Build();
             _moveDirectionStash = World.GetStash<MoveDirection>();
             _moveSpeedStash = World.GetStash<MoveSpeed>();
             _positionStash = World.GetStash<Position>();
             
-            _moveRequest = World.GetRequest<MoveRequest>(); 
+            _moveEvent = World.GetEvent<MoveEvent>(); 
         }
 
         public void OnUpdate(float deltaTime)
@@ -37,7 +38,7 @@ namespace ShootEmUp.Homeworks.ECSGame
                 
                 position.Value += direction.Value * (moveSpeed.Value * deltaTime);
                 var isMoving = direction.Value.sqrMagnitude > 0;
-                _moveRequest.Publish(new MoveRequest {IsMoving = isMoving, Entity = entity});
+                _moveEvent.NextFrame(new MoveEvent {IsMoving = isMoving, Entity = entity});
             }
         }
 

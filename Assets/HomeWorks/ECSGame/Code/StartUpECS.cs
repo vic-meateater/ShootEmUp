@@ -22,18 +22,22 @@ namespace ShootEmUp.HomeWorks.ECSGame
             _fireRequestSystem.Initialize(_arrowConfig);
             
             var initSystems = _world.CreateSystemsGroup();
-            initSystems.AddInitializer(new PositionInitializer());
+            //initSystems.AddInitializer(new PositionInitializer());
             _world.AddSystemsGroup(order: 0, initSystems);
         }
 
         private void Start()
         {
             var updateSystems = _world.CreateSystemsGroup();
+            updateSystems.AddSystem(new PositionInitializer());
             updateSystems.AddSystem(new MovementSystem());
-            updateSystems.AddSystem(new HealthSystem());
             updateSystems.AddSystem(new EnemyDetectionSystem());
+            //updateSystems.AddSystem(new RotationSystem());
             updateSystems.AddSystem(_fireRequestSystem);
-            updateSystems.AddSystem(new ArrowSpawnSystem());
+            updateSystems.AddSystem(new ArrowSpawnRequestSystem());
+            updateSystems.AddSystem(new DamageRequestSystem());
+            updateSystems.AddSystem(new DeathRequestSystem());
+            
             _world.AddSystemsGroup(order: 1, updateSystems);
 
             //var fixedSystems = _world.CreateSystemsGroup();
@@ -44,7 +48,13 @@ namespace ShootEmUp.HomeWorks.ECSGame
             lateSystems.AddSystem(new TransformViewSynchronizerSystem());
             lateSystems.AddSystem(new MoveAnimatorLateSystem());
             lateSystems.AddSystem(new AttackAnimatorLateSystem());
+            lateSystems.AddSystem(new DamageAnimatorLateSystem());
+            lateSystems.AddSystem(new DeathAnimatorLateSystem());
             _world.AddSystemsGroup(order: 3, lateSystems);
+            
+            var cleanSystems = _world.CreateSystemsGroup();
+            cleanSystems.AddSystem(new DeathCleanupSystem());
+            _world.AddSystemsGroup(order: 4, cleanSystems);
         }
     }
 }

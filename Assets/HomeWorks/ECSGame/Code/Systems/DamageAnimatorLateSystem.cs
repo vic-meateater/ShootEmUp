@@ -7,34 +7,36 @@ namespace ShootEmUp.Homeworks.ECSGame
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public sealed class MoveAnimatorLateSystem : ILateSystem
+    public sealed class DamageAnimatorLateSystem : ILateSystem
     {
-        private static readonly int _isMovingAnimatorBool = Animator.StringToHash("IsWalking");
+        private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
         public World World { get; set; }
-
+        
         private Stash<AnimatorView> _animatorViewStash;
-        private Event<MoveEvent> _moveEvent;
+        private Event<DamageEvent> _damageEvent;
 
         public void OnAwake()
         {
             _animatorViewStash = World.GetStash<AnimatorView>();
-            _moveEvent = World.GetEvent<MoveEvent>();
+            _damageEvent = World.GetEvent<DamageEvent>();
         }
 
         public void OnUpdate(float deltaTime)
         {
-            foreach (var @event in _moveEvent.publishedChanges)
+            foreach (var @event in _damageEvent.publishedChanges)
             {
                 if (_animatorViewStash.Has(@event.Entity))
                 {
-                    AnimatorView animator = _animatorViewStash.Get(@event.Entity);
-                    animator.Value.SetBool(_isMovingAnimatorBool, @event.IsMoving);
+                    var animator = _animatorViewStash.Get(@event.Entity);
+                    animator.Value.SetTrigger(TakeDamage);
+                    //добавить готовность к атаке (таг готов атаковать)
                 }
             }
         }
 
         public void Dispose()
         {
+
         }
     }
 }

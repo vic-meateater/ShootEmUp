@@ -1,5 +1,4 @@
-using Scellecs.Morpeh;
-using UnityEngine;
+﻿using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
 
 namespace ShootEmUp.Homeworks.ECSGame
@@ -8,9 +7,8 @@ namespace ShootEmUp.Homeworks.ECSGame
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct TransformView : IComponent
+    public struct RotationSpeed : IComponent
     {
-        public Transform Value;
-        public GameObject Prefab;
+        public float Value;
     }
 }

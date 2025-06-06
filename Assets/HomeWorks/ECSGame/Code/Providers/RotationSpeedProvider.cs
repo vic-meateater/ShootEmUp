@@ -1,16 +1,10 @@
-using Scellecs.Morpeh;
-using UnityEngine;
+﻿using Scellecs.Morpeh.Providers;
 using Unity.IL2CPP.CompilerServices;
 
 namespace ShootEmUp.Homeworks.ECSGame
 {
-    [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct TransformView : IComponent
-    {
-        public Transform Value;
-        public GameObject Prefab;
-    }
+    public sealed class RotationSpeedProvider : MonoProvider<RotationSpeed>{}
 }
